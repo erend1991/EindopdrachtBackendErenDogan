@@ -1,28 +1,30 @@
 package com.example.eindopdrachtbackenderendogan.models;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+
 public class Menu {
 
     @Id
-    Long id;
+    @GeneratedValue
 
+    private Long id;
     private String name;
+    @OneToMany(mappedBy = "menu")
+    private List<Drink> drinks;
 
-    private int price;
-
-    private String ingredients;
-
-    public Menu(Long id, String name, int price, String ingredients) {
-        this.id = id;
+    public Menu(String name) {
         this.name = name;
-        this.price = price;
-        this.ingredients = ingredients;
     }
 
-    public Menu() {
+        public Menu(){
 
     }
 
@@ -42,19 +44,22 @@ public class Menu {
         this.name = name;
     }
 
-    public int getPrice() {
-        return price;
+    public List<Drink> getDrinks() {
+        return drinks;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public void setDrinks(List<Drink> drinks) {
+        this.drinks = drinks;
     }
 
-    public String getIngredients() {
-        return ingredients;
-    }
-
-    public void setIngredients(String ingredients) {
-        this.ingredients = ingredients;
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("menu:").append(name).append("\n");
+        sb.append("drinks:\n");
+        for (Drink drink : drinks){
+            sb.append(drink).append("\n");
+        }
+        return sb.toString();
     }
 }
