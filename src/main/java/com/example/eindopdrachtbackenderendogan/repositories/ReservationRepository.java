@@ -1,4 +1,4 @@
 package com.example.eindopdrachtbackenderendogan.repositories;
 
-public interface ReservationsRepository {
+public interface ReservationRepository {
 }

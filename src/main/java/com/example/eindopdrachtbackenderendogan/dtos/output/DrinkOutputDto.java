@@ -1,39 +1,25 @@
-package com.example.eindopdrachtbackenderendogan.models;
+package com.example.eindopdrachtbackenderendogan.dtos.output;
 
-import jakarta.persistence.*;
+public class DrinkOutputDto {
 
-@Entity
-public class Drink {
-
-    @Id
-    @GeneratedValue
-
-    Long id;
+    private Long id;
 
     private String name;
-
     private double price;
-
     private String ingredients;
 
     private boolean alcohol;
 
-    @ManyToOne
-    @MapsId("drinkId")
-    @JoinColumn(name = "menu_id")
-    private Menu menu;
+    public DrinkOutputDto(){
 
+    }
 
-    public Drink(Long id, String name, double price, String ingredients, boolean alcohol, Menu menu) {
+    public DrinkOutputDto(Long id, String name, double price, String ingredients, boolean alcohol) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.ingredients = ingredients;
-        this.menu = menu;
-    }
-
-    public Drink() {
-
+        this.alcohol = alcohol;
     }
 
     public Long getId() {
@@ -74,23 +60,5 @@ public class Drink {
 
     public void setAlcohol(boolean alcohol) {
         this.alcohol = alcohol;
-    }
-
-    public Menu getMenu() {
-        return menu;
-    }
-
-    public void setMenu(Menu menu) {
-        this.menu = menu;
-    }
-
-    @Override
-    public String toString() {
-        return "Drink{" +
-                "name='" + name + '\'' +
-                ", price=" + price +
-                ", ingredients='" + ingredients + '\'' +
-                ", alcohol=" + alcohol +
-                '}';
     }
 }
