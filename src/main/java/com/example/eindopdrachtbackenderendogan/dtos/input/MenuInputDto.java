@@ -8,9 +8,33 @@ import java.util.List;
 
 public class MenuInputDto {
 
-    public Long id;
     @NotEmpty()
     public String name;
 
-    public List<Drink> drinks;
+    public List<Long> drinkIds;
+
+    public MenuInputDto(){
+
+    }
+    public MenuInputDto(String name, List<Long> drinkIds) {
+        this.name = name;
+        this.drinkIds = drinkIds;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Long> getDrinkIds() {
+        return drinkIds;
+    }
+
+    public void setDrinkIds(List<Long> drinkIds) {
+        this.drinkIds = drinkIds;
+    }
+
 }
