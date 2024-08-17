@@ -6,7 +6,7 @@ import jakarta.persistence.Id;
 import java.time.LocalDateTime;
 
 @Entity
-public class Reservations {
+public class Reservation {
 
     @Id
     Long id;
@@ -17,7 +17,7 @@ public class Reservations {
     private  int TableNumber;
     private LocalDateTime reservationTime;
 
-    public Reservations(Long id, String name, int guests, int tableNumber, LocalDateTime reservationTime) {
+    public Reservation(Long id, String name, int guests, int tableNumber, LocalDateTime reservationTime) {
         this.id = id;
         Name = name;
         this.guests = guests;
@@ -25,7 +25,7 @@ public class Reservations {
         this.reservationTime = reservationTime;
     }
 
-    public Reservations() {
+    public Reservation() {
 
     }
 

@@ -55,10 +55,10 @@ public class Menu {
     @Override
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append("menu:").append(name).append("\n");
-        sb.append("drinks:\n");
+        sb.append("menu:").append(name).append(" ");
+        sb.append("drinks:");
         for (Drink drink : drinks){
-            sb.append(drink).append("\n");
+            sb.append(drink).append(" ");
         }
         return sb.toString();
     }
