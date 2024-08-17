@@ -9,13 +9,9 @@ public class Drink {
     @GeneratedValue
 
     Long id;
-
     private String name;
-
     private double price;
-
     private String ingredients;
-
     private boolean alcohol;
 
     @ManyToOne
@@ -84,13 +80,5 @@ public class Drink {
         this.menu = menu;
     }
 
-    @Override
-    public String toString() {
-        return "Drink{" +
-                "name='" + name + '\'' +
-                ", price=" + price +
-                ", ingredients='" + ingredients + '\'' +
-                ", alcohol=" + alcohol +
-                '}';
-    }
+
 }

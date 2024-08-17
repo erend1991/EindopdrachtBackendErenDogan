@@ -17,7 +17,7 @@ public class DrinkMapper {
 
     }
 
-    public static DrinkOutputDto fromModelToOutpuDto(Drink drink){
+    public static DrinkOutputDto fromModelToOutputDto(Drink drink){
         DrinkOutputDto drinkOutputDto = new DrinkOutputDto();
 
         drinkOutputDto.setId(drink.getId());

@@ -26,14 +26,14 @@ public class DrinkService {
         List<DrinkOutputDto> allDrinksOutput = new ArrayList<>();
 
         for (Drink d : allDrinks) {
-            allDrinksOutput.add(DrinkMapper.fromModelToOutpuDto(d));
+            allDrinksOutput.add(DrinkMapper.fromModelToOutputDto(d));
         }
         return allDrinksOutput;
     }
     public DrinkOutputDto getDrinkById(long id) {
         Optional<Drink> d = drinkRepository.findById(id);
         if (d.isPresent()) {
-            return DrinkMapper.fromModelToOutpuDto(d.get());
+            return DrinkMapper.fromModelToOutputDto(d.get());
 
         } else {
             throw new RecordNotFoundException("no drink found with id " + id);
@@ -43,7 +43,7 @@ public class DrinkService {
 
     public  DrinkOutputDto createDrink (DrinkInputDto drinkInputDto){
         Drink d = drinkRepository.save((DrinkMapper.fromInpuDtoToModel(drinkInputDto)));
-        return DrinkMapper.fromModelToOutpuDto(d);
+        return DrinkMapper.fromModelToOutputDto(d);
     }
 
     public  DrinkOutputDto editDrinkById(long id, DrinkInputDto newDrink){
@@ -57,7 +57,7 @@ public class DrinkService {
             drink.setAlcohol(newDrink.alcohol);
             drinkRepository.save(drink);
 
-            return DrinkMapper.fromModelToOutpuDto(drink);
+            return DrinkMapper.fromModelToOutputDto(drink);
 
         }else {
             throw new RecordNotFoundException("no drink edited");
