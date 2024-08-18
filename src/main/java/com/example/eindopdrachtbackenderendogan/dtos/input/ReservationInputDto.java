@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class ReservationInputDto {
 
-    public String ReservationName;
+    public String reservationName;
     public LocalDateTime reservationTime;
 
     public int tableNumber;
@@ -12,18 +12,18 @@ public class ReservationInputDto {
     public int guests;
 
     public ReservationInputDto(String reservationName, LocalDateTime reservationTime,int tableNumber, int guests) {
-        ReservationName = reservationName;
+        this.reservationName = reservationName;
         this.reservationTime = reservationTime;
         this.tableNumber = tableNumber;
         this.guests = guests;
     }
 
     public String getReservationName() {
-        return ReservationName;
+        return reservationName;
     }
 
     public void setReservationName(String reservationName) {
-        ReservationName = reservationName;
+        this.reservationName = reservationName;
     }
 
     public LocalDateTime getReservationTime() {

@@ -7,9 +7,11 @@ import com.example.eindopdrachtbackenderendogan.models.Drink;
 import com.example.eindopdrachtbackenderendogan.models.Menu;
 import com.example.eindopdrachtbackenderendogan.repositories.DrinkRepository;
 import com.example.eindopdrachtbackenderendogan.repositories.MenuRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class MenuService {
 
     private final MenuRepository menuRepository;
