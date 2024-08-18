@@ -11,15 +11,15 @@ public class Reservation {
     @Id
     Long id;
 
-    private String Name;
+    private String reservationName;
 
     private int guests;
-    private  int TableNumber;
+    private int TableNumber;
     private LocalDateTime reservationTime;
 
-    public Reservation(Long id, String name, int guests, int tableNumber, LocalDateTime reservationTime) {
+    public Reservation(Long id, String reservationName, int guests, int tableNumber, LocalDateTime reservationTime) {
         this.id = id;
-        Name = name;
+        this.reservationName = reservationName;
         this.guests = guests;
         TableNumber = tableNumber;
         this.reservationTime = reservationTime;
@@ -37,12 +37,12 @@ public class Reservation {
         this.id = id;
     }
 
-    public String getName() {
-        return Name;
+    public String getReservationName() {
+        return reservationName;
     }
 
-    public void setName(String name) {
-        Name = name;
+    public void setReservationName(String reservationName) {
+        this.reservationName = reservationName;
     }
 
     public int getGuests() {

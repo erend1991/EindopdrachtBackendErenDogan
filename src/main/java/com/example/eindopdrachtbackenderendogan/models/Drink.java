@@ -8,14 +8,13 @@ public class Drink {
     @Id
     @GeneratedValue
 
-    Long id;
+    private Long id;
     private String name;
     private double price;
     private String ingredients;
     private boolean alcohol;
 
     @ManyToOne
-    @MapsId("drinkId")
     @JoinColumn(name = "menu_id")
     private Menu menu;
 
