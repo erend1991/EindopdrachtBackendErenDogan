@@ -1,5 +1,8 @@
 package com.example.eindopdrachtbackenderendogan.controllers;
 
+import com.example.eindopdrachtbackenderendogan.dtos.input.RoleDto;
+import com.example.eindopdrachtbackenderendogan.models.Role;
+import com.example.eindopdrachtbackenderendogan.repositories.RoleRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,11 +24,11 @@ import java.util.List;
             List<RoleDto> roleDtos = new ArrayList<>();
             for (Role r : repos.findAll()) {
                 RoleDto rdto = new RoleDto();
-                rdto.rolename = r.getRolename();
+                rdto.roleName = r.getRolename();
                 roleDtos.add(rdto);
             }
             return roleDtos;
         }
     }
 
-}
+

@@ -1,5 +1,8 @@
 package com.example.eindopdrachtbackenderendogan.controllers;
 
+import com.example.eindopdrachtbackenderendogan.dtos.input.ProfileDto;
+import com.example.eindopdrachtbackenderendogan.models.Profile;
+import com.example.eindopdrachtbackenderendogan.repositories.ProfileRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -27,7 +30,6 @@ import org.springframework.web.bind.annotation.*;
             profile.setFirstname(profileDto.firstname);
             profile.setLastname(profileDto.lastname);
             profile.setAddress(profileDto.address);
-            profile.setBankAccount(profileDto.bankaccount);
 
             this.repos.save(profile);
 
@@ -44,7 +46,6 @@ import org.springframework.web.bind.annotation.*;
                 profileDto.firstname = profile.getFirstname();
                 profileDto.lastname = profile.getLastname();
                 profileDto.address = profile.getAddress();
-                profileDto.bankaccount = profile.getBankAccount();
 
                 return ResponseEntity.ok(profileDto);
             }else {
@@ -53,4 +54,4 @@ import org.springframework.web.bind.annotation.*;
         }
     }
 
-}
+

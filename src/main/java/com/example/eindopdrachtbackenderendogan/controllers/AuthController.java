@@ -1,5 +1,7 @@
 package com.example.eindopdrachtbackenderendogan.controllers;
 
+import com.example.eindopdrachtbackenderendogan.dtos.input.AuthDto;
+import com.example.eindopdrachtbackenderendogan.security.JwtService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

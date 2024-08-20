@@ -1,6 +1,11 @@
 package com.example.eindopdrachtbackenderendogan.controllers;
 
 
+import com.example.eindopdrachtbackenderendogan.dtos.output.UserDto;
+import com.example.eindopdrachtbackenderendogan.models.Role;
+import com.example.eindopdrachtbackenderendogan.models.User;
+import com.example.eindopdrachtbackenderendogan.repositories.RoleRepository;
+import com.example.eindopdrachtbackenderendogan.repositories.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
