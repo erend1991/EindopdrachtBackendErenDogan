@@ -42,7 +42,7 @@ public class DrinkService {
     }
 
     public  DrinkOutputDto createDrink (DrinkInputDto drinkInputDto){
-        Drink d = drinkRepository.save((DrinkMapper.fromInpuDtoToModel(drinkInputDto)));
+        Drink d = drinkRepository.save((DrinkMapper.fromInputDtoToModel(drinkInputDto)));
         return DrinkMapper.fromModelToOutputDto(d);
     }
 

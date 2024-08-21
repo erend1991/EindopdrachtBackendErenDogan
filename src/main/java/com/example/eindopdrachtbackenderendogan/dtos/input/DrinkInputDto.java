@@ -11,14 +11,6 @@ public class DrinkInputDto {
     public boolean alcohol;
 
 
-//    public DrinkInputDto(Long id, String name, double price, String ingredients, boolean alcohol) {
-//        this.id = id;
-//        this.name = name;
-//        this.price = price;
-//        this.ingredients = ingredients;
-//        this.alcohol = alcohol;
-//    }
-
 
 
 

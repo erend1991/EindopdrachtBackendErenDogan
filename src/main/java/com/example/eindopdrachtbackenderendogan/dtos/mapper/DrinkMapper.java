@@ -6,7 +6,7 @@ import com.example.eindopdrachtbackenderendogan.models.Drink;
 
 public class DrinkMapper {
 
-    public static Drink fromInpuDtoToModel(DrinkInputDto drinkInputDto){
+    public static Drink fromInputDtoToModel(DrinkInputDto drinkInputDto){
         Drink d = new Drink();
         d.setName(drinkInputDto.getName());
         d.setPrice(drinkInputDto.getPrice());
@@ -23,8 +23,8 @@ public class DrinkMapper {
         drinkOutputDto.setId(drink.getId());
         drinkOutputDto.setName(drink.getName());
         drinkOutputDto.setPrice(drink.getPrice());
-        drinkOutputDto.setIngredients(drinkOutputDto.getIngredients());
-        drinkOutputDto.setAlcohol(drinkOutputDto.isAlcohol());
+        drinkOutputDto.setIngredients(drink.getIngredients());
+        drinkOutputDto.setAlcohol(drink.isAlcohol());
 
 
         return drinkOutputDto;

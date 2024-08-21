@@ -55,6 +55,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
                     .authorizeHttpRequests(auth -> auth
                             .requestMatchers(HttpMethod.POST, "/users").permitAll()
                             .requestMatchers(HttpMethod.POST, "/auth").permitAll()
+                            .requestMatchers(HttpMethod.POST, "/drink").hasRole("ADMIN")
                             .requestMatchers("/secret").hasRole("ADMIN")
                             .requestMatchers("/hello").authenticated()
                             .requestMatchers("/profiles", "/profiles/*").authenticated()

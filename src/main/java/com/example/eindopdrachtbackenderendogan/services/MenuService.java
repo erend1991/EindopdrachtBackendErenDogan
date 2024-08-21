@@ -9,6 +9,7 @@ import com.example.eindopdrachtbackenderendogan.repositories.DrinkRepository;
 import com.example.eindopdrachtbackenderendogan.repositories.MenuRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -23,19 +24,20 @@ public class MenuService {
     }
 
     public MenuOutputDto createMenu(MenuInputDto menuInputDto) {
-        List<Drink> drinks = drinkRepository.findAllById(menuInputDto.getDrinkIds());
+        Menu menu = menuRepository.findAll().stream().findFirst().orElse(new Menu());
+        menu.setName(menuInputDto.getName());
+        menu.setDrinks (menuInputDto.getDrinks());
 
-        Menu menu = MenuMapper.fromInputDtoToModel(menuInputDto, drinks);
+        Menu savedMenu = menuRepository.save(menu);
 
-        menu.setDrinks(drinks);
-
-        for (Drink drink : drinks) {
-            drink.setMenu(menu);
-        }
-
-        menu = menuRepository.save(menu);
-
+        return MenuMapper.fromModelToOutputDto(savedMenu);
+    }
+    public MenuOutputDto getMenu() {
+        Menu menu = menuRepository.findAll().stream().findFirst().orElseThrow(() -> new RuntimeException("no Menu found"));
 
         return MenuMapper.fromModelToOutputDto(menu);
+    }
+    public void deleteMenu(){
+        menuRepository.deleteAll();
     }
 }

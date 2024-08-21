@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
     @RestController
-    @RequestMapping("drink")
+    @RequestMapping("/drink")
     public class DrinkController {
 
         private final DrinkService drinkService;

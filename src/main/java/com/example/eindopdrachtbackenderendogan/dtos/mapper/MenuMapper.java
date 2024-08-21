@@ -29,11 +29,9 @@ public  class  MenuMapper {
 
             menuOutputDto.setId(menu.getId());
             menuOutputDto.setName(menu.getName());
+            menuOutputDto.setDrinks(menu.getDrinks().stream().map(DrinkMapper::fromModelToOutputDto).collect(Collectors.toList()));
 
 
-            List<DrinkOutputDto> drinkDtos = menu.getDrinks().stream().map(DrinkMapper::fromModelToOutputDto).collect(Collectors.toList());
-
-            menuOutputDto.setDrinks(drinkDtos);
 
             return menuOutputDto;
 

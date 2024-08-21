@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-
 public class Menu {
 
     @Id
@@ -18,15 +17,20 @@ public class Menu {
     private Long id;
     private String name;
     @OneToMany(mappedBy = "menu")
-    private List<Drink> drinks;
+    private List<Drink> drinks = new ArrayList<>();
 
-    public Menu(String name) {
+    public Menu(){
+
+    }
+
+    public Menu(Long id, String name, List<Drink> drinks)
+    {
+        this.id = id;
         this.name = name;
+        this.drinks = drinks;
     }
 
-        public Menu(){
 
-    }
 
     public Long getId() {
         return id;
@@ -50,6 +54,16 @@ public class Menu {
 
     public void setDrinks(List<Drink> drinks) {
         this.drinks = drinks;
+    }
+
+    public void addDrink(Drink drink) {
+        drinks.add(drink);
+        drink.setMenu(this);
+    }
+
+    public void removeDrink(Drink drink) {
+        drinks.remove(drink);
+        drink.setMenu(null);
     }
 
     @Override
