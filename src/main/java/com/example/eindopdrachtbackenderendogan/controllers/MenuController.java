@@ -2,6 +2,7 @@ package com.example.eindopdrachtbackenderendogan.controllers;
 
 import com.example.eindopdrachtbackenderendogan.dtos.input.MenuInputDto;
 import com.example.eindopdrachtbackenderendogan.dtos.output.MenuOutputDto;
+import com.example.eindopdrachtbackenderendogan.models.Menu;
 import com.example.eindopdrachtbackenderendogan.services.MenuService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,15 +23,22 @@ public class MenuController {
         MenuOutputDto menuOutputDto = menuService.createMenu(menuInputDto);
         return ResponseEntity.ok(menuOutputDto);
     }
-    @GetMapping
-    public ResponseEntity<MenuOutputDto>getMenu(){
-        MenuOutputDto menuOutputDto = menuService.getMenu();
-        return ResponseEntity.ok(menuOutputDto);
+
+    @PostMapping("/{menuId}/drink/{drinkId}")
+    public ResponseEntity<String> assignDrinkToMenu(@PathVariable Long menuId, @PathVariable Long drinkId) {
+        menuService.assignDrinkToMenu(menuId, drinkId);
+        return ResponseEntity.ok("drink assigned to menu");
     }
 
-    @DeleteMapping
-    public ResponseEntity<String>deleteMenu(){
-        menuService.deleteMenu();
+    @GetMapping("/{id}")
+    public ResponseEntity<MenuOutputDto> getMenu(@PathVariable Long id) {
+        return ResponseEntity.ok(menuService.getMenu(id));
+    }
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<MenuOutputDto>deleteMenu(@PathVariable Long id){
+        menuService.deleteMenu(id);
         return ResponseEntity.noContent().build();
     }
 }

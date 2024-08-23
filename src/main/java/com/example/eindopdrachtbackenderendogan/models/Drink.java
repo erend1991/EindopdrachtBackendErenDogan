@@ -3,6 +3,7 @@ package com.example.eindopdrachtbackenderendogan.models;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "drink")
 public class Drink {
 
     @Id
@@ -14,9 +15,9 @@ public class Drink {
     private String ingredients;
     private boolean alcohol;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "menu_id")
-    private Menu menu;
+    Menu menu;
 
 
     public Drink(Long id, String name, double price, String ingredients, boolean alcohol, Menu menu) {
@@ -69,14 +70,6 @@ public class Drink {
 
     public void setAlcohol(boolean alcohol) {
         this.alcohol = alcohol;
-    }
-
-    public Menu getMenu() {
-        return menu;
-    }
-
-    public void setMenu(Menu menu) {
-        this.menu = menu;
     }
 
 

@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
         private String lastname;
         private String firstname;
         private String address;
-        private String bankAccount;
+
 
         public String getUsername() {
             return username;
@@ -39,13 +39,6 @@ import jakarta.persistence.Table;
             this.firstname = firstname;
         }
 
-        public String getBankAccount() {
-            return bankAccount;
-        }
-
-        public void setBankAccount(String bankAccount) {
-            this.bankAccount = bankAccount;
-        }
 
         public String getAddress() {
             return address;

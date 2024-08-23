@@ -55,9 +55,18 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
                     .authorizeHttpRequests(auth -> auth
                             .requestMatchers(HttpMethod.POST, "/users").permitAll()
                             .requestMatchers(HttpMethod.POST, "/auth").permitAll()
+                            .requestMatchers(HttpMethod.POST, "/menu").hasRole("ADMIN")
+                            .requestMatchers(HttpMethod.GET, "/menu/*").permitAll()
+                            .requestMatchers(HttpMethod.DELETE, "/menu/*").hasRole("ADMIN")
+                            .requestMatchers(HttpMethod.POST,"/menu/*/drink/*").hasRole("ADMIN")
                             .requestMatchers(HttpMethod.POST, "/drink").hasRole("ADMIN")
-                            .requestMatchers("/secret").hasRole("ADMIN")
-                            .requestMatchers("/hello").authenticated()
+                            .requestMatchers(HttpMethod.GET, "/drink").permitAll()
+                            .requestMatchers(HttpMethod.PUT, "/drink").hasRole("ADMIN")
+                            .requestMatchers(HttpMethod.DELETE, "/drink").hasRole("ADMIN")
+                            .requestMatchers(HttpMethod.GET, "/reservation").hasRole("ADMIN")
+                            .requestMatchers(HttpMethod.PUT, "/reservation").hasRole("ADMIN")
+                            .requestMatchers(HttpMethod.DELETE, "/reservation").hasRole("ADMIN")
+                            .requestMatchers(HttpMethod.POST, "/reservation").hasAnyRole("ADMIN", "USER")
                             .requestMatchers("/profiles", "/profiles/*").authenticated()
                             .anyRequest().denyAll()
                     )
@@ -66,39 +75,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
                     .addFilterBefore(new JwtRequestFilter(jwtService, userDetailsService()), UsernamePasswordAuthenticationFilter.class);
 
             return http.build();
-//
-//            @Bean
-//            protected SecurityFilterChain filter (HttpSecurity http) throws Exception {
-//
-//                http
-//                        .csrf(csrf -> csrf.disable())
-//                        .httpBasic(basic -> basic.disable())
-//                        .cors(Customizer.withDefaults())
-//                        .authorizeHttpRequests(auth ->
-//                                        auth
-                                                // Wanneer je deze uncomments, staat je hele security open. Je hebt dan alleen nog een jwt nodig.
-//                .requestMatchers("/**").permitAll()
-//                                                .requestMatchers(HttpMethod.POST, "/users").hasRole("ADMIN")
-//                                                .requestMatchers(HttpMethod.GET,"/users").hasRole("ADMIN")
-//                                                .requestMatchers(HttpMethod.POST,"/users/**").hasRole("ADMIN")
-//                                                .requestMatchers(HttpMethod.DELETE, "/users/**").hasRole("ADMIN")
-//                                                .requestMatchers(HttpMethod.POST, "/drink").hasRole("ADMIN")
-//                                                .requestMatchers(HttpMethod.DELETE, "/drink/**").hasRole("ADMIN")
-//                                                .requestMatchers(HttpMethod.POST, "/menu").hasRole("ADMIN")
-//                                                .requestMatchers(HttpMethod.DELETE, "/menu/**").hasRole("ADMIN")
-//                                                .requestMatchers(HttpMethod.POST, "/reservation").hasRole("ADMIN")
-//                                                .requestMatchers(HttpMethod.DELETE, "/reservation/**").hasRole("ADMIN")
-                                                // Je mag meerdere paths tegelijk definieren
-//                                                .requestMatchers("/cimodules", "/remotecontrollers", "/televisions", "/wallbrackets").hasAnyRole("ADMIN", "USER")
-//                                                .requestMatchers("/authenticated").authenticated()
-//                                                .requestMatchers("/authenticate").permitAll()
-//                                                .anyRequest().denyAll()
-//                        )
-//                        .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-//                http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-//                return http.build();
-//            }
         }
-    }
+
+        }
+
 
 

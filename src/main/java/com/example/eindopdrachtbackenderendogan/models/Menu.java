@@ -1,14 +1,15 @@
 package com.example.eindopdrachtbackenderendogan.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
+@Table(name = "menu")
 public class Menu {
 
     @Id
@@ -17,7 +18,7 @@ public class Menu {
     private Long id;
     private String name;
     @OneToMany(mappedBy = "menu")
-    private List<Drink> drinks = new ArrayList<>();
+    private Set<Drink> drinks = new HashSet<>();
 
     public Menu(){
 
@@ -27,7 +28,7 @@ public class Menu {
     {
         this.id = id;
         this.name = name;
-        this.drinks = drinks;
+
     }
 
 
@@ -48,22 +49,20 @@ public class Menu {
         this.name = name;
     }
 
-    public List<Drink> getDrinks() {
+    public Set<Drink> getDrinks() {
         return drinks;
     }
 
-    public void setDrinks(List<Drink> drinks) {
+    public void setDrinks(Set<Drink> drinks) {
         this.drinks = drinks;
     }
 
     public void addDrink(Drink drink) {
-        drinks.add(drink);
-        drink.setMenu(this);
+        this.drinks.add(drink);
     }
 
     public void removeDrink(Drink drink) {
-        drinks.remove(drink);
-        drink.setMenu(null);
+        this.drinks.remove(drink);
     }
 
     @Override
