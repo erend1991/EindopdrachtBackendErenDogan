@@ -32,10 +32,8 @@ public class MenuService {
          return MenuMapper.fromModelToOutputDto(menu);
 
     }
-    public MenuOutputDto getMenu(Long id) {
-        Menu menu = menuRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("No Menu found with id " + id));
-        return MenuMapper.fromModelToOutputDto(menu);
+    public List<Menu> getAllMenus() {
+        return menuRepository.findAll();
     }
 
     public void deleteMenu(Long id){
@@ -43,11 +41,20 @@ public class MenuService {
         menuRepository.delete(menu);
     }
 
-    public void assignDrinkToMenu(Long menuId, Long drinkId){
-        Menu menu = menuRepository.findById(menuId).orElseThrow(() ->new RuntimeException("no menu found with id" + menuId));
-        Drink drink = drinkRepository.findById(drinkId).orElseThrow(() -> new RuntimeException("no drink found with id"+ drinkId));
+    public void assignDrinkToMenu(Long menuId, Long drinkId) {
+        Menu menu = menuRepository.findById(menuId)
+                .orElseThrow(() -> new RuntimeException("No Menu found with id " + menuId));
+        Drink drink = drinkRepository.findById(drinkId)
+                .orElseThrow(() -> new RuntimeException("No Drink found with id " + drinkId));
 
-        menu.addDrink(drink);
-        menuRepository.save(menu);
+        drink.setMenu(menu);
+        drinkRepository.save(drink);
     }
+
+    public List<Drink> getDrinksByMenu(Long menuId) {
+        Menu menu = menuRepository.findById(menuId)
+                .orElseThrow(() -> new RuntimeException("No Menu found with id " + menuId));
+        return menu.getDrinks();
+    }
+
 }

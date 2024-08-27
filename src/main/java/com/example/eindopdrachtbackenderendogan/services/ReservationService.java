@@ -56,6 +56,7 @@ public class ReservationService {
             reservation.setReservationTime(newReservation.reservationTime);
             reservation.setTableNumber(newReservation.tableNumber);
             reservation.setGuests(newReservation.guests);
+            reservation.setPhoneNumber(newReservation.phoneNumber);
 
             reservationRepository.save(reservation);
 

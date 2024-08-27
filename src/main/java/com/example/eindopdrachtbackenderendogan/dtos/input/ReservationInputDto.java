@@ -11,11 +11,14 @@ public class ReservationInputDto {
 
     public int guests;
 
-    public ReservationInputDto(String reservationName, LocalDateTime reservationTime,int tableNumber, int guests) {
+    public int phoneNumber;
+
+    public ReservationInputDto(String reservationName, LocalDateTime reservationTime,int tableNumber, int guests, int phoneNumber) {
         this.reservationName = reservationName;
         this.reservationTime = reservationTime;
         this.tableNumber = tableNumber;
         this.guests = guests;
+        this.phoneNumber = phoneNumber;
     }
 
     public String getReservationName() {
@@ -48,5 +51,13 @@ public class ReservationInputDto {
 
     public void setGuests(int guests) {
         this.guests = guests;
+    }
+
+    public int getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(int phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

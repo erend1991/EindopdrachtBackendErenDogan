@@ -73,4 +73,13 @@ public class Drink {
     }
 
 
+    public void setMenu(Menu menu) {
+        if(this.menu != null){
+            this.menu.getDrinks().remove(this);
+        }
+        this.menu = menu;
+        if (menu != null){
+            menu.getDrinks().add(this);
+        }
+    }
 }

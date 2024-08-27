@@ -13,6 +13,7 @@ public static Reservation fromInputDtoToModel(ReservationInputDto reservationInp
     reservation.setGuests(reservationInputDto.getGuests());
     reservation.setTableNumber(reservationInputDto.getTableNumber());
     reservation.setReservationTime(reservationInputDto.getReservationTime());
+    reservation.setPhoneNumber(reservationInputDto.getPhoneNumber());
 
 
     return reservation;
@@ -26,6 +27,7 @@ public static ReservationOutputDto fromModelToOutputDto(Reservation reservation)
     reservationOutputDto.setGuests(reservation.getGuests());
     reservationOutputDto.setTabelNumber(reservation.getTableNumber());
     reservationOutputDto.setReservationTime(reservation.getReservationTime());
+    reservationOutputDto.setPhoneNumber(reservation.getPhoneNumber());
 
     return reservationOutputDto;
 }

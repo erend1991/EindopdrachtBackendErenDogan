@@ -18,7 +18,7 @@ public class Menu {
     private Long id;
     private String name;
     @OneToMany(mappedBy = "menu")
-    private Set<Drink> drinks = new HashSet<>();
+    private List<Drink> drinks = new ArrayList<>();
 
     public Menu(){
 
@@ -49,20 +49,22 @@ public class Menu {
         this.name = name;
     }
 
-    public Set<Drink> getDrinks() {
+    public List<Drink> getDrinks() {
         return drinks;
     }
 
-    public void setDrinks(Set<Drink> drinks) {
+    public void setDrinks(List<Drink> drinks) {
         this.drinks = drinks;
     }
 
     public void addDrink(Drink drink) {
         this.drinks.add(drink);
+        drink.setMenu(this);
     }
 
     public void removeDrink(Drink drink) {
         this.drinks.remove(drink);
+        drink.setMenu(null);
     }
 
     @Override

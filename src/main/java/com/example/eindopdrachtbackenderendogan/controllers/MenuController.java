@@ -2,6 +2,7 @@ package com.example.eindopdrachtbackenderendogan.controllers;
 
 import com.example.eindopdrachtbackenderendogan.dtos.input.MenuInputDto;
 import com.example.eindopdrachtbackenderendogan.dtos.output.MenuOutputDto;
+import com.example.eindopdrachtbackenderendogan.models.Drink;
 import com.example.eindopdrachtbackenderendogan.models.Menu;
 import com.example.eindopdrachtbackenderendogan.services.MenuService;
 import org.springframework.http.ResponseEntity;
@@ -27,12 +28,19 @@ public class MenuController {
     @PostMapping("/{menuId}/drink/{drinkId}")
     public ResponseEntity<String> assignDrinkToMenu(@PathVariable Long menuId, @PathVariable Long drinkId) {
         menuService.assignDrinkToMenu(menuId, drinkId);
-        return ResponseEntity.ok("drink assigned to menu");
+        return ResponseEntity.ok("Drink assigned to menu");
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<MenuOutputDto> getMenu(@PathVariable Long id) {
-        return ResponseEntity.ok(menuService.getMenu(id));
+    @GetMapping
+    public ResponseEntity<List<Menu>> getAllMenus() {
+        List<Menu> menus = menuService.getAllMenus();
+        return ResponseEntity.ok(menus);
+    }
+
+    @GetMapping("/{menuId}/drinks")
+    public ResponseEntity<List<Drink>> getDrinksByMenu(@PathVariable Long menuId) {
+        List<Drink> drinks = menuService.getDrinksByMenu(menuId);
+        return ResponseEntity.ok(drinks);
     }
 
 
