@@ -1,57 +1,55 @@
 package com.example.eindopdrachtbackenderendogan.controllers;
 
-import com.example.eindopdrachtbackenderendogan.dtos.input.ProfileDto;
-import com.example.eindopdrachtbackenderendogan.models.Profile;
-import com.example.eindopdrachtbackenderendogan.repositories.ProfileRepository;
-import org.springframework.http.HttpStatus;
+import com.example.eindopdrachtbackenderendogan.dtos.input.ProfileInputDto;
+import com.example.eindopdrachtbackenderendogan.dtos.output.ProfileOutputDto;
+import com.example.eindopdrachtbackenderendogan.services.ProfileService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
+import java.util.List;
 
+@RestController
+@RequestMapping("/profiles")
+public class ProfileController {
 
-    @RestController
-    @RequestMapping("/profiles")
-    public class ProfileController {
+    private final ProfileService profileService;
 
-        // No ProfileService used in demo code!
-
-        private final ProfileRepository repos;
-
-        public ProfileController(ProfileRepository repos) {
-            this.repos = repos;
-        }
-
-        @PostMapping
-        public ResponseEntity<Profile> createProfile(@RequestBody ProfileDto profileDto) {
-            Profile profile = new Profile();
-            profile.setUsername(profileDto.username);
-            profile.setFirstname(profileDto.firstname);
-            profile.setLastname(profileDto.lastname);
-            profile.setAddress(profileDto.address);
-
-            this.repos.save(profile);
-
-            return ResponseEntity.created(null).body(profile);
-        }
-
-        @GetMapping("/{username}")
-        public ResponseEntity<ProfileDto> getProfile(@PathVariable String username,
-                                                     @AuthenticationPrincipal UserDetails userDetails) {
-            if (username.equals(userDetails.getUsername())) {
-                Profile profile = this.repos.findById(username).get();  // happy flow
-                ProfileDto profileDto = new ProfileDto();
-                profileDto.username = profile.getUsername();
-                profileDto.firstname = profile.getFirstname();
-                profileDto.lastname = profile.getLastname();
-                profileDto.address = profile.getAddress();
-
-                return ResponseEntity.ok(profileDto);
-            }else {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-            }
-        }
+    public ProfileController(ProfileService profileService) {
+        this.profileService = profileService;
     }
 
+    @PostMapping
+    public ResponseEntity<ProfileOutputDto> createProfile(@Valid @RequestBody ProfileInputDto profileInputDto) {
+        ProfileOutputDto profileOutputDto = profileService.createProfile(profileInputDto);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{username}")
+                .buildAndExpand(profileOutputDto.getUsername()).toUri();
+        return ResponseEntity.created(uri).body(profileOutputDto);
+    }
 
+    @GetMapping("/{username}")
+    public ResponseEntity<ProfileOutputDto> getProfile(@PathVariable String username) {
+        ProfileOutputDto profileOutputDto = profileService.getProfileByUsername(username);
+        return ResponseEntity.ok(profileOutputDto);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ProfileOutputDto>> getAllProfiles() {
+        List<ProfileOutputDto> profiles = profileService.getAllProfiles();
+        return ResponseEntity.ok(profiles);
+    }
+
+    @PutMapping("/{username}")
+    public ResponseEntity<ProfileOutputDto> updateProfile(@PathVariable String username, @Valid @RequestBody ProfileInputDto profileInputDto) {
+        ProfileOutputDto profileOutputDto = profileService.updateProfile(username, profileInputDto);
+        return ResponseEntity.ok(profileOutputDto);
+    }
+
+    @DeleteMapping("/{username}")
+    public ResponseEntity<String> deleteProfile(@PathVariable String username) {
+        profileService.deleteProfile(username);
+        return ResponseEntity.ok("Profile deleted successfully");
+    }
+}

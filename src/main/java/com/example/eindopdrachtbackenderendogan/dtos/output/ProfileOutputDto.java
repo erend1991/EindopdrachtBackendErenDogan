@@ -1,22 +1,21 @@
-package com.example.eindopdrachtbackenderendogan.models;
+package com.example.eindopdrachtbackenderendogan.dtos.output;
 
-import jakarta.persistence.*;
+public class ProfileOutputDto {
 
-@Entity
-@Table(name = "profiles")
-public class Profile {
-
-    @Id
-
+    private String username;
     private String firstname;
     private String lastname;
     private String address;
     private String phoneNumber;
     private String email;
 
+    public String getUsername() {
+        return username;
+    }
 
-
-
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public String getFirstname() {
         return firstname;

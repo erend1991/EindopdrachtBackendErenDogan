@@ -1,22 +1,36 @@
-package com.example.eindopdrachtbackenderendogan.models;
+package com.example.eindopdrachtbackenderendogan.dtos.input;
 
-import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
-@Entity
-@Table(name = "profiles")
-public class Profile {
+public class ProfileInputDto {
 
-    @Id
+    @NotBlank
+    private String username;
 
+    @NotBlank
     private String firstname;
+
+    @NotBlank
     private String lastname;
+
+    @NotBlank
     private String address;
+
+    @NotBlank
+    @Size(min = 10, max = 15)
     private String phoneNumber;
+
+    @NotBlank
     private String email;
 
+    public String getUsername() {
+        return username;
+    }
 
-
-
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public String getFirstname() {
         return firstname;

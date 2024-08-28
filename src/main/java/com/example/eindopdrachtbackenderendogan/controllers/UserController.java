@@ -1,6 +1,5 @@
 package com.example.eindopdrachtbackenderendogan.controllers;
 
-
 import com.example.eindopdrachtbackenderendogan.dtos.output.UserDto;
 import com.example.eindopdrachtbackenderendogan.models.Role;
 import com.example.eindopdrachtbackenderendogan.models.User;
@@ -17,7 +16,6 @@ import java.util.Set;
 @RestController
 public class UserController {
 
-    // No UserService used in demo code!
 
     private final UserRepository userRepos;
     private final RoleRepository roleRepos;

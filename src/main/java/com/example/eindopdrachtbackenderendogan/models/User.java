@@ -6,14 +6,18 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class User {
     @Id
+    @GeneratedValue
+    Long id;
     private String username;
-
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "username"))
     private Set<Role> roles = new HashSet<>();
 
     public String getUsername() {
@@ -35,4 +39,5 @@ public class User {
     public Set<Role> getRoles() {
         return roles;
     }
+
 }
