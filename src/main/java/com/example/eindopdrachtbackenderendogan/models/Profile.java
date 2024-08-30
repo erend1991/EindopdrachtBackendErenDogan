@@ -1,5 +1,6 @@
 package com.example.eindopdrachtbackenderendogan.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -7,6 +8,8 @@ import jakarta.persistence.*;
 public class Profile {
 
     @Id
+    @GeneratedValue
+    private Long id;
 
     private String firstname;
     private String lastname;
@@ -15,7 +18,10 @@ public class Profile {
     private String email;
 
 
-
+    @JsonIgnore
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "username")
+    private User user;
 
 
     public String getFirstname() {
@@ -56,5 +62,21 @@ public class Profile {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

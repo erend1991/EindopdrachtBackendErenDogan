@@ -1,5 +1,6 @@
 package com.example.eindopdrachtbackenderendogan.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -9,16 +10,21 @@ import java.util.Set;
 @Table(name = "users")
 public class User {
     @Id
-    @GeneratedValue
-    Long id;
+    @Column(name = "username")
     private String username;
     private String password;
 
-    @ManyToMany
+
+    @OneToOne(mappedBy = "user")
+    private Profile profile;
+
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_roles",
-            joinColumns = @JoinColumn(name = "username"))
+            joinColumns = @JoinColumn(name = "username"),
+    inverseJoinColumns = @JoinColumn(name =  "role_id"))
     private Set<Role> roles = new HashSet<>();
+
 
     public String getUsername() {
         return username;
@@ -39,5 +45,21 @@ public class User {
     public Set<Role> getRoles() {
         return roles;
     }
+
+
+
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+
 
 }

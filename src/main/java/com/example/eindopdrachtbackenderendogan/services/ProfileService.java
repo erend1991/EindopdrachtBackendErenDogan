@@ -36,17 +36,16 @@ public class ProfileService {
         return profileDtos;
     }
 
-    public ProfileOutputDto getProfileByUsername(String username) {
-        Profile profile = profileRepository.findById(username)
-                .orElseThrow(() -> new RecordNotFoundException("No profile found with username " + username));
+    public ProfileOutputDto getProfileByUsername(Long id) {
+        Profile profile = profileRepository.findById(id)
+                .orElseThrow(() -> new RecordNotFoundException("No profile found with id " + id));
         return ProfileMapper.fromModelToOutputDto(profile);
     }
 
-    public ProfileOutputDto updateProfile(String username, ProfileInputDto profileInputDto) {
-        Profile profile = profileRepository.findById(username)
-                .orElseThrow(() -> new RecordNotFoundException("No profile found with username " + username));
+    public ProfileOutputDto updateProfile(Long id, ProfileInputDto profileInputDto) {
+        Profile profile = profileRepository.findById(id)
+                .orElseThrow(() -> new RecordNotFoundException("No profile found with id " + id));
 
-        // Update profile fields
         profile.setFirstname(profileInputDto.getFirstname());
         profile.setLastname(profileInputDto.getLastname());
         profile.setAddress(profileInputDto.getAddress());
@@ -57,11 +56,11 @@ public class ProfileService {
         return ProfileMapper.fromModelToOutputDto(updatedProfile);
     }
 
-    public void deleteProfile(String username) {
-        if (profileRepository.existsById(username)) {
-            profileRepository.deleteById(username);
+    public void deleteProfile(Long id) {
+        if (profileRepository.existsById(id)) {
+            profileRepository.deleteById(id);
         } else {
-            throw new RecordNotFoundException("No profile found with username " + username);
+            throw new RecordNotFoundException("No profile found with id " + id);
         }
     }
 }

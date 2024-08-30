@@ -37,9 +37,9 @@ public class MenuController {
         return ResponseEntity.ok(menus);
     }
 
-    @GetMapping("/{menuId}/drinks")
-    public ResponseEntity<List<Drink>> getDrinksByMenu(@PathVariable Long menuId) {
-        List<Drink> drinks = menuService.getDrinksByMenu(menuId);
+    @GetMapping("/{Id}")
+    public ResponseEntity<List<Drink>> getMenuById(@PathVariable Long id, @PathVariable String Id) {
+        List<Drink> drinks = menuService.getMenuById(id);
         return ResponseEntity.ok(drinks);
     }
 

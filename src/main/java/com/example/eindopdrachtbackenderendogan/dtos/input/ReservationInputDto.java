@@ -6,7 +6,6 @@ public class ReservationInputDto {
 
     public String reservationName;
     public LocalDateTime reservationTime;
-
     public int tableNumber;
 
     public int guests;

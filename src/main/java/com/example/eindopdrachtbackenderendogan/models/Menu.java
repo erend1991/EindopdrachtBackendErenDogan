@@ -14,7 +14,6 @@ public class Menu {
 
     @Id
     @GeneratedValue
-
     private Long id;
     private String name;
     @OneToMany(mappedBy = "menu")

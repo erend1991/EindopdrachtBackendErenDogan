@@ -51,6 +51,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
             http
                     .authorizeHttpRequests(auth -> auth
                             .requestMatchers(HttpMethod.POST, "/users").permitAll()
+                            .requestMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")
                             .requestMatchers(HttpMethod.POST, "/auth").permitAll()
                             .requestMatchers(HttpMethod.POST, "/menu").hasRole("ADMIN")
                             .requestMatchers(HttpMethod.GET, "/menu").permitAll()
@@ -60,11 +61,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
                             .requestMatchers(HttpMethod.POST, "/drink").hasRole("ADMIN")
                             .requestMatchers(HttpMethod.GET, "/drink").permitAll()
                             .requestMatchers(HttpMethod.PUT, "/drink").hasRole("ADMIN")
-                            .requestMatchers(HttpMethod.DELETE, "/drink/*").hasRole("ADMIN")
+                            .requestMatchers(HttpMethod.DELETE, "/drink/**").hasRole("ADMIN")
                             .requestMatchers(HttpMethod.GET, "/reservations").hasRole("ADMIN")
                             .requestMatchers(HttpMethod.PUT, "/reservations").hasRole("ADMIN")
                             .requestMatchers(HttpMethod.DELETE, "/reservations").hasRole("ADMIN")
                             .requestMatchers(HttpMethod.POST, "/reservations").hasAnyRole("ADMIN", "USER")
+                            .requestMatchers(HttpMethod.PUT,"/users/{username}/profile/{profileId}").hasRole("ADMIN")
                             .requestMatchers("/profiles", "/profiles/*").authenticated()
                             .anyRequest().denyAll()
                     )

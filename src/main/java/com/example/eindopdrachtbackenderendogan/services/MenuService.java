@@ -51,9 +51,9 @@ public class MenuService {
         drinkRepository.save(drink);
     }
 
-    public List<Drink> getDrinksByMenu(Long menuId) {
-        Menu menu = menuRepository.findById(menuId)
-                .orElseThrow(() -> new RuntimeException("No Menu found with id " + menuId));
+    public List<Drink> getMenuById(Long id) {
+        Menu menu = menuRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("No Menu found with id " + id));
         return menu.getDrinks();
     }
 

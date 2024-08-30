@@ -1,47 +1,54 @@
 package com.example.eindopdrachtbackenderendogan.controllers;
 
-import com.example.eindopdrachtbackenderendogan.dtos.output.UserDto;
-import com.example.eindopdrachtbackenderendogan.models.Role;
-import com.example.eindopdrachtbackenderendogan.models.User;
-import com.example.eindopdrachtbackenderendogan.repositories.RoleRepository;
-import com.example.eindopdrachtbackenderendogan.repositories.UserRepository;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.eindopdrachtbackenderendogan.dtos.input.UserInputDto;
+import com.example.eindopdrachtbackenderendogan.dtos.output.ReservationOutputDto;
+import com.example.eindopdrachtbackenderendogan.dtos.output.UserOutputDto;
 
-import java.util.Optional;
-import java.util.Set;
+
+import com.example.eindopdrachtbackenderendogan.models.Menu;
+import com.example.eindopdrachtbackenderendogan.models.User;
+import com.example.eindopdrachtbackenderendogan.services.UserService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
+import java.util.List;
 
 @RestController
+@RequestMapping
 public class UserController {
 
 
-    private final UserRepository userRepos;
-    private final RoleRepository roleRepos;
-    private final PasswordEncoder encoder;
+    private final UserService userService;
 
-    public UserController(UserRepository userRepos, RoleRepository roleRepos, PasswordEncoder encoder) {
-        this.userRepos = userRepos;
-        this.roleRepos = roleRepos;
-        this.encoder = encoder;
+    public UserController(UserService userService){
+        this.userService = userService;
     }
+
     @PostMapping("/users")
-    public String createUser(@RequestBody UserDto userDto) {
-        User newUser = new User();
-        newUser.setUsername(userDto.username);
-        newUser.setPassword(encoder.encode(userDto.password));
-
-        Set<Role> userRoles = newUser.getRoles();
-        for (String rolename : userDto.roles) {
-            Optional<Role> or = roleRepos.findById("ROLE_" + rolename);
-            if (or.isPresent()) {
-                userRoles.add(or.get());
-            }
-        }
-
-        userRepos.save(newUser);
-
-        return "Done";
+    public ResponseEntity<UserOutputDto> createUser(@RequestBody UserInputDto userInputDto) {
+        UserOutputDto dto = userService.createUser(userInputDto);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{username}").buildAndExpand(dto.getUsername()).toUri();
+        return ResponseEntity.created(uri).body(dto);
     }
+
+
+    @PutMapping("/users/{username}/profile/{profileId}")
+    public ResponseEntity<String> assignUserToProfile(@PathVariable String username, @PathVariable Long profileId) {
+        userService.assignUserToProfile(username, profileId);
+        return ResponseEntity.ok("user assigned to profile");
+    }
+//
+//    @GetMapping("/users")
+//    public ResponseEntity<List<UserOutputDto>> getAllUsers() {
+//        userService.getAllUsers();
+//        return ResponseEntity.ok().body(userService.getAllUsers());
+//    }
+
+  @GetMapping("/users")
+    public ResponseEntity<List<User>> getAllUsers() {
+      List<User> users = userService.getAllUsers();
+      return ResponseEntity.ok(users);
+  }
 }

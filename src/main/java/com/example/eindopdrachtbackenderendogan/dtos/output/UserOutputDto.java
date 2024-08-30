@@ -4,7 +4,7 @@ public class UserOutputDto {
 
         public String username;
 
-        public String password;
+
         public String[] roles;
 
 
@@ -16,13 +16,6 @@ public class UserOutputDto {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public String[] getRoles() {
         return roles;

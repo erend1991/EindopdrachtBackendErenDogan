@@ -24,14 +24,14 @@ public class ProfileController {
     @PostMapping
     public ResponseEntity<ProfileOutputDto> createProfile(@Valid @RequestBody ProfileInputDto profileInputDto) {
         ProfileOutputDto profileOutputDto = profileService.createProfile(profileInputDto);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{username}")
-                .buildAndExpand(profileOutputDto.getUsername()).toUri();
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(profileOutputDto.getId()).toUri();
         return ResponseEntity.created(uri).body(profileOutputDto);
     }
 
-    @GetMapping("/{username}")
-    public ResponseEntity<ProfileOutputDto> getProfile(@PathVariable String username) {
-        ProfileOutputDto profileOutputDto = profileService.getProfileByUsername(username);
+    @GetMapping("/{id}")
+    public ResponseEntity<ProfileOutputDto> getProfile(@PathVariable Long id) {
+        ProfileOutputDto profileOutputDto = profileService.getProfileByUsername(id);
         return ResponseEntity.ok(profileOutputDto);
     }
 
@@ -41,15 +41,17 @@ public class ProfileController {
         return ResponseEntity.ok(profiles);
     }
 
-    @PutMapping("/{username}")
-    public ResponseEntity<ProfileOutputDto> updateProfile(@PathVariable String username, @Valid @RequestBody ProfileInputDto profileInputDto) {
-        ProfileOutputDto profileOutputDto = profileService.updateProfile(username, profileInputDto);
+    @PutMapping("/{id}")
+    public ResponseEntity<ProfileOutputDto> updateProfile(@PathVariable Long id, @Valid @RequestBody ProfileInputDto profileInputDto) {
+        ProfileOutputDto profileOutputDto = profileService.updateProfile(id, profileInputDto);
         return ResponseEntity.ok(profileOutputDto);
     }
 
-    @DeleteMapping("/{username}")
-    public ResponseEntity<String> deleteProfile(@PathVariable String username) {
-        profileService.deleteProfile(username);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteProfile(@PathVariable Long id) {
+        profileService.deleteProfile(id);
         return ResponseEntity.ok("Profile deleted successfully");
     }
+
+
 }
