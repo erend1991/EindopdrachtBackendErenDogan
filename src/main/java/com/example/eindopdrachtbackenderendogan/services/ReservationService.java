@@ -4,8 +4,12 @@ import com.example.eindopdrachtbackenderendogan.dtos.input.ReservationInputDto;
 import com.example.eindopdrachtbackenderendogan.dtos.mapper.ReservationMapper;
 import com.example.eindopdrachtbackenderendogan.dtos.output.ReservationOutputDto;
 import com.example.eindopdrachtbackenderendogan.exceptions.RecordNotFoundException;
+import com.example.eindopdrachtbackenderendogan.models.Profile;
 import com.example.eindopdrachtbackenderendogan.models.Reservation;
+import com.example.eindopdrachtbackenderendogan.models.User;
+import com.example.eindopdrachtbackenderendogan.repositories.ProfileRepository;
 import com.example.eindopdrachtbackenderendogan.repositories.ReservationRepository;
+import com.example.eindopdrachtbackenderendogan.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,15 +21,32 @@ public class ReservationService {
 
 
     private final ReservationRepository reservationRepository;
+    private final UserRepository userRepository;
+    private final ProfileRepository profileRepository;
 
-    public ReservationService(ReservationRepository reservationRepository) {
+    public ReservationService(ReservationRepository reservationRepository, UserRepository userRepository, ProfileRepository profileRepository) {
         this.reservationRepository = reservationRepository;
+        this.userRepository = userRepository;
+        this.profileRepository = profileRepository;
     }
 
-    public ReservationOutputDto createReservation(ReservationInputDto reservationInputDto) {
-        Reservation r = reservationRepository.save(ReservationMapper.fromInputDtoToModel(reservationInputDto));
-        return ReservationMapper.fromModelToOutputDto(r);
+
+    public ReservationOutputDto createReservation(ReservationInputDto reservationInputDto, String username) {
+        User user = userRepository.findById(username).orElseThrow(() -> new RuntimeException("User not found"));
+
+        Profile profile = profileRepository.findByUser(user);
+        if (profile == null) {
+            throw new RuntimeException("User does not have a profile, cannot create reservation");
+        }
+
+        Reservation reservation = ReservationMapper.fromInputDtoToModel(reservationInputDto);
+        reservation.setUser(user);
+
+        Reservation savedReservation = reservationRepository.save(reservation);
+
+        return ReservationMapper.fromModelToOutputDto(savedReservation);
     }
+
 
 
     public List<ReservationOutputDto> getAllReservations() {

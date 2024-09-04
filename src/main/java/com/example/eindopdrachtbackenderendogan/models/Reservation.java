@@ -1,9 +1,6 @@
 package com.example.eindopdrachtbackenderendogan.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
@@ -22,6 +19,12 @@ public class Reservation {
     private int TableNumber;
     private int phoneNumber;
 
+    @ManyToOne
+    @JoinColumn(name = "username", nullable = false)
+    private User user;
+
+
+
     public Reservation(Long id, String reservationName, int guests, int tableNumber, LocalDateTime reservationTime, int phoneNumber) {
         this.id = id;
         this.reservationName = reservationName;
@@ -33,6 +36,14 @@ public class Reservation {
 
     public Reservation() {
 
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Long getId() {

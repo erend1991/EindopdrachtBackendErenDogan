@@ -25,7 +25,7 @@ public static ReservationOutputDto fromModelToOutputDto(Reservation reservation)
     reservationOutputDto.setId(reservation.getId());
     reservationOutputDto.setReservationName(reservation.getReservationName());
     reservationOutputDto.setGuests(reservation.getGuests());
-    reservationOutputDto.setTabelNumber(reservation.getTableNumber());
+    reservationOutputDto.setTableNumber(reservation.getTableNumber());
     reservationOutputDto.setReservationTime(reservation.getReservationTime());
     reservationOutputDto.setPhoneNumber(reservation.getPhoneNumber());
 

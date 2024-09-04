@@ -5,7 +5,10 @@ import com.example.eindopdrachtbackenderendogan.dtos.input.ReservationInputDto;
 import com.example.eindopdrachtbackenderendogan.dtos.output.ReservationOutputDto;
 import com.example.eindopdrachtbackenderendogan.services.ReservationService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -33,12 +36,28 @@ public class ReservationsController {
 
         return ResponseEntity.ok().body(reservationService.getReservationById(id));
     }
-    @PostMapping()
-    public ResponseEntity<ReservationOutputDto>createReservation(@Valid @RequestBody ReservationInputDto reservationInputDto){
-        ReservationOutputDto dto= reservationService.createReservation(reservationInputDto);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
-        return ResponseEntity.created(uri).body(dto);
+
+
+    @PostMapping
+    public ResponseEntity<ReservationOutputDto> createReservation(
+            @RequestBody ReservationInputDto reservationInputDto,
+            @AuthenticationPrincipal UserDetails userDetails) {
+
+        try {
+            ReservationOutputDto reservationOutputDto = reservationService.createReservation(reservationInputDto, userDetails.getUsername());
+
+            URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                    .path("/{id}")
+                    .buildAndExpand(reservationOutputDto.getId())
+                    .toUri();
+
+            return ResponseEntity.created(uri).body(reservationOutputDto);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
     }
+
+
     @PutMapping("/{id}")
     public ResponseEntity<ReservationOutputDto>editReservationById(@Valid @RequestBody ReservationInputDto newReservation, @PathVariable long id){
         ReservationOutputDto dto = reservationService.editReservationById(id, newReservation);

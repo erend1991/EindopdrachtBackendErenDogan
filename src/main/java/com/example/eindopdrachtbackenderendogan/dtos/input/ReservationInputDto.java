@@ -20,6 +20,10 @@ public class ReservationInputDto {
         this.phoneNumber = phoneNumber;
     }
 
+    public ReservationInputDto() {
+
+    }
+
     public String getReservationName() {
         return reservationName;
     }

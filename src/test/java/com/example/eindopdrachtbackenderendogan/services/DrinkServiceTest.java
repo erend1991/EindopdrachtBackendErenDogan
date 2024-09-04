@@ -33,6 +33,7 @@ class DrinkServiceTest {
     @Test
     @DisplayName("create new drink")
     void createDrink() {
+
         DrinkInputDto drinkInputDto = new DrinkInputDto();
         drinkInputDto.setId(1L);
         drinkInputDto.setName("martini");

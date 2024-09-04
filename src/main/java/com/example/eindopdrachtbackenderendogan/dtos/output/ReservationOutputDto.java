@@ -9,17 +9,17 @@ public class ReservationOutputDto {
     private String reservationName;
     private LocalDateTime reservationTime;
 
-    private int tabelNumber;
+    private int tableNumber;
     private int guests;
 
     private int phoneNumber;
 
-    public ReservationOutputDto(long id, String reservationName, LocalDateTime reservationTime, int tabelNumber, int guests, int phoneNumber) {
+    public ReservationOutputDto(long id, String reservationName, LocalDateTime reservationTime, int tableNumber, int guests, int phoneNumber) {
 
         this.id = id;
         this.reservationName = reservationName;
         this.reservationTime = reservationTime;
-        this.tabelNumber = tabelNumber;
+        this.tableNumber = tableNumber;
         this.guests = guests;
         this.phoneNumber = phoneNumber;
     }
@@ -52,12 +52,12 @@ public class ReservationOutputDto {
         this.reservationTime = reservationTime;
     }
 
-    public int getTabelNumber() {
-        return tabelNumber;
+    public int getTableNumber() {
+        return tableNumber;
     }
 
-    public void setTabelNumber(int tabelNumber) {
-        this.tabelNumber = tabelNumber;
+    public void setTableNumber(int tabelNumber) {
+        this.tableNumber = tabelNumber;
     }
 
     public int getGuests() {
