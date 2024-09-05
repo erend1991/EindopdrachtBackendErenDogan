@@ -20,7 +20,7 @@ public class ProfileInputDto {
 
     @NotBlank
     @Size(min = 10, max = 15)
-    private String phoneNumber;
+    private int phoneNumber;
 
     @NotBlank()
     @Email(message = "email not valid")
@@ -55,11 +55,11 @@ public class ProfileInputDto {
         this.address = address;
     }
 
-    public String getPhoneNumber() {
+    public int getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public void setPhoneNumber(int phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 

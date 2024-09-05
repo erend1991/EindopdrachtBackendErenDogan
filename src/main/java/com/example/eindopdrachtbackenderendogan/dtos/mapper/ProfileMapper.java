@@ -22,6 +22,7 @@ public class ProfileMapper {
     public static ProfileOutputDto fromModelToOutputDto(Profile profile) {
 
         ProfileOutputDto outputDto = new ProfileOutputDto();
+        outputDto.setUsername(profile.getUser().getUsername());
         outputDto.setId(profile.getId());
         outputDto.setFirstname(profile.getFirstname());
         outputDto.setLastname(profile.getLastname());

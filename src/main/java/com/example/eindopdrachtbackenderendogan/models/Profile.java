@@ -14,7 +14,7 @@ public class Profile {
     private String firstname;
     private String lastname;
     private String address;
-    private String phoneNumber;
+    private int phoneNumber;
     private String email;
 
 
@@ -48,11 +48,11 @@ public class Profile {
         this.address = address;
     }
 
-    public String getPhoneNumber() {
+    public int getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public void setPhoneNumber(int phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 

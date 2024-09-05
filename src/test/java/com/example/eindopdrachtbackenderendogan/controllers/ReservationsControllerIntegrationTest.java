@@ -22,7 +22,7 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 @WebMvcTest(ReservationsController.class)
 @ActiveProfiles("test")
 @AutoConfigureMockMvc(addFilters = false)
-class ReservationsControllerTest {
+class ReservationsControllerIntegrationTest {
 
     @Autowired
     MockMvc mockMvc;

@@ -20,7 +20,7 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 @SpringBootTest
 @AutoConfigureMockMvc(addFilters = false)
 @ActiveProfiles("test")
-class DrinkControllerTest {
+class DrinkControllerIntegrationTest {
     @Autowired
     MockMvc mockMvc;
     @Autowired
