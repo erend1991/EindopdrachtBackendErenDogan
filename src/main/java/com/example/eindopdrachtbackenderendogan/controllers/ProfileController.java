@@ -1,10 +1,18 @@
 package com.example.eindopdrachtbackenderendogan.controllers;
 
 import com.example.eindopdrachtbackenderendogan.dtos.input.ProfileInputDto;
+import com.example.eindopdrachtbackenderendogan.dtos.mapper.ProfileMapper;
 import com.example.eindopdrachtbackenderendogan.dtos.output.ProfileOutputDto;
+import com.example.eindopdrachtbackenderendogan.exceptions.UsernameNotFoundException;
+import com.example.eindopdrachtbackenderendogan.models.Profile;
+import com.example.eindopdrachtbackenderendogan.models.User;
+import com.example.eindopdrachtbackenderendogan.repositories.ProfileRepository;
+import com.example.eindopdrachtbackenderendogan.repositories.UserRepository;
 import com.example.eindopdrachtbackenderendogan.services.ProfileService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -17,17 +25,20 @@ public class ProfileController {
 
     private final ProfileService profileService;
 
+
+
     public ProfileController(ProfileService profileService) {
         this.profileService = profileService;
     }
 
     @PostMapping
-    public ResponseEntity<ProfileOutputDto> createProfile(@Valid @RequestBody ProfileInputDto profileInputDto) {
-        ProfileOutputDto profileOutputDto = profileService.createProfile(profileInputDto);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(profileOutputDto.getId()).toUri();
+    public ResponseEntity<ProfileOutputDto> createProfile(@Valid @RequestBody ProfileInputDto profileInputDto, @AuthenticationPrincipal UserDetails userDetails) {
+        ProfileOutputDto profileOutputDto = profileService.createProfile(profileInputDto, userDetails);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{username}")
+                .buildAndExpand(profileOutputDto.getUsername()).toUri();
         return ResponseEntity.created(uri).body(profileOutputDto);
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<ProfileOutputDto> getProfile(@PathVariable Long id) {

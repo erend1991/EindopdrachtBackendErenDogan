@@ -22,7 +22,7 @@ public class User {
     @JoinTable(
             name = "user_roles",
             joinColumns = @JoinColumn(name = "username"),
-    inverseJoinColumns = @JoinColumn(name =  "role_id"))
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
 
@@ -47,7 +47,6 @@ public class User {
     }
 
 
-
     public Profile getProfile() {
         return profile;
     }
@@ -59,7 +58,6 @@ public class User {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
-
 
 
 }

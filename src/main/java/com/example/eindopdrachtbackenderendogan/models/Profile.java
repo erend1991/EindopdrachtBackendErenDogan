@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "profiles")
 public class Profile {
 
     @Id
@@ -20,7 +19,7 @@ public class Profile {
 
     @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "username")
+    @JoinColumn(name = "username", referencedColumnName = "username")
     private User user;
 
 
@@ -79,4 +78,5 @@ public class Profile {
     public void setId(Long id) {
         this.id = id;
     }
+
 }

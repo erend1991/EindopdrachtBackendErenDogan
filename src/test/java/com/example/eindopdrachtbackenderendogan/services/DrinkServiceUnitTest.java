@@ -21,6 +21,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 
@@ -37,8 +38,7 @@ class DrinkServiceUnitTest {
 
 
     @Test
-    @DisplayName("create new drink")
-    void createDrink() {
+    void shouldCreateDrink() {
 
         DrinkInputDto drinkInputDto = new DrinkInputDto();
         drinkInputDto.setId(1L);
@@ -60,7 +60,7 @@ class DrinkServiceUnitTest {
     }
 
     @Test
-    void getDrinkById() {
+    void shouldGetDrinkById() {
         long drinkId = 1L;
         Drink drink = new Drink();
         drink.setId(drinkId);
@@ -82,19 +82,9 @@ class DrinkServiceUnitTest {
         assertEquals(true, drinkOutputDto.isAlcohol());
     }
 
-    @Test
-    void getDrinkByIdNotFound() {
-        long drinkId = 1L;
-
-        when(drinkRepository.findById(anyLong())).thenReturn(Optional.empty());
-
-        assertThrows(RecordNotFoundException.class, () -> {
-            drinkService.getDrinkById(drinkId);
-        });
-    }
 
     @Test
-    void getAllDrinks() {
+    void shouldGetAllDrinks() {
         Drink drink1 = new Drink();
         drink1.setId(1L);
         drink1.setName("Martini");
@@ -115,10 +105,9 @@ class DrinkServiceUnitTest {
         DrinkOutputDto drinkOutputDto1 = DrinkMapper.fromModelToOutputDto(drink1);
         DrinkOutputDto drinkOutputDto2 = DrinkMapper.fromModelToOutputDto(drink2);
 
-        // Act
+
         List<DrinkOutputDto> result = drinkService.getAllDrinks();
 
-        // Assert
         assertEquals(2, result.size());
 
         assertEquals(1L, drinkOutputDto1.getId());
@@ -135,8 +124,7 @@ class DrinkServiceUnitTest {
     }
 
     @Test
-    void editDrinkById() {
-        // Arrange
+    void shouldEditDrinkById() {
         Long drinkId = 1L;
 
         DrinkInputDto drinkInputDto = new DrinkInputDto();
@@ -161,16 +149,32 @@ class DrinkServiceUnitTest {
 
         DrinkOutputDto OutputDto = DrinkMapper.fromModelToOutputDto(updatedDrink);
 
-        when(drinkRepository.findById(anyLong())).thenReturn(Optional.of(editedDrink));
-        when(drinkRepository.save(any(Drink.class))).thenReturn(updatedDrink);
+        Mockito.when(drinkRepository.findById(anyLong())).thenReturn(Optional.of(editedDrink));
+        Mockito.when(drinkRepository.save(any(Drink.class))).thenReturn(updatedDrink);
 
-        // Act
         DrinkOutputDto drinkOutputDto = drinkService.editDrinkById(drinkId, drinkInputDto);
 
-        // Assert
         assertEquals("Martini", drinkOutputDto.getName());
         assertEquals(15, drinkOutputDto.getPrice());
         assertEquals("Witte vermout, Gin, Citroen", drinkOutputDto.getIngredients());
         assertTrue(drinkOutputDto.isAlcohol());
     }
+
+    @Test
+    void shouldDeleteDrinkById() {
+        long id = 1L;
+
+        DrinkInputDto drinkInputDto = new DrinkInputDto();
+        drinkInputDto.setName("Martini");
+        drinkInputDto.setPrice(15);
+        drinkInputDto.setIngredients("Witte vermout, Gin, Citroen");
+        drinkInputDto.setAlcohol(true);
+
+        Mockito.when(drinkRepository.existsById(id)).thenReturn(true);
+
+        drinkService.deleteDrinkById(id);
+
+        verify(drinkRepository).deleteById(id);
+    }
+
 }

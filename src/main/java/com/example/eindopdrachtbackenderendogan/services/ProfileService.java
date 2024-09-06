@@ -4,28 +4,55 @@ import com.example.eindopdrachtbackenderendogan.dtos.input.ProfileInputDto;
 import com.example.eindopdrachtbackenderendogan.dtos.mapper.ProfileMapper;
 import com.example.eindopdrachtbackenderendogan.dtos.output.ProfileOutputDto;
 import com.example.eindopdrachtbackenderendogan.exceptions.RecordNotFoundException;
+import com.example.eindopdrachtbackenderendogan.exceptions.UsernameNotFoundException;
 import com.example.eindopdrachtbackenderendogan.models.Profile;
+import com.example.eindopdrachtbackenderendogan.models.User;
 import com.example.eindopdrachtbackenderendogan.repositories.ProfileRepository;
+import com.example.eindopdrachtbackenderendogan.repositories.UserRepository;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProfileService {
 
     private final ProfileRepository profileRepository;
 
-    public ProfileService(ProfileRepository profileRepository) {
+    private final UserRepository userRepository;
+
+
+    public ProfileService(ProfileRepository profileRepository, UserRepository userRepository) {
         this.profileRepository = profileRepository;
+        this.userRepository = userRepository;
     }
 
-    public ProfileOutputDto createProfile(ProfileInputDto profileInputDto) {
-        Profile profile = ProfileMapper.fromInputDtoToModel(profileInputDto);
+
+    public ProfileOutputDto createProfile(@Valid @RequestBody ProfileInputDto profileInputDto, @AuthenticationPrincipal UserDetails userDetails) {
+        String username = userDetails.getUsername();
+
+        User user = userRepository.findById(username).orElseThrow(() -> new RecordNotFoundException("user not found"));
+
+        Profile profile = new Profile();
+        profile.setUser(user);
+        profile.setFirstname(profileInputDto.getFirstname());
+        profile.setLastname(profileInputDto.getLastname());
+        profile.setAddress(profileInputDto.getAddress());
+        profile.setPhoneNumber(profileInputDto.getPhoneNumber());
+        profile.setEmail(profileInputDto.getEmail());
+
         Profile savedProfile = profileRepository.save(profile);
+
         return ProfileMapper.fromModelToOutputDto(savedProfile);
     }
+
 
     public List<ProfileOutputDto> getAllProfiles() {
         List<Profile> profiles = profileRepository.findAll();

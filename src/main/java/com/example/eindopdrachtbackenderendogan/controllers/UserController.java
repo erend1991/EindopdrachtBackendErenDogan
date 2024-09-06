@@ -39,12 +39,6 @@ public class UserController {
         userService.assignUserToProfile(username, profileId);
         return ResponseEntity.ok("user assigned to profile");
     }
-//
-//    @GetMapping("/users")
-//    public ResponseEntity<List<UserOutputDto>> getAllUsers() {
-//        userService.getAllUsers();
-//        return ResponseEntity.ok().body(userService.getAllUsers());
-//    }
 
   @GetMapping("/users")
     public ResponseEntity<List<User>> getAllUsers() {

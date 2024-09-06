@@ -10,7 +10,6 @@ public class MenuInputDto {
 
     @NotEmpty()
     public String name;
-//    public List<Drink> drinks;
 
 
 
@@ -22,12 +21,6 @@ public class MenuInputDto {
         this.name = name;
     }
 
-//    public List<Drink> getDrinks() {
-//        return drinks;
-//    }
 
-//    public void setDrinkIds(List<Drink> drinkIds) {
-//        this.drinks = drinkIds;
-//    }
 
 }

@@ -21,6 +21,8 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
+
 @ExtendWith(MockitoExtension.class)
 class ReservationServiceUnitTest {
 
@@ -38,7 +40,7 @@ class ReservationServiceUnitTest {
 
     @Test
     @DisplayName("create new reservation")
-    void createReservation() {
+    void shouldCreateReservation() {
 
         ReservationInputDto reservationInputDto = new ReservationInputDto();
         reservationInputDto.setReservationName("birthday eren");
@@ -58,9 +60,9 @@ class ReservationServiceUnitTest {
         reservation.setId(1L);
 
 
-        Mockito.when(userRepository.findById(username)).thenReturn(Optional.of(user));
-        Mockito.when(profileRepository.findByUser(user)).thenReturn(profile);
-        Mockito.when(reservationRepository.save(Mockito.any(Reservation.class))).thenReturn(reservation);
+        when(userRepository.findById(username)).thenReturn(Optional.of(user));
+        when(profileRepository.findByUser(user)).thenReturn(profile);
+        when(reservationRepository.save(Mockito.any(Reservation.class))).thenReturn(reservation);
 
         ReservationOutputDto reservationOutputDto = reservationService.createReservation(reservationInputDto, username);
 
@@ -72,4 +74,56 @@ class ReservationServiceUnitTest {
         assertEquals(612345678, reservationOutputDto.getPhoneNumber());
 
     }
+    @Test
+    void shouldGetReservationById() {
+        // Arrange
+        long reservationId = 1L;
+
+        ReservationInputDto reservationInputDto = new ReservationInputDto();
+        reservationInputDto.setReservationName("birthday party");
+        reservationInputDto.setReservationTime(LocalDateTime.of(2024, 12, 17, 20, 0));
+        reservationInputDto.setTableNumber(1);
+        reservationInputDto.setGuests(5);
+        reservationInputDto.setPhoneNumber(612345678);
+
+
+        Reservation reservation = ReservationMapper.fromInputDtoToModel(reservationInputDto);
+        reservation.setId(reservationId);
+
+        ReservationOutputDto reservationOutputDto = ReservationMapper.fromModelToOutputDto(reservation);
+
+        Mockito.when(reservationRepository.findById(reservationId)).thenReturn(Optional.of(reservation));
+
+        ReservationOutputDto outputDto = reservationService.getReservationById(reservationId);
+
+        assertEquals(reservationId, outputDto.getId());
+        assertEquals("birthday party", outputDto.getReservationName());
+        assertEquals(LocalDateTime.of(2024, 12, 17, 20, 0), outputDto.getReservationTime());
+        assertEquals(1, outputDto.getTableNumber());
+        assertEquals(5, outputDto.getGuests());
+        assertEquals(612345678, outputDto.getPhoneNumber());
+    }
+
+    @Test
+    void shouldDeleteReservationById() {
+        // Arrange
+        long reservationId = 1L;
+        ReservationInputDto reservationInputDto = new ReservationInputDto();
+        reservationInputDto.setReservationName("birthday eren");
+        reservationInputDto.setReservationTime(LocalDateTime.of(2024, 12, 17, 20, 0));
+        reservationInputDto.setTableNumber(1);
+        reservationInputDto.setGuests(5);
+        reservationInputDto.setPhoneNumber(612345678);
+
+        Reservation reservation = ReservationMapper.fromInputDtoToModel(reservationInputDto);
+
+        when(reservationRepository.existsById(reservationId)).thenReturn(true);
+
+        // Act
+        reservationService.deleteReservationById(reservationId);
+
+        // Assert
+        verify(reservationRepository, times(1)).deleteById(reservationId);
+    }
+
 }

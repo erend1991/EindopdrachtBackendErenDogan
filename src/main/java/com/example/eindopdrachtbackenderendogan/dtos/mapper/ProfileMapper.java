@@ -3,13 +3,15 @@ package com.example.eindopdrachtbackenderendogan.dtos.mapper;
 import com.example.eindopdrachtbackenderendogan.dtos.input.ProfileInputDto;
 import com.example.eindopdrachtbackenderendogan.dtos.output.ProfileOutputDto;
 import com.example.eindopdrachtbackenderendogan.models.Profile;
+import com.example.eindopdrachtbackenderendogan.models.User;
 
 public class ProfileMapper {
 
     public static Profile fromInputDtoToModel(ProfileInputDto profileInputDto) {
         Profile profile = new Profile();
 
-        profile.setEmail(profileInputDto.getUsername());
+
+
         profile.setFirstname(profileInputDto.getFirstname());
         profile.setLastname(profileInputDto.getLastname());
         profile.setAddress(profileInputDto.getAddress());

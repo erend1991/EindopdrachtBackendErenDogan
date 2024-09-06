@@ -50,15 +50,7 @@ public class UserService {
 
     public List<User> getAllUsers() {return  userRepos.findAll();}
 
-//    public List<UserOutputDto> getAllUsers() {
-//        List<User> allUsers = userRepos.findAll();
-//        List<UserOutputDto> allUsersOutput = new ArrayList<>();
-//
-//        for (User u : allUsers) {
-//            allUsersOutput.add(UserMapper.fromModelToOutputDto(u));
-//        }
-//        return allUsersOutput;
-//    }
+
 }
 
 
