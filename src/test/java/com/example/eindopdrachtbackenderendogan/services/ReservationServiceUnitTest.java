@@ -47,7 +47,7 @@ class ReservationServiceUnitTest {
         reservationInputDto.setReservationTime(LocalDateTime.of(2024, 12, 17, 20, 0));
         reservationInputDto.setTableNumber(1);
         reservationInputDto.setGuests(5);
-        reservationInputDto.setPhoneNumber(612345678);
+        reservationInputDto.setPhoneNumber("612345678");
 
         String username = "testUser";
 
@@ -84,7 +84,7 @@ class ReservationServiceUnitTest {
         reservationInputDto.setReservationTime(LocalDateTime.of(2024, 12, 17, 20, 0));
         reservationInputDto.setTableNumber(1);
         reservationInputDto.setGuests(5);
-        reservationInputDto.setPhoneNumber(612345678);
+        reservationInputDto.setPhoneNumber("612345678");
 
 
         Reservation reservation = ReservationMapper.fromInputDtoToModel(reservationInputDto);
@@ -113,7 +113,7 @@ class ReservationServiceUnitTest {
         reservationInputDto.setReservationTime(LocalDateTime.of(2024, 12, 17, 20, 0));
         reservationInputDto.setTableNumber(1);
         reservationInputDto.setGuests(5);
-        reservationInputDto.setPhoneNumber(612345678);
+        reservationInputDto.setPhoneNumber("612345678");
 
         Reservation reservation = ReservationMapper.fromInputDtoToModel(reservationInputDto);
 
