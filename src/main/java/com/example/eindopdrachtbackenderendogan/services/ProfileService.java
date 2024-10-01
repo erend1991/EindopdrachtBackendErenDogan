@@ -4,18 +4,14 @@ import com.example.eindopdrachtbackenderendogan.dtos.input.ProfileInputDto;
 import com.example.eindopdrachtbackenderendogan.dtos.mapper.ProfileMapper;
 import com.example.eindopdrachtbackenderendogan.dtos.output.ProfileOutputDto;
 import com.example.eindopdrachtbackenderendogan.exceptions.RecordNotFoundException;
-import com.example.eindopdrachtbackenderendogan.exceptions.UsernameNotFoundException;
 import com.example.eindopdrachtbackenderendogan.models.Profile;
 import com.example.eindopdrachtbackenderendogan.models.User;
 import com.example.eindopdrachtbackenderendogan.repositories.ProfileRepository;
 import com.example.eindopdrachtbackenderendogan.repositories.UserRepository;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;

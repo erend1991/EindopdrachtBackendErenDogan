@@ -1,13 +1,7 @@
 package com.example.eindopdrachtbackenderendogan.controllers;
 
 import com.example.eindopdrachtbackenderendogan.dtos.input.ProfileInputDto;
-import com.example.eindopdrachtbackenderendogan.dtos.mapper.ProfileMapper;
 import com.example.eindopdrachtbackenderendogan.dtos.output.ProfileOutputDto;
-import com.example.eindopdrachtbackenderendogan.exceptions.UsernameNotFoundException;
-import com.example.eindopdrachtbackenderendogan.models.Profile;
-import com.example.eindopdrachtbackenderendogan.models.User;
-import com.example.eindopdrachtbackenderendogan.repositories.ProfileRepository;
-import com.example.eindopdrachtbackenderendogan.repositories.UserRepository;
 import com.example.eindopdrachtbackenderendogan.services.ProfileService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;

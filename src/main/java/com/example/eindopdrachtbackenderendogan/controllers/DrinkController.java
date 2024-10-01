@@ -4,16 +4,13 @@ package com.example.eindopdrachtbackenderendogan.controllers;
 
 import com.example.eindopdrachtbackenderendogan.dtos.input.DrinkInputDto;
 import com.example.eindopdrachtbackenderendogan.dtos.output.DrinkOutputDto;
-import com.example.eindopdrachtbackenderendogan.models.Drink;
 import com.example.eindopdrachtbackenderendogan.services.DrinkService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
     @RestController
     @RequestMapping("/drink")

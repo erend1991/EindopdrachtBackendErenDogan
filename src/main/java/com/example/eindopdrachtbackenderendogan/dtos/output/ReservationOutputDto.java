@@ -12,9 +12,9 @@ public class ReservationOutputDto {
     private int tableNumber;
     private int guests;
 
-    private int phoneNumber;
+    private String phoneNumber;
 
-    public ReservationOutputDto(long id, String reservationName, LocalDateTime reservationTime, int tableNumber, int guests, int phoneNumber) {
+    public ReservationOutputDto(long id, String reservationName, LocalDateTime reservationTime, int tableNumber, int guests, String phoneNumber) {
 
         this.id = id;
         this.reservationName = reservationName;
@@ -68,11 +68,11 @@ public class ReservationOutputDto {
         this.guests = guests;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 }

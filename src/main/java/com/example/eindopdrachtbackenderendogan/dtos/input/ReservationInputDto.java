@@ -10,9 +10,9 @@ public class ReservationInputDto {
 
     public int guests;
 
-    public int phoneNumber;
+    public String phoneNumber;
 
-    public ReservationInputDto(String reservationName, LocalDateTime reservationTime,int tableNumber, int guests, int phoneNumber) {
+    public ReservationInputDto(String reservationName, LocalDateTime reservationTime,int tableNumber, int guests, String phoneNumber) {
         this.reservationName = reservationName;
         this.reservationTime = reservationTime;
         this.tableNumber = tableNumber;
@@ -56,11 +56,11 @@ public class ReservationInputDto {
         this.guests = guests;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 }

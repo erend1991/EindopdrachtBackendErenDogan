@@ -3,7 +3,6 @@ package com.example.eindopdrachtbackenderendogan.dtos.mapper;
 import com.example.eindopdrachtbackenderendogan.dtos.input.ProfileInputDto;
 import com.example.eindopdrachtbackenderendogan.dtos.output.ProfileOutputDto;
 import com.example.eindopdrachtbackenderendogan.models.Profile;
-import com.example.eindopdrachtbackenderendogan.models.User;
 
 public class ProfileMapper {
 

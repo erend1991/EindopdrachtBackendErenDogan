@@ -1,11 +1,9 @@
 package com.example.eindopdrachtbackenderendogan.controllers;
 
 import com.example.eindopdrachtbackenderendogan.dtos.input.UserInputDto;
-import com.example.eindopdrachtbackenderendogan.dtos.output.ReservationOutputDto;
 import com.example.eindopdrachtbackenderendogan.dtos.output.UserOutputDto;
 
 
-import com.example.eindopdrachtbackenderendogan.models.Menu;
 import com.example.eindopdrachtbackenderendogan.models.User;
 import com.example.eindopdrachtbackenderendogan.services.UserService;
 import org.springframework.http.ResponseEntity;
