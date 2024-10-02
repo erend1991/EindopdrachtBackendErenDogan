@@ -16,7 +16,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("reservation")
+@RequestMapping("/reservation")
 public class ReservationController {
 
     private final ReservationService reservationService;

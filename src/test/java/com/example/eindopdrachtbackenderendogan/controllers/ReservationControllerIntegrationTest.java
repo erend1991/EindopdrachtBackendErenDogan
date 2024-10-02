@@ -1,13 +1,14 @@
 package com.example.eindopdrachtbackenderendogan.controllers;
 
 
+import com.example.eindopdrachtbackenderendogan.services.ReservationService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -20,7 +21,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.matchesPattern;
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 
-@SpringBootTest
+@WebMvcTest(ReservationController.class)
 @ActiveProfiles("test")
 @AutoConfigureMockMvc(addFilters = false)
 class ReservationControllerIntegrationTest {
@@ -31,9 +32,15 @@ class ReservationControllerIntegrationTest {
     @Autowired
     ObjectMapper objectMapper;
 
+    @MockBean
+    ReservationService reservationService;
+
+
+
 
     @Test
     void CreateReservation() throws Exception {
+
 
         String requestJson = """
                                 

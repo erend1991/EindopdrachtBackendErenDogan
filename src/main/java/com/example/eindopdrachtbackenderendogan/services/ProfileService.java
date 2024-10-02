@@ -36,13 +36,10 @@ public class ProfileService {
 
         User user = userRepository.findById(username).orElseThrow(() -> new RecordNotFoundException("user not found"));
 
-        Profile profile = new Profile();
+        Profile profile = ProfileMapper.fromInputDtoToModel(profileInputDto);
+
         profile.setUser(user);
-        profile.setFirstname(profileInputDto.getFirstname());
-        profile.setLastname(profileInputDto.getLastname());
-        profile.setAddress(profileInputDto.getAddress());
-        profile.setPhoneNumber(profileInputDto.getPhoneNumber());
-        profile.setEmail(profileInputDto.getEmail());
+
 
         Profile savedProfile = profileRepository.save(profile);
 
