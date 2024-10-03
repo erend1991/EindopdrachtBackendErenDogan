@@ -43,7 +43,7 @@ class ProfileServiceUnitTest {
         profile.setFirstname("Eren");
         profile.setLastname("Dogan");
         profile.setAddress("straat 1");
-        profile.setPhoneNumber(612345567);
+        profile.setPhoneNumber("0612345567");
         profile.setEmail("eren@gmail.com");
 
         ProfileOutputDto profileOutputDto = new ProfileOutputDto();
@@ -53,7 +53,7 @@ class ProfileServiceUnitTest {
         profileOutputDto.setFirstname("Eren");
         profileOutputDto.setLastname("Dogan");
         profileOutputDto.setAddress("straat 1");
-        profileOutputDto.setPhoneNumber(612345567);
+        profileOutputDto.setPhoneNumber("0612345567");
         profileOutputDto.setEmail("eren@gmail.com");
 
        Mockito.when(profileRepository.findById(anyLong())).thenReturn(Optional.of(profile));

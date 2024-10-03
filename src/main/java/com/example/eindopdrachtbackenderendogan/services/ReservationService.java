@@ -48,7 +48,6 @@ public class ReservationService {
     }
 
 
-
     public List<ReservationOutputDto> getAllReservations() {
         List<Reservation> allReservations = reservationRepository.findAll();
         List<ReservationOutputDto> allReservationsOutput = new ArrayList<>();
@@ -69,9 +68,10 @@ public class ReservationService {
             throw new RecordNotFoundException("no reservation found with id" + id);
         }
     }
-    public ReservationOutputDto editReservationById(long id, ReservationInputDto newReservation){
+
+    public ReservationOutputDto editReservationById(long id, ReservationInputDto newReservation) {
         Optional<Reservation> r = reservationRepository.findById(id);
-        if (r.isPresent()){
+        if (r.isPresent()) {
             Reservation reservation = r.get();
             reservation.setReservationName(newReservation.reservationName);
             reservation.setReservationTime(newReservation.reservationTime);
@@ -86,10 +86,11 @@ public class ReservationService {
             throw new RecordNotFoundException("No reservation added");
         }
     }
-    public void deleteReservationById(long id){
-        if(reservationRepository.existsById(id)){
+
+    public void deleteReservationById(long id) {
+        if (reservationRepository.existsById(id)) {
             reservationRepository.deleteById(id);
-        }else {
+        } else {
             throw new RecordNotFoundException("No reservation found with id" + id);
         }
     }

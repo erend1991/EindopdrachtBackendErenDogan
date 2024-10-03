@@ -68,7 +68,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
                             .requestMatchers(HttpMethod.DELETE, "/reservation/**").hasRole("ADMIN")
                             .requestMatchers(HttpMethod.POST, "/reservation").hasAnyRole("ADMIN", "USER")
                             .requestMatchers(HttpMethod.PUT,"/users/{username}/profile/{profileId}").hasRole("ADMIN")
-                            .requestMatchers("/profiles", "/profiles/*").authenticated()
+                            .requestMatchers("/profiles", "/profiles/*", "/profiles/**" ).authenticated()
                             .anyRequest().denyAll()
                     )
                     .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

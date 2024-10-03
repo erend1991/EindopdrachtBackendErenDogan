@@ -1,6 +1,7 @@
 package com.example.eindopdrachtbackenderendogan.controllers;
 
 
+import com.example.eindopdrachtbackenderendogan.security.JwtService;
 import com.example.eindopdrachtbackenderendogan.services.ReservationService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -34,6 +35,7 @@ class ReservationControllerIntegrationTest {
 
     @MockBean
     ReservationService reservationService;
+
 
 
 
