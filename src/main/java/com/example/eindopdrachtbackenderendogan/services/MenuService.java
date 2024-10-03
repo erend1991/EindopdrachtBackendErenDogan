@@ -39,6 +39,7 @@ public class MenuService {
     public void deleteMenu(Long id){
         Menu menu= menuRepository.findById(id).orElseThrow(() -> new RuntimeException("no menu found with id" + id ));
         menuRepository.delete(menu);
+
     }
 
     public void assignDrinkToMenu(Long menuId, Long drinkId) {

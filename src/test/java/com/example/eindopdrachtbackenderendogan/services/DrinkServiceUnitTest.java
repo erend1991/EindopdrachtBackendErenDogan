@@ -81,6 +81,19 @@ class DrinkServiceUnitTest {
         assertEquals("Witte vermout, Gin", drinkOutputDto.getIngredients());
         assertEquals(true, drinkOutputDto.isAlcohol());
     }
+    @Test
+    void shouldThrowRecordNotFoundExceptionWhenGettingNonExistentDrink() {
+        long drinkId = 1L;
+
+        when(drinkRepository.findById(drinkId)).thenReturn(Optional.empty());
+
+        RecordNotFoundException exception = assertThrows(
+                RecordNotFoundException.class,
+                () -> drinkService.getDrinkById(drinkId)
+        );
+
+        assertEquals("no drink found with id " + drinkId, exception.getMessage());
+    }
 
 
     @Test
@@ -158,7 +171,28 @@ class DrinkServiceUnitTest {
         assertEquals(15, drinkOutputDto.getPrice());
         assertEquals("Witte vermout, Gin, Citroen", drinkOutputDto.getIngredients());
         assertTrue(drinkOutputDto.isAlcohol());
+
+
     }
+
+    @Test
+    void shouldThrowRecordNotFoundExceptionWhenDrinkNotFound() {
+        long nonExistentDrinkId = 10L;
+        DrinkInputDto drinkInputDto = new DrinkInputDto();
+        drinkInputDto.setName("Martini");
+        drinkInputDto.setPrice(15);
+        drinkInputDto.setIngredients("Witte vermout, Gin, Citroen");
+        drinkInputDto.setAlcohol(true);
+
+        Mockito.when(drinkRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+        RecordNotFoundException exception = assertThrows(RecordNotFoundException.class, () -> {
+            drinkService.editDrinkById(nonExistentDrinkId, drinkInputDto);
+        });
+
+        assertEquals("no drink edited", exception.getMessage());
+    }
+
 
     @Test
     void shouldDeleteDrinkById() {
@@ -174,7 +208,26 @@ class DrinkServiceUnitTest {
 
         drinkService.deleteDrinkById(id);
 
-        verify(drinkRepository).deleteById(id);
-    }
+        Mockito.verify(drinkRepository).deleteById(id);
 
+
+        assertEquals(true, drinkRepository.existsById(id), "should return true for id: " + id);
+
+        Mockito.verify(drinkRepository, Mockito.times(1)).deleteById(id);
+
+    }
+    @Test
+    void shouldThrowRecordNotFoundExceptionWhenDrinkToDeleteNotFound() {
+        long nonExistentDrinkId = 10L;
+
+        Mockito.when(drinkRepository.existsById(anyLong())).thenReturn(false);
+
+        RecordNotFoundException exception = assertThrows(RecordNotFoundException.class, () -> {
+            drinkService.deleteDrinkById(nonExistentDrinkId);
+        });
+
+        assertEquals("no drink found with this id", exception.getMessage());
+    }
 }
+
+

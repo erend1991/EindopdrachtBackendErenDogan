@@ -1,11 +1,14 @@
 package com.example.eindopdrachtbackenderendogan.controllers;
 
 
+import com.example.eindopdrachtbackenderendogan.repositories.ProfileRepository;
+import com.example.eindopdrachtbackenderendogan.repositories.UserRepository;
 import com.example.eindopdrachtbackenderendogan.security.JwtService;
 import com.example.eindopdrachtbackenderendogan.services.ReservationService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -36,7 +39,14 @@ class ReservationControllerIntegrationTest {
     @MockBean
     ReservationService reservationService;
 
+    @Mock
+    UserRepository userRepository;
 
+    @Mock
+    ProfileRepository profileRepository;
+
+    @MockBean
+    private JwtService jwtService;
 
 
 

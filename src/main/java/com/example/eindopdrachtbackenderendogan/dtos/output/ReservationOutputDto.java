@@ -8,10 +8,8 @@ public class ReservationOutputDto {
 
     private String reservationName;
     private LocalDateTime reservationTime;
-
     private int tableNumber;
     private int guests;
-
     private String phoneNumber;
 
     public ReservationOutputDto(long id, String reservationName, LocalDateTime reservationTime, int tableNumber, int guests, String phoneNumber) {
