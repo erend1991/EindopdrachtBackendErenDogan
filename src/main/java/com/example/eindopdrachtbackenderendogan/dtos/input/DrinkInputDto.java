@@ -1,17 +1,19 @@
 package com.example.eindopdrachtbackenderendogan.dtos.input;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class DrinkInputDto {
 
     public Long id;
 
+    @NotBlank(message = "Drink needs a name")
     public String name;
+    @NotBlank(message = "Drink needs price")
     public double price;
+    @NotBlank(message = "Drink needs ingredients")
     public String ingredients;
-
+    @NotBlank(message = "is the drink alcoholic")
     public boolean alcohol;
-
-
-
 
 
     public Long getId() {
