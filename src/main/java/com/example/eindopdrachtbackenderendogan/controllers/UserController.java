@@ -1,13 +1,12 @@
 package com.example.eindopdrachtbackenderendogan.controllers;
 
 import com.example.eindopdrachtbackenderendogan.dtos.input.UserInputDto;
-import com.example.eindopdrachtbackenderendogan.dtos.output.ReservationOutputDto;
 import com.example.eindopdrachtbackenderendogan.dtos.output.UserOutputDto;
 
 
-import com.example.eindopdrachtbackenderendogan.models.Menu;
 import com.example.eindopdrachtbackenderendogan.models.User;
 import com.example.eindopdrachtbackenderendogan.services.UserService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -16,7 +15,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping
+@RequestMapping("/users")
 public class UserController {
 
 
@@ -26,21 +25,21 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/users")
-    public ResponseEntity<UserOutputDto> createUser(@RequestBody UserInputDto userInputDto) {
+    @PostMapping
+    public ResponseEntity<UserOutputDto> createUser(@Valid @RequestBody UserInputDto userInputDto) {
         UserOutputDto dto = userService.createUser(userInputDto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{username}").buildAndExpand(dto.getUsername()).toUri();
         return ResponseEntity.created(uri).body(dto);
     }
 
 
-    @PutMapping("/users/{username}/profile/{profileId}")
-    public ResponseEntity<String> assignUserToProfile(@PathVariable String username, @PathVariable Long profileId) {
+    @PutMapping("/{username}/profiles/{profileId}")
+    public ResponseEntity<String> assignUserToProfile(@Valid @PathVariable String username, @PathVariable Long profileId) {
         userService.assignUserToProfile(username, profileId);
         return ResponseEntity.ok("user assigned to profile");
     }
 
-  @GetMapping("/users")
+  @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {
       List<User> users = userService.getAllUsers();
       return ResponseEntity.ok(users);

@@ -1,12 +1,10 @@
 package com.example.eindopdrachtbackenderendogan.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "menu")
@@ -15,6 +13,7 @@ public class Menu {
     @Id
     @GeneratedValue
     private Long id;
+    @NotEmpty(message = "menu needs a name")
     private String name;
     @OneToMany(mappedBy = "menu")
     private List<Drink> drinks = new ArrayList<>();

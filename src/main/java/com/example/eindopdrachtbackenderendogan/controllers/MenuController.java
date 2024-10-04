@@ -5,6 +5,7 @@ import com.example.eindopdrachtbackenderendogan.dtos.output.MenuOutputDto;
 import com.example.eindopdrachtbackenderendogan.models.Drink;
 import com.example.eindopdrachtbackenderendogan.models.Menu;
 import com.example.eindopdrachtbackenderendogan.services.MenuService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,13 +21,13 @@ public class MenuController {
 
 
     @PostMapping
-    public ResponseEntity<MenuOutputDto> createMenu(@RequestBody MenuInputDto menuInputDto) {
+    public ResponseEntity<MenuOutputDto> createMenu(@Valid @RequestBody MenuInputDto menuInputDto) {
         MenuOutputDto menuOutputDto = menuService.createMenu(menuInputDto);
         return ResponseEntity.ok(menuOutputDto);
     }
 
-    @PostMapping("/{menuId}/drink/{drinkId}")
-    public ResponseEntity<String> assignDrinkToMenu(@PathVariable Long menuId, @PathVariable Long drinkId) {
+    @PostMapping("/{menuId}/drinks/{drinkId}")
+    public ResponseEntity<String> assignDrinkToMenu(@Valid @PathVariable Long menuId, @PathVariable Long drinkId) {
         menuService.assignDrinkToMenu(menuId, drinkId);
         return ResponseEntity.ok("Drink assigned to menu");
     }

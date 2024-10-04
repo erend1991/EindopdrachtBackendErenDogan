@@ -2,6 +2,7 @@ package com.example.eindopdrachtbackenderendogan.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Profile {
@@ -13,8 +14,12 @@ public class Profile {
     private String firstname;
     private String lastname;
     private String address;
-    private int phoneNumber;
+    private String phoneNumber;
     private String email;
+
+    private String profilePhoto;
+
+
 
 
     @JsonIgnore
@@ -47,11 +52,11 @@ public class Profile {
         this.address = address;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -79,4 +84,11 @@ public class Profile {
         this.id = id;
     }
 
+    public String getProfilePhoto(){
+        return profilePhoto;
+    }
+
+    public void setProfilePhoto(String profilePhoto){
+        this.profilePhoto = profilePhoto;
+    }
 }

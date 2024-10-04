@@ -4,20 +4,17 @@ import com.example.eindopdrachtbackenderendogan.dtos.input.ProfileInputDto;
 import com.example.eindopdrachtbackenderendogan.dtos.mapper.ProfileMapper;
 import com.example.eindopdrachtbackenderendogan.dtos.output.ProfileOutputDto;
 import com.example.eindopdrachtbackenderendogan.exceptions.RecordNotFoundException;
-import com.example.eindopdrachtbackenderendogan.exceptions.UsernameNotFoundException;
 import com.example.eindopdrachtbackenderendogan.models.Profile;
 import com.example.eindopdrachtbackenderendogan.models.User;
 import com.example.eindopdrachtbackenderendogan.repositories.ProfileRepository;
 import com.example.eindopdrachtbackenderendogan.repositories.UserRepository;
+import jakarta.validation.Path;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.core.io.Resource;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,14 +22,23 @@ import java.util.List;
 public class ProfileService {
 
     private final ProfileRepository profileRepository;
-
     private final UserRepository userRepository;
 
+    private final PhotoService photoService;
 
-    public ProfileService(ProfileRepository profileRepository, UserRepository userRepository) {
+
+
+
+
+    public ProfileService(ProfileRepository profileRepository, UserRepository userRepository, PhotoService photoService) {
         this.profileRepository = profileRepository;
         this.userRepository = userRepository;
+        this.photoService = photoService;
     }
+
+
+
+
 
 
     public ProfileOutputDto createProfile(@Valid @RequestBody ProfileInputDto profileInputDto, @AuthenticationPrincipal UserDetails userDetails) {
@@ -40,13 +46,10 @@ public class ProfileService {
 
         User user = userRepository.findById(username).orElseThrow(() -> new RecordNotFoundException("user not found"));
 
-        Profile profile = new Profile();
+        Profile profile = ProfileMapper.fromInputDtoToModel(profileInputDto);
+
         profile.setUser(user);
-        profile.setFirstname(profileInputDto.getFirstname());
-        profile.setLastname(profileInputDto.getLastname());
-        profile.setAddress(profileInputDto.getAddress());
-        profile.setPhoneNumber(profileInputDto.getPhoneNumber());
-        profile.setEmail(profileInputDto.getEmail());
+
 
         Profile savedProfile = profileRepository.save(profile);
 
@@ -89,5 +92,24 @@ public class ProfileService {
         } else {
             throw new RecordNotFoundException("No profile found with id " + id);
         }
+    }
+
+    public Profile assignPhotoToStudent(String fileName, Long profileId) {
+        Profile profile = profileRepository.findById(profileId)
+                .orElseThrow(() -> new RecordNotFoundException("No profile found with id " + profileId));
+
+        profile.setProfilePhoto(fileName);
+
+        Profile updatedProfile = profileRepository.save(profile);
+
+        return updatedProfile;
+    }
+    public Resource getPhotoFromProfile(Long profileId) {
+        Profile profile = profileRepository.findById(profileId)
+                .orElseThrow(() -> new RecordNotFoundException("No profile found with id " + profileId));
+
+        String fileName = profile.getProfilePhoto();
+
+        return photoService.downloadFile(fileName);
     }
 }

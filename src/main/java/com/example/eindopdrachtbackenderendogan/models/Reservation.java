@@ -17,7 +17,7 @@ public class Reservation {
     private LocalDateTime reservationTime;
     private int guests;
     private int TableNumber;
-    private int phoneNumber;
+    private String phoneNumber;
 
     @ManyToOne
     @JoinColumn(name = "username", nullable = false)
@@ -25,7 +25,7 @@ public class Reservation {
 
 
 
-    public Reservation(Long id, String reservationName, int guests, int tableNumber, LocalDateTime reservationTime, int phoneNumber) {
+    public Reservation(Long id, String reservationName, int guests, int tableNumber, LocalDateTime reservationTime, String phoneNumber) {
         this.id = id;
         this.reservationName = reservationName;
         this.guests = guests;
@@ -86,11 +86,11 @@ public class Reservation {
         this.reservationTime = reservationTime;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 }

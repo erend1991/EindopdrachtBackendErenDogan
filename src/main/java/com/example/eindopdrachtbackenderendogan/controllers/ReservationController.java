@@ -16,12 +16,12 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("reservations")
-public class ReservationsController {
+@RequestMapping("/reservations")
+public class ReservationController {
 
     private final ReservationService reservationService;
 
-    public ReservationsController(ReservationService reservationService){
+    public ReservationController(ReservationService reservationService){
         this.reservationService = reservationService;
 
     }

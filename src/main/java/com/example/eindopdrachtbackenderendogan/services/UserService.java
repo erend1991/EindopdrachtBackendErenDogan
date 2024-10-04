@@ -1,21 +1,16 @@
 package com.example.eindopdrachtbackenderendogan.services;
 
 import com.example.eindopdrachtbackenderendogan.dtos.input.UserInputDto;
-import com.example.eindopdrachtbackenderendogan.dtos.mapper.ReservationMapper;
-import com.example.eindopdrachtbackenderendogan.dtos.mapper.RoleMapper;
-import com.example.eindopdrachtbackenderendogan.dtos.output.ReservationOutputDto;
-import com.example.eindopdrachtbackenderendogan.dtos.output.RoleOutputDto;
 import com.example.eindopdrachtbackenderendogan.dtos.output.UserOutputDto;
 import com.example.eindopdrachtbackenderendogan.dtos.mapper.UserMapper;
+import com.example.eindopdrachtbackenderendogan.exceptions.UsernameAlreadyExistsException;
 import com.example.eindopdrachtbackenderendogan.models.*;
 import com.example.eindopdrachtbackenderendogan.repositories.ProfileRepository;
 import com.example.eindopdrachtbackenderendogan.repositories.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {
@@ -31,9 +26,14 @@ public class UserService {
     }
 
     public UserOutputDto createUser(UserInputDto userInputDto) {
+        if (userRepos.existsByUsername(userInputDto.getUsername())) {
+            throw new UsernameAlreadyExistsException("Username " + userInputDto.getUsername() + " already exist.");
+        }
+
         User newUser = UserMapper.fromInputDtoToModel(userInputDto);
         newUser.setPassword(encoder.encode(userInputDto.getPassword()));
         userRepos.save(newUser);
+
 
 
         return UserMapper.fromModelToOutputDto(newUser);
@@ -46,6 +46,7 @@ public class UserService {
         profile.setUser(user);
         profileRepos.save(profile);
     }
+
 
 
     public List<User> getAllUsers() {return  userRepos.findAll();}

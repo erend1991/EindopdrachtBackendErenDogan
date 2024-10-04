@@ -3,6 +3,8 @@ package com.example.eindopdrachtbackenderendogan.services;
 import com.example.eindopdrachtbackenderendogan.dtos.input.MenuInputDto;
 import com.example.eindopdrachtbackenderendogan.dtos.mapper.MenuMapper;
 import com.example.eindopdrachtbackenderendogan.dtos.output.MenuOutputDto;
+import com.example.eindopdrachtbackenderendogan.exceptions.MenuAlreadyExistsException;
+import com.example.eindopdrachtbackenderendogan.exceptions.RecordNotFoundException;
 import com.example.eindopdrachtbackenderendogan.models.Drink;
 import com.example.eindopdrachtbackenderendogan.models.Menu;
 import com.example.eindopdrachtbackenderendogan.repositories.DrinkRepository;
@@ -24,6 +26,9 @@ public class MenuService {
     }
 
     public MenuOutputDto createMenu(MenuInputDto menuInputDto) {
+        if (menuRepository.existsByName(menuInputDto.getName())) {
+            throw new MenuAlreadyExistsException("Menu with name '" + menuInputDto.getName() + "' already exists");
+        }
 
         Menu menu = MenuMapper.fromInputDtoToModel(menuInputDto);
 
@@ -37,15 +42,15 @@ public class MenuService {
     }
 
     public void deleteMenu(Long id){
-        Menu menu= menuRepository.findById(id).orElseThrow(() -> new RuntimeException("no menu found with id" + id ));
+        Menu menu= menuRepository.findById(id).orElseThrow(() -> new RecordNotFoundException("no menu found with id" + id ));
         menuRepository.delete(menu);
     }
 
     public void assignDrinkToMenu(Long menuId, Long drinkId) {
         Menu menu = menuRepository.findById(menuId)
-                .orElseThrow(() -> new RuntimeException("No Menu found with id " + menuId));
+                .orElseThrow(() -> new RecordNotFoundException("No Menu found with id " + menuId));
         Drink drink = drinkRepository.findById(drinkId)
-                .orElseThrow(() -> new RuntimeException("No Drink found with id " + drinkId));
+                .orElseThrow(() -> new RecordNotFoundException("No Drink found with id " + drinkId));
 
         drink.setMenu(menu);
 
@@ -57,7 +62,7 @@ public class MenuService {
 
     public List<Drink> getMenuById(Long id) {
         Menu menu = menuRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("No Menu found with id " + id));
+                .orElseThrow(() -> new RecordNotFoundException("No Menu found with id " + id));
         return menu.getDrinks();
     }
 

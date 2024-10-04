@@ -3,6 +3,7 @@ package com.example.eindopdrachtbackenderendogan.services;
 import com.example.eindopdrachtbackenderendogan.dtos.input.ReservationInputDto;
 import com.example.eindopdrachtbackenderendogan.dtos.mapper.ReservationMapper;
 import com.example.eindopdrachtbackenderendogan.dtos.output.ReservationOutputDto;
+import com.example.eindopdrachtbackenderendogan.exceptions.BadRequestException;
 import com.example.eindopdrachtbackenderendogan.exceptions.RecordNotFoundException;
 import com.example.eindopdrachtbackenderendogan.models.Profile;
 import com.example.eindopdrachtbackenderendogan.models.Reservation;
@@ -32,11 +33,11 @@ public class ReservationService {
 
 
     public ReservationOutputDto createReservation(ReservationInputDto reservationInputDto, String username) {
-        User user = userRepository.findById(username).orElseThrow(() -> new RuntimeException("User not found"));
+        User user = userRepository.findById(username).orElseThrow(() -> new BadRequestException("User not found"));
 
         Profile profile = profileRepository.findByUser(user);
         if (profile == null) {
-            throw new RuntimeException("User does not have a profile, cannot create reservation");
+            throw new BadRequestException("User does not have a profile, cannot create reservation");
         }
 
         Reservation reservation = ReservationMapper.fromInputDtoToModel(reservationInputDto);
@@ -46,7 +47,6 @@ public class ReservationService {
 
         return ReservationMapper.fromModelToOutputDto(savedReservation);
     }
-
 
 
     public List<ReservationOutputDto> getAllReservations() {
@@ -69,9 +69,10 @@ public class ReservationService {
             throw new RecordNotFoundException("no reservation found with id" + id);
         }
     }
-    public ReservationOutputDto editReservationById(long id, ReservationInputDto newReservation){
+
+    public ReservationOutputDto editReservationById(long id, ReservationInputDto newReservation) {
         Optional<Reservation> r = reservationRepository.findById(id);
-        if (r.isPresent()){
+        if (r.isPresent()) {
             Reservation reservation = r.get();
             reservation.setReservationName(newReservation.reservationName);
             reservation.setReservationTime(newReservation.reservationTime);
@@ -86,10 +87,11 @@ public class ReservationService {
             throw new RecordNotFoundException("No reservation added");
         }
     }
-    public void deleteReservationById(long id){
-        if(reservationRepository.existsById(id)){
+
+    public void deleteReservationById(long id) {
+        if (reservationRepository.existsById(id)) {
             reservationRepository.deleteById(id);
-        }else {
+        } else {
             throw new RecordNotFoundException("No reservation found with id" + id);
         }
     }

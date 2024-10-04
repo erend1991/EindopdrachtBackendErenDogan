@@ -1,6 +1,7 @@
 package com.example.eindopdrachtbackenderendogan.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "drink")
@@ -9,9 +10,13 @@ public class Drink {
     @Id
     @GeneratedValue
     private Long id;
+    @NotBlank(message = "Drink needs a name")
     private String name;
+    @NotBlank(message = "Drink needs price")
     private double price;
+    @NotBlank(message = "Drink needs ingredients")
     private String ingredients;
+    @NotBlank(message = "is the drink alcoholic?")
     private boolean alcohol;
 
     @ManyToOne(fetch = FetchType.EAGER)
