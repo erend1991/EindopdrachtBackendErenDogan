@@ -1,6 +1,7 @@
 package com.example.eindopdrachtbackenderendogan.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -10,6 +11,8 @@ import java.util.Set;
 public class User {
     @Id
     @Column(name = "username")
+
+    @NotBlank(message = "need username")
     private String username;
     private String password;
 

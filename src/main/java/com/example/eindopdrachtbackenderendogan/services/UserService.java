@@ -30,6 +30,7 @@ public class UserService {
             throw new UsernameAlreadyExistsException("Username " + userInputDto.getUsername() + " already exist.");
         }
 
+
         User newUser = UserMapper.fromInputDtoToModel(userInputDto);
         newUser.setPassword(encoder.encode(userInputDto.getPassword()));
         userRepos.save(newUser);
