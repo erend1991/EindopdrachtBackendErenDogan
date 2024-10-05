@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/menu")
+@RequestMapping("/menus")
 public class MenuController {
 
     private final MenuService menuService;
@@ -25,7 +25,7 @@ public class MenuController {
         return ResponseEntity.ok(menuOutputDto);
     }
 
-    @PostMapping("/{menuId}/drink/{drinkId}")
+    @PostMapping("/{menuId}/drinks/{drinkId}")
     public ResponseEntity<String> assignDrinkToMenu(@PathVariable Long menuId, @PathVariable Long drinkId) {
         menuService.assignDrinkToMenu(menuId, drinkId);
         return ResponseEntity.ok("Drink assigned to menu");

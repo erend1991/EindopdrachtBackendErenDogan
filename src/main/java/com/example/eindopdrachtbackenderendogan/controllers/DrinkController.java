@@ -13,7 +13,7 @@ import java.net.URI;
 import java.util.List;
 
     @RestController
-    @RequestMapping("/drink")
+    @RequestMapping("/drinks")
     public class DrinkController {
 
         private final DrinkService drinkService;
