@@ -3,6 +3,7 @@ package com.example.eindopdrachtbackenderendogan.services;
 import com.example.eindopdrachtbackenderendogan.dtos.input.ReservationInputDto;
 import com.example.eindopdrachtbackenderendogan.dtos.mapper.ReservationMapper;
 import com.example.eindopdrachtbackenderendogan.dtos.output.ReservationOutputDto;
+import com.example.eindopdrachtbackenderendogan.exceptions.BadRequestException;
 import com.example.eindopdrachtbackenderendogan.exceptions.RecordNotFoundException;
 import com.example.eindopdrachtbackenderendogan.models.Profile;
 import com.example.eindopdrachtbackenderendogan.models.Reservation;
@@ -32,11 +33,12 @@ public class ReservationService {
 
 
     public ReservationOutputDto createReservation(ReservationInputDto reservationInputDto, String username) {
-        User user = userRepository.findById(username).orElseThrow(() -> new RuntimeException("User not found"));
+        User user = userRepository.findById(username).orElseThrow(() -> new BadRequestException("User not found"));
 
         Profile profile = profileRepository.findByUser(user);
         if (profile == null) {
             throw new RecordNotFoundException("User does not have a profile, cannot create reservation");
+
         }
 
         Reservation reservation = ReservationMapper.fromInputDtoToModel(reservationInputDto);

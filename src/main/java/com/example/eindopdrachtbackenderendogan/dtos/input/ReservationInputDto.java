@@ -1,11 +1,19 @@
 package com.example.eindopdrachtbackenderendogan.dtos.input;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
+
 import java.time.LocalDateTime;
 
 public class ReservationInputDto {
 
+    @NotEmpty
     public String reservationName;
     public LocalDateTime reservationTime;
+    @Min(value = 1, message = "select tablenumber between 1 and 10")
+    @Max(value = 10, message = "select tablenumber between 1 and 10")
     public int tableNumber;
 
     public int guests;

@@ -6,16 +6,16 @@ import jakarta.validation.constraints.Size;
 
 public class ProfileInputDto {
 
-    @NotBlank
+    @NotBlank(message = "fill in your username")
     private String username;
 
-    @NotBlank
+    @NotBlank(message = "fill in your firstname")
     private String firstname;
 
-    @NotBlank
+    @NotBlank(message = "fill in your lastname")
     private String lastname;
 
-    @NotBlank
+    @NotBlank(message = "fill in your adress")
     private String address;
 
     @NotBlank

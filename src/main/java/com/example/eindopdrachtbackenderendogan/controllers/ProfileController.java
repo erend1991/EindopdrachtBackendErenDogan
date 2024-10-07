@@ -72,7 +72,7 @@ public class ProfileController {
     }
 
     @PostMapping("/{id}/photo")
-    public ResponseEntity<Profile> addPhotoToStudent(@PathVariable Long id, @RequestBody MultipartFile file)
+    public ResponseEntity<Profile> addPhotoToStudent(@Valid @PathVariable Long id, @RequestBody MultipartFile file)
 
         throws IOException{
         String url = ServletUriComponentsBuilder.fromCurrentContextPath()

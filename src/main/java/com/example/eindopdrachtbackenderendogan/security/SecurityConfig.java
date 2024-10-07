@@ -59,6 +59,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
                             .requestMatchers(HttpMethod.GET, "/menus/*").hasAnyRole("ADMIN", "USER")
                             .requestMatchers(HttpMethod.DELETE, "/menus/*").hasRole("ADMIN")
                             .requestMatchers(HttpMethod.POST,"/menus/**").hasRole("ADMIN")
+
                             .requestMatchers(HttpMethod.POST, "/drinks").hasRole("ADMIN")
                             .requestMatchers(HttpMethod.GET, "/drinks").hasAnyRole("ADMIN", "USER")
                             .requestMatchers(HttpMethod.PUT, "/drinks/**").hasRole("ADMIN")
@@ -69,6 +70,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
                             .requestMatchers(HttpMethod.POST, "/reservations").hasAnyRole("ADMIN", "USER")
                             .requestMatchers(HttpMethod.PUT,"/users/{username}/profiles/{profileId}").hasRole("ADMIN")
                             .requestMatchers("/profiles", "/profiles/*", "/profiles/**" ).authenticated()
+                            .requestMatchers("/roles").hasRole("ADMIN")
                             .anyRequest().denyAll()
                     )
                     .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

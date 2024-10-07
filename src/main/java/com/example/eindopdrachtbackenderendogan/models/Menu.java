@@ -1,6 +1,7 @@
 package com.example.eindopdrachtbackenderendogan.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ public class Menu {
     @Id
     @GeneratedValue
     private Long id;
+    @NotEmpty(message = "menu needs a name")
     private String name;
     @OneToMany(mappedBy = "menu")
     private List<Drink> drinks = new ArrayList<>();
