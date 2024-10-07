@@ -3,6 +3,7 @@ package com.example.eindopdrachtbackenderendogan.services;
 import com.example.eindopdrachtbackenderendogan.dtos.input.ProfileInputDto;
 import com.example.eindopdrachtbackenderendogan.dtos.mapper.ProfileMapper;
 import com.example.eindopdrachtbackenderendogan.dtos.output.ProfileOutputDto;
+import com.example.eindopdrachtbackenderendogan.exceptions.DuplicateProfileException;
 import com.example.eindopdrachtbackenderendogan.exceptions.RecordNotFoundException;
 import com.example.eindopdrachtbackenderendogan.models.Profile;
 import com.example.eindopdrachtbackenderendogan.models.User;
@@ -44,10 +45,14 @@ public class ProfileService {
     public ProfileOutputDto createProfile(@Valid @RequestBody ProfileInputDto profileInputDto, @AuthenticationPrincipal UserDetails userDetails) {
         String username = userDetails.getUsername();
 
-        User user = userRepository.findById(username).orElseThrow(() -> new RecordNotFoundException("user not found"));
+        User user = userRepository.findById(username)
+                .orElseThrow(() -> new RecordNotFoundException("user not found"));
+
+        if (profileRepository.existsByUser(user)) {
+            throw new DuplicateProfileException("Profile " + username + " already exists.");
+        }
 
         Profile profile = ProfileMapper.fromInputDtoToModel(profileInputDto);
-
         profile.setUser(user);
 
 
@@ -113,3 +118,4 @@ public class ProfileService {
         return photoService.downloadFile(fileName);
     }
 }
+
