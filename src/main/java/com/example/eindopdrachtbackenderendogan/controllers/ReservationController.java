@@ -40,6 +40,7 @@ public class ReservationController {
 
     @PostMapping
     public ResponseEntity<ReservationOutputDto> createReservation(
+            @Valid
             @RequestBody ReservationInputDto reservationInputDto,
             @AuthenticationPrincipal UserDetails userDetails) {
 
