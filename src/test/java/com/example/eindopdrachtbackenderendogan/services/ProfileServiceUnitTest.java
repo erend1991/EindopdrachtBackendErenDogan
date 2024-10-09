@@ -1,15 +1,10 @@
 package com.example.eindopdrachtbackenderendogan.services;
-import com.example.eindopdrachtbackenderendogan.dtos.input.ProfileInputDto;
-import com.example.eindopdrachtbackenderendogan.dtos.mapper.DrinkMapper;
-import com.example.eindopdrachtbackenderendogan.dtos.mapper.ProfileMapper;
-import com.example.eindopdrachtbackenderendogan.dtos.output.DrinkOutputDto;
 import com.example.eindopdrachtbackenderendogan.dtos.output.ProfileOutputDto;
 import com.example.eindopdrachtbackenderendogan.models.Profile;
 import com.example.eindopdrachtbackenderendogan.models.User;
 import com.example.eindopdrachtbackenderendogan.repositories.ProfileRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;

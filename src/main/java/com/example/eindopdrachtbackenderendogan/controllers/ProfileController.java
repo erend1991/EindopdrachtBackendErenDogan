@@ -31,7 +31,6 @@ public class ProfileController {
     private final PhotoService photoService;
 
 
-
     public ProfileController(ProfileService profileService, PhotoService photoService) {
         this.profileService = profileService;
         this.photoService = photoService;
@@ -73,7 +72,7 @@ public class ProfileController {
     @PostMapping("/{id}/photo")
     public ResponseEntity<Profile> addPhotoToStudent(@Valid @PathVariable Long id, @RequestBody MultipartFile file)
 
-        throws IOException{
+            throws IOException {
         String url = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/profiles")
                 .path(Objects.requireNonNull(id.toString()))
@@ -85,14 +84,14 @@ public class ProfileController {
     }
 
     @GetMapping("/{id}/photo")
-    public ResponseEntity<Resource> getProfilePhoto(@PathVariable long id, HttpServletRequest request){
+    public ResponseEntity<Resource> getProfilePhoto(@PathVariable long id, HttpServletRequest request) {
         Resource resource = profileService.getPhotoFromProfile(id);
 
         String image;
 
         try {
             image = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
-        } catch (IOException e){
+        } catch (IOException e) {
             image = MediaType.APPLICATION_OCTET_STREAM_VALUE;
         }
         return ResponseEntity
@@ -102,7 +101,6 @@ public class ProfileController {
                 .body(resource);
 
     }
-
 
 
 }

@@ -21,18 +21,20 @@ public class ReservationController {
 
     private final ReservationService reservationService;
 
-    public ReservationController(ReservationService reservationService){
+    public ReservationController(ReservationService reservationService) {
         this.reservationService = reservationService;
 
     }
+
     @GetMapping()
-    public ResponseEntity<List<ReservationOutputDto>> getAllReservations(){
+    public ResponseEntity<List<ReservationOutputDto>> getAllReservations() {
         reservationService.getAllReservations();
 
         return ResponseEntity.ok().body(reservationService.getAllReservations());
     }
+
     @GetMapping("/{id}")
-    public ResponseEntity<ReservationOutputDto>getReservation(@PathVariable("id") long id){
+    public ResponseEntity<ReservationOutputDto> getReservation(@PathVariable("id") long id) {
 
         return ResponseEntity.ok().body(reservationService.getReservationById(id));
     }
@@ -60,14 +62,14 @@ public class ReservationController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<ReservationOutputDto>editReservationById(@Valid @RequestBody ReservationInputDto newReservation, @PathVariable long id){
+    public ResponseEntity<ReservationOutputDto> editReservationById(@Valid @RequestBody ReservationInputDto newReservation, @PathVariable long id) {
         ReservationOutputDto dto = reservationService.editReservationById(id, newReservation);
 
         return ResponseEntity.ok().body(dto);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteReservationById(@PathVariable long id){
+    public ResponseEntity<String> deleteReservationById(@PathVariable long id) {
 
         reservationService.deleteReservationById(id);
         return ResponseEntity.ok(("Reservation deleted succesfull"));
