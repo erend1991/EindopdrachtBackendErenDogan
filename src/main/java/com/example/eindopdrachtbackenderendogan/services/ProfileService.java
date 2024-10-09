@@ -3,6 +3,7 @@ package com.example.eindopdrachtbackenderendogan.services;
 import com.example.eindopdrachtbackenderendogan.dtos.input.ProfileInputDto;
 import com.example.eindopdrachtbackenderendogan.dtos.mapper.ProfileMapper;
 import com.example.eindopdrachtbackenderendogan.dtos.output.ProfileOutputDto;
+import com.example.eindopdrachtbackenderendogan.exceptions.BadRequestException;
 import com.example.eindopdrachtbackenderendogan.exceptions.RecordNotFoundException;
 import com.example.eindopdrachtbackenderendogan.models.Profile;
 import com.example.eindopdrachtbackenderendogan.models.User;
@@ -44,6 +45,11 @@ public class ProfileService {
         String username = userDetails.getUsername();
 
         User user = userRepository.findById(username).orElseThrow(() -> new RecordNotFoundException("user not found"));
+
+        if (user.getProfile() != null) {
+            throw new BadRequestException("User already has an profile");
+        }
+
 
         Profile profile = ProfileMapper.fromInputDtoToModel(profileInputDto);
 
