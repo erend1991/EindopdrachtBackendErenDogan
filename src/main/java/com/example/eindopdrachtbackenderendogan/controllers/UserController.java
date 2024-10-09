@@ -4,6 +4,7 @@ import com.example.eindopdrachtbackenderendogan.dtos.input.UserInputDto;
 import com.example.eindopdrachtbackenderendogan.dtos.output.UserOutputDto;
 
 
+import com.example.eindopdrachtbackenderendogan.exceptions.BadRequestException;
 import com.example.eindopdrachtbackenderendogan.models.User;
 import com.example.eindopdrachtbackenderendogan.services.UserService;
 import jakarta.validation.Valid;
@@ -27,6 +28,7 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<UserOutputDto> createUser(@Valid @RequestBody UserInputDto userInputDto) {
+
         UserOutputDto dto = userService.createUser(userInputDto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{username}").buildAndExpand(dto.getUsername()).toUri();
         return ResponseEntity.created(uri).body(dto);

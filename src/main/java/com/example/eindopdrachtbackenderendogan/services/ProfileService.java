@@ -26,20 +26,11 @@ public class ProfileService {
 
     private final PhotoService photoService;
 
-
-
-
-
     public ProfileService(ProfileRepository profileRepository, UserRepository userRepository, PhotoService photoService) {
         this.profileRepository = profileRepository;
         this.userRepository = userRepository;
         this.photoService = photoService;
     }
-
-
-
-
-
 
     public ProfileOutputDto createProfile(@Valid @RequestBody ProfileInputDto profileInputDto, @AuthenticationPrincipal UserDetails userDetails) {
         String username = userDetails.getUsername();
@@ -50,17 +41,14 @@ public class ProfileService {
             throw new BadRequestException("User already has an profile");
         }
 
-
         Profile profile = ProfileMapper.fromInputDtoToModel(profileInputDto);
 
         profile.setUser(user);
-
 
         Profile savedProfile = profileRepository.save(profile);
 
         return ProfileMapper.fromModelToOutputDto(savedProfile);
     }
-
 
     public List<ProfileOutputDto> getAllProfiles() {
         List<Profile> profiles = profileRepository.findAll();
@@ -90,7 +78,6 @@ public class ProfileService {
         Profile updatedProfile = profileRepository.save(profile);
         return ProfileMapper.fromModelToOutputDto(updatedProfile);
     }
-
     public void deleteProfile(Long id) {
         if (profileRepository.existsById(id)) {
             profileRepository.deleteById(id);
@@ -109,6 +96,7 @@ public class ProfileService {
 
         return updatedProfile;
     }
+
     public Resource getPhotoFromProfile(Long profileId) {
         Profile profile = profileRepository.findById(profileId)
                 .orElseThrow(() -> new RecordNotFoundException("No profile found with id " + profileId));
