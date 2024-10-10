@@ -95,7 +95,6 @@ public class Reservation {
         this.phoneNumber = phoneNumber;
     }
 
-
     @Override
     public String toString() {
         if (user == null) {

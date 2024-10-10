@@ -8,6 +8,7 @@ public class DrinkInputDto {
 
     @NotBlank(message = "Drink needs a name")
     public String name;
+    @NotBlank(message = "drink needs a price")
     public double price;
     public String ingredients;
     public boolean alcohol;

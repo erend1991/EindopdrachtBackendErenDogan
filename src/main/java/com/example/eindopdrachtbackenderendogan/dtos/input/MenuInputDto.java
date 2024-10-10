@@ -8,6 +8,7 @@ import java.util.List;
 
 public class MenuInputDto {
 
+    @NotEmpty(message = "menu needs a name")
     public String name;
 
 
