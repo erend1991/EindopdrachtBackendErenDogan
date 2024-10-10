@@ -37,7 +37,8 @@ public class ReservationService {
 
         Profile profile = profileRepository.findByUser(user);
         if (profile == null) {
-            throw new BadRequestException("User does not have a profile, cannot create reservation");
+            throw new RecordNotFoundException("User does not have a profile, cannot create reservation");
+
         }
 
         Reservation reservation = ReservationMapper.fromInputDtoToModel(reservationInputDto);
@@ -47,6 +48,7 @@ public class ReservationService {
 
         return ReservationMapper.fromModelToOutputDto(savedReservation);
     }
+
 
 
     public List<ReservationOutputDto> getAllReservations() {
@@ -95,5 +97,6 @@ public class ReservationService {
             throw new RecordNotFoundException("No reservation found with id" + id);
         }
     }
+
 
 }

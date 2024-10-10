@@ -21,6 +21,11 @@ public class DrinkService {
         this.drinkRepository = drinkRepository;
     }
 
+
+    public  DrinkOutputDto createDrink (DrinkInputDto drinkInputDto){
+        Drink d = drinkRepository.save((DrinkMapper.fromInputDtoToModel(drinkInputDto)));
+        return DrinkMapper.fromModelToOutputDto(d);
+    }
     public List<DrinkOutputDto> getAllDrinks() {
         List<Drink> allDrinks = drinkRepository.findAll();
         List<DrinkOutputDto> allDrinksOutput = new ArrayList<>();
@@ -41,10 +46,8 @@ public class DrinkService {
 
     }
 
-    public  DrinkOutputDto createDrink (DrinkInputDto drinkInputDto){
-        Drink d = drinkRepository.save((DrinkMapper.fromInputDtoToModel(drinkInputDto)));
-        return DrinkMapper.fromModelToOutputDto(d);
-    }
+
+
 
     public  DrinkOutputDto editDrinkById(long id, DrinkInputDto newDrink){
         Optional<Drink> d = drinkRepository.findById(id);

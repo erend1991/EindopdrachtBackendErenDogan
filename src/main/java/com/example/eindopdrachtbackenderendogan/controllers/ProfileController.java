@@ -38,6 +38,7 @@ public class ProfileController {
 
     @PostMapping
     public ResponseEntity<ProfileOutputDto> createProfile(@Valid @RequestBody ProfileInputDto profileInputDto, @AuthenticationPrincipal UserDetails userDetails) {
+
         ProfileOutputDto profileOutputDto = profileService.createProfile(profileInputDto, userDetails);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{username}")
                 .buildAndExpand(profileOutputDto.getUsername()).toUri();
