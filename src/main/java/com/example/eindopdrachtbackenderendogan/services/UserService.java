@@ -3,6 +3,7 @@ package com.example.eindopdrachtbackenderendogan.services;
 import com.example.eindopdrachtbackenderendogan.dtos.input.UserInputDto;
 import com.example.eindopdrachtbackenderendogan.dtos.output.UserOutputDto;
 import com.example.eindopdrachtbackenderendogan.dtos.mapper.UserMapper;
+import com.example.eindopdrachtbackenderendogan.exceptions.BadRequestException;
 import com.example.eindopdrachtbackenderendogan.exceptions.UsernameAlreadyExistsException;
 import com.example.eindopdrachtbackenderendogan.models.*;
 import com.example.eindopdrachtbackenderendogan.repositories.ProfileRepository;
@@ -26,9 +27,21 @@ public class UserService {
     }
 
     public UserOutputDto createUser(UserInputDto userInputDto) {
+        if (userInputDto.getUsername() == null || userInputDto.getUsername().isEmpty()) {
+            throw new BadRequestException("need username");
+        }
+        if (userInputDto.getPassword() == null || userInputDto.getPassword().isEmpty()) {
+            throw new BadRequestException("need password");
+
+        }
+        if (userInputDto.getRoles() == null || userInputDto.getRoles().length == 0) {
+            throw new BadRequestException("need role");
+
+        }
         if (userRepos.existsByUsername(userInputDto.getUsername())) {
             throw new UsernameAlreadyExistsException("Username " + userInputDto.getUsername() + " already exist.");
         }
+
 
         User newUser = UserMapper.fromInputDtoToModel(userInputDto);
         newUser.setPassword(encoder.encode(userInputDto.getPassword()));
