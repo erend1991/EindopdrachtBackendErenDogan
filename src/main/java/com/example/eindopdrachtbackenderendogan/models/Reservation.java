@@ -1,5 +1,6 @@
 package com.example.eindopdrachtbackenderendogan.models;
 
+import com.example.eindopdrachtbackenderendogan.exceptions.UsernameNotFoundException;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -95,6 +96,22 @@ public class Reservation {
     }
 
 
+    @Override
+    public String toString() {
+        if (user == null) {
+            throw new UsernameNotFoundException("Cannot create reservation: No user found to create this reservation.");
+        }
+            StringBuilder sb = new StringBuilder();
+            sb.append("Reservation Name: ").append(reservationName).append(", ");
+            sb.append("Reservation Time: ").append(reservationTime).append(", ");
+            sb.append("Guests: ").append(guests).append(", ");
+            sb.append("Table Number: ").append(tableNumber).append(", ");
+            sb.append("Phone Number: ").append(phoneNumber).append(", ");
+            sb.append("User: ").append(user.getUsername()).append(" has made this reservation.");
 
-}
+            return sb.toString();
+        }
+    }
+
+
 
