@@ -38,7 +38,7 @@ class DrinkControllerIntegrationTest {
                 """;
 
         MvcResult result = this.mockMvc
-                .perform(MockMvcRequestBuilders.post("/drink")
+                .perform(MockMvcRequestBuilders.post("/drinks")
                         .contentType( APPLICATION_JSON_VALUE)
                         .content(requestJson))
                 .andDo(MockMvcResultHandlers.print())
@@ -49,7 +49,7 @@ class DrinkControllerIntegrationTest {
         JsonNode jsonNode = objectMapper.readTree(jsonResponse);
         String createdId = jsonNode.get("id").asText();
 
-        assertThat(result.getResponse().getHeader("Location"), matchesPattern("^.*/drink/" + createdId));
+        assertThat(result.getResponse().getHeader("Location"), matchesPattern("^.*/drinks/" + createdId));
 
 
 

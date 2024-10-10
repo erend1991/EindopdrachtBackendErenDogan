@@ -86,7 +86,7 @@ public class ReservationService {
 
             return ReservationMapper.fromModelToOutputDto(reservation);
         } else {
-            throw new RecordNotFoundException("No reservation added");
+            throw new RecordNotFoundException("No reservation edited");
         }
     }
 
