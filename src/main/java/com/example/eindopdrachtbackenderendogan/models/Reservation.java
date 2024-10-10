@@ -16,7 +16,7 @@ public class Reservation {
 
     private LocalDateTime reservationTime;
     private int guests;
-    private int TableNumber;
+    private int tableNumber;
     private String phoneNumber;
 
     @ManyToOne
@@ -29,7 +29,7 @@ public class Reservation {
         this.id = id;
         this.reservationName = reservationName;
         this.guests = guests;
-        TableNumber = tableNumber;
+        tableNumber = tableNumber;
         this.reservationTime = reservationTime;
         this.phoneNumber = phoneNumber;
     }
@@ -71,11 +71,11 @@ public class Reservation {
     }
 
     public int getTableNumber() {
-        return TableNumber;
+        return tableNumber;
     }
 
     public void setTableNumber(int tableNumber) {
-        TableNumber = tableNumber;
+        this.tableNumber = tableNumber;
     }
 
     public LocalDateTime getReservationTime() {
@@ -93,6 +93,8 @@ public class Reservation {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
+
 
 }
 
