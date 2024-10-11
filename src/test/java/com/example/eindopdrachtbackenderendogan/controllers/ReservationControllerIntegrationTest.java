@@ -41,7 +41,6 @@ class ReservationControllerIntegrationTest {
     @MockBean
     ReservationService reservationService;
 
-
     ReservationInputDto reservationInputDto1;
     ReservationOutputDto reservationOutputDto1;
 
