@@ -60,7 +60,7 @@ class ProfileServiceUnitTest {
         assertEquals("Eren", result.getFirstname());
         assertEquals("Dogan", result.getLastname());
         assertEquals("straat 1", result.getAddress());
-        assertEquals(612345567, result.getPhoneNumber());
+        assertEquals("0612345567", result.getPhoneNumber());
         assertEquals("eren@gmail.com", result.getEmail());
     }
 
