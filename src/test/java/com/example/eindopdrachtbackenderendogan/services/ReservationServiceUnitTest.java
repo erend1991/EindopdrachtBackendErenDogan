@@ -237,7 +237,7 @@ class ReservationServiceUnitTest {
                 () -> reservationService.editReservationById(reservationId, newReservation)
         );
 
-        assertEquals("No reservation added", exception.getMessage());
+        assertEquals("No reservation edited", exception.getMessage());
     }
 
 
