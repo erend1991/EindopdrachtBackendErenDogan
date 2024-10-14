@@ -55,7 +55,7 @@ import java.util.List;
         public ResponseEntity<String> deleteDrinkById(@PathVariable long id) {
 
             drinkService.deleteDrinkById(id);
-            return ResponseEntity.ok("drink deleted");
+            return ResponseEntity.ok("drink deleted with id" + id);
         }
     }
 
