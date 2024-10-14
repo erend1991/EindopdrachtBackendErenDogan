@@ -2,6 +2,8 @@ insert into roles(rolename)values ('ROLE_USER'), ('ROLE_ADMIN');
 
 insert into users (username, password)values ('erin', 'password321');
 
+insert into user_roles(username, rolename)values('erin', 'ROLE_USER');
+
 insert into profile (id, firstname, lastname, address, phone_number, email, profile_photo, username)values (1, 'Erin', 'Dogan', 'Street 123', '0623456789', 'erin@gmail.com', 'photo', 'erin');
 
 insert into menus(id, name)values ( 1, 'mocktails');

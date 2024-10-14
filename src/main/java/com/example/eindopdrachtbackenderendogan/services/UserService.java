@@ -5,6 +5,7 @@ import com.example.eindopdrachtbackenderendogan.dtos.output.UserOutputDto;
 import com.example.eindopdrachtbackenderendogan.dtos.mapper.UserMapper;
 import com.example.eindopdrachtbackenderendogan.exceptions.BadRequestException;
 import com.example.eindopdrachtbackenderendogan.exceptions.UsernameAlreadyExistsException;
+import com.example.eindopdrachtbackenderendogan.exceptions.UsernameNotFoundException;
 import com.example.eindopdrachtbackenderendogan.models.*;
 import com.example.eindopdrachtbackenderendogan.repositories.ProfileRepository;
 import com.example.eindopdrachtbackenderendogan.repositories.UserRepository;
@@ -64,6 +65,13 @@ public class UserService {
     public List<User> getAllUsers() {return  userRepos.findAll();}
 
 
+    public void deleteUser(String username) {
+        User user = userRepos.findByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("User with username " + username + " not found.");
+        }
+        userRepos.delete(user);
+    }
 }
 
 

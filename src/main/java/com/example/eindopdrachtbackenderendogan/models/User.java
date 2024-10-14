@@ -24,7 +24,7 @@ public class User {
     @JoinTable(
             name = "user_roles",
             joinColumns = @JoinColumn(name = "username"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
+            inverseJoinColumns = @JoinColumn(name = "rolename"))
     private Set<Role> roles = new HashSet<>();
 
 

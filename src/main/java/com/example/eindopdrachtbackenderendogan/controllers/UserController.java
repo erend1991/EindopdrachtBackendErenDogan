@@ -5,9 +5,11 @@ import com.example.eindopdrachtbackenderendogan.dtos.output.UserOutputDto;
 
 
 import com.example.eindopdrachtbackenderendogan.exceptions.BadRequestException;
+import com.example.eindopdrachtbackenderendogan.exceptions.UsernameNotFoundException;
 import com.example.eindopdrachtbackenderendogan.models.User;
 import com.example.eindopdrachtbackenderendogan.services.UserService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -46,4 +48,14 @@ public class UserController {
       List<User> users = userService.getAllUsers();
       return ResponseEntity.ok(users);
   }
+
+    @DeleteMapping("/{username}")
+    public ResponseEntity<String> deleteUser(@PathVariable String username) {
+        try {
+            userService.deleteUser(username);
+            return ResponseEntity.noContent().build();
+        } catch (UsernameNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
 }
