@@ -1,9 +1,6 @@
 package com.example.eindopdrachtbackenderendogan.controllers;
 
-import com.example.eindopdrachtbackenderendogan.exceptions.BadRequestException;
-import com.example.eindopdrachtbackenderendogan.exceptions.MenuAlreadyExistsException;
-import com.example.eindopdrachtbackenderendogan.exceptions.RecordNotFoundException;
-import com.example.eindopdrachtbackenderendogan.exceptions.UsernameAlreadyExistsException;
+import com.example.eindopdrachtbackenderendogan.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -52,6 +49,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
         public ResponseEntity<String> handleMenuAlreadyExistsException(MenuAlreadyExistsException ex) {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
         }
+
+        @ExceptionHandler(DrinkCreateException.class)
+        public ResponseEntity<String> handleDrinkCreationException(DrinkCreateException ex) {
+            // Retourneer een foutmelding en een gepaste HTTP-status
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+
 
 
 

@@ -3,6 +3,7 @@ package com.example.eindopdrachtbackenderendogan.services;
 import com.example.eindopdrachtbackenderendogan.dtos.input.DrinkInputDto;
 import com.example.eindopdrachtbackenderendogan.dtos.mapper.DrinkMapper;
 import com.example.eindopdrachtbackenderendogan.dtos.output.DrinkOutputDto;
+import com.example.eindopdrachtbackenderendogan.exceptions.DrinkCreateException;
 import com.example.eindopdrachtbackenderendogan.exceptions.RecordNotFoundException;
 import com.example.eindopdrachtbackenderendogan.models.Drink;
 import com.example.eindopdrachtbackenderendogan.repositories.DrinkRepository;
@@ -57,6 +58,23 @@ class DrinkServiceUnitTest {
 
 
     }
+
+    @Test
+    void ShouldThrowCreateDrinkThrowsExceptionFailed() {
+        DrinkInputDto drinkInputDto = new DrinkInputDto();
+        drinkInputDto.setName("Test Drink");
+
+        when(drinkRepository.save(any(Drink.class))).thenThrow(new RuntimeException("Database error"));
+
+        DrinkCreateException thrown = assertThrows(
+                DrinkCreateException.class,
+                () -> drinkService.createDrink(drinkInputDto),  // Roep de methode aan
+                "Expected createDrink() to throw DrinkCreateException, but it didn't"
+        );
+
+        assertEquals("Failed to create drink.", thrown.getMessage());
+    }
+
 
     @Test
     void shouldGetDrinkById() {

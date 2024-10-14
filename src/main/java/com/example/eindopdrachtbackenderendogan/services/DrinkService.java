@@ -3,6 +3,7 @@ package com.example.eindopdrachtbackenderendogan.services;
 import com.example.eindopdrachtbackenderendogan.dtos.input.DrinkInputDto;
 import com.example.eindopdrachtbackenderendogan.dtos.mapper.DrinkMapper;
 import com.example.eindopdrachtbackenderendogan.dtos.output.DrinkOutputDto;
+import com.example.eindopdrachtbackenderendogan.exceptions.DrinkCreateException;
 import com.example.eindopdrachtbackenderendogan.exceptions.RecordNotFoundException;
 import com.example.eindopdrachtbackenderendogan.models.Drink;
 import com.example.eindopdrachtbackenderendogan.repositories.DrinkRepository;
@@ -22,10 +23,16 @@ public class DrinkService {
     }
 
 
-    public  DrinkOutputDto createDrink (DrinkInputDto drinkInputDto){
+    public  DrinkOutputDto createDrink (DrinkInputDto drinkInputDto)
+    {try {
         Drink d = drinkRepository.save((DrinkMapper.fromInputDtoToModel(drinkInputDto)));
         return DrinkMapper.fromModelToOutputDto(d);
     }
+    catch (Exception e) {
+            throw new DrinkCreateException("Failed to create drink.");
+        }
+    }
+
     public List<DrinkOutputDto> getAllDrinks() {
         List<Drink> allDrinks = drinkRepository.findAll();
         List<DrinkOutputDto> allDrinksOutput = new ArrayList<>();
