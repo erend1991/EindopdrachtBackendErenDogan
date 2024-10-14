@@ -53,7 +53,7 @@ public class UserController {
     public ResponseEntity<String> deleteUser(@PathVariable String username) {
         try {
             userService.deleteUser(username);
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.ok("User " + username + " successfully deleted.");
         } catch (UsernameNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
