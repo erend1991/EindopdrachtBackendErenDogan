@@ -48,7 +48,6 @@ public class UserService {
         userRepos.save(newUser);
 
 
-
         return UserMapper.fromModelToOutputDto(newUser);
     }
 
