@@ -48,7 +48,7 @@ public class DrinkService {
             return DrinkMapper.fromModelToOutputDto(d.get());
 
         } else {
-            throw new RecordNotFoundException("no drink found with id " + id);
+            throw new IndexOutOfBoundsException("no drink found with id " + id);
         }
 
     }
@@ -78,7 +78,7 @@ public class DrinkService {
         if (drinkRepository.existsById(id)) {
             drinkRepository.deleteById(id);
         } else {
-            throw new RecordNotFoundException("no drink found with this id");
+            throw new IndexOutOfBoundsException("no drink found with this id");
         }
 
     }

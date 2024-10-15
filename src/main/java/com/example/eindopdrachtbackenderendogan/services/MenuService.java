@@ -56,7 +56,7 @@ public class MenuService {
         Menu menu = menuRepository.findById(menuId)
                 .orElseThrow(() -> new MenuNotFoundException("No Menu found with id " + menuId));
         Drink drink = drinkRepository.findById(drinkId)
-                .orElseThrow(() -> new RecordNotFoundException("No Drink found with id " + drinkId));
+                .orElseThrow(() -> new IndexOutOfBoundsException("No Drink found with id " + drinkId));
 
         drink.setMenu(menu);
 
@@ -68,7 +68,7 @@ public class MenuService {
 
     public List<Drink> getMenuById(Long id) {
         Menu menu = menuRepository.findById(id)
-                .orElseThrow(() -> new MenuNotFoundException("No Menu found with id " + id));
+                .orElseThrow(() -> new IndexOutOfBoundsException("No Menu found with id " + id));
         return menu.getDrinks();
     }
 }
