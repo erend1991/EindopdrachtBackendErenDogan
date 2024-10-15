@@ -1,6 +1,7 @@
 package com.example.eindopdrachtbackenderendogan.dtos.input;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public class DrinkInputDto {
 
@@ -8,9 +9,10 @@ public class DrinkInputDto {
 
     @NotBlank(message = "Drink needs a name")
     public String name;
-    @NotBlank(message = "drink needs a price")
+    @NotNull(message = "drink needs a price")
     public double price;
     public String ingredients;
+
     public boolean alcohol;
 
 
