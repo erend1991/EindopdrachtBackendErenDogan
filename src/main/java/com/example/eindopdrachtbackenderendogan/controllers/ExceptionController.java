@@ -69,6 +69,12 @@ import java.util.Map;
             return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
         }
 
+    @ExceptionHandler(DuplicateProfileException.class)
+    public ResponseEntity<String> handleDuplicateProfileException(DuplicateProfileException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
+    }
+
+
 
 
 
