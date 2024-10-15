@@ -54,7 +54,7 @@ public class UserService {
 
 
     public void assignUserToProfile(String username, Long id) {
-        User user = userRepos.findById(username).orElseThrow(() -> new RuntimeException("No username found"));
+        User user = userRepos.findById(username).orElseThrow(() -> new UsernameNotFoundException("No username found"));
         Profile profile = profileRepos.findById(id).orElseThrow(() -> new RuntimeException("no profile found with id" + id));
         profile.setUser(user);
         profileRepos.save(profile);
