@@ -12,7 +12,6 @@ public class DrinkInputDto {
     @NotNull(message = "drink needs a price")
     public double price;
     public String ingredients;
-
     public boolean alcohol;
 
 
