@@ -28,7 +28,7 @@ public class DrinkService {
             Drink d = drinkRepository.save((DrinkMapper.fromInputDtoToModel(drinkInputDto)));
             return DrinkMapper.fromModelToOutputDto(d);
         } catch (Exception e) {
-            throw new DrinkCreateException("Failed to create drink.");
+            throw new DrinkCreateException("Failed to create drink." + e.getMessage());
         }
     }
 

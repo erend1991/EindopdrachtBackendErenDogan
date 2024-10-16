@@ -50,6 +50,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
         public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
             http
                     .authorizeHttpRequests(auth -> auth
+                            .requestMatchers(HttpMethod.GET, "/").permitAll()
                             .requestMatchers(HttpMethod.POST, "/users").permitAll()
                             .requestMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")
                             .requestMatchers(HttpMethod.DELETE, "/users/*").hasRole("ADMIN")
