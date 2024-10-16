@@ -23,12 +23,11 @@ public class DrinkService {
     }
 
 
-    public  DrinkOutputDto createDrink (DrinkInputDto drinkInputDto)
-    {try {
-        Drink d = drinkRepository.save((DrinkMapper.fromInputDtoToModel(drinkInputDto)));
-        return DrinkMapper.fromModelToOutputDto(d);
-    }
-    catch (Exception e) {
+    public DrinkOutputDto createDrink(DrinkInputDto drinkInputDto) {
+        try {
+            Drink d = drinkRepository.save((DrinkMapper.fromInputDtoToModel(drinkInputDto)));
+            return DrinkMapper.fromModelToOutputDto(d);
+        } catch (Exception e) {
             throw new DrinkCreateException("Failed to create drink.");
         }
     }
@@ -42,6 +41,7 @@ public class DrinkService {
         }
         return allDrinksOutput;
     }
+
     public DrinkOutputDto getDrinkById(long id) {
         Optional<Drink> d = drinkRepository.findById(id);
         if (d.isPresent()) {
@@ -54,12 +54,10 @@ public class DrinkService {
     }
 
 
-
-
-    public  DrinkOutputDto editDrinkById(long id, DrinkInputDto newDrink){
+    public DrinkOutputDto editDrinkById(long id, DrinkInputDto newDrink) {
         Optional<Drink> d = drinkRepository.findById(id);
 
-        if (d.isPresent()){
+        if (d.isPresent()) {
             Drink drink = d.get();
             drink.setName(newDrink.name);
             drink.setPrice(newDrink.price);
@@ -69,7 +67,7 @@ public class DrinkService {
 
             return DrinkMapper.fromModelToOutputDto(drink);
 
-        }else {
+        } else {
             throw new RecordNotFoundException("no drink edited");
         }
     }

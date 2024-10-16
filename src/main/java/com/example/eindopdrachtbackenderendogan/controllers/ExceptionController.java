@@ -25,7 +25,7 @@ public class ExceptionController {
     @ExceptionHandler(value = IndexOutOfBoundsException.class)
     public ResponseEntity<Object> exception(IndexOutOfBoundsException exception) {
 
-        return new ResponseEntity<>("Dit id staat niet in de database", HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
 
     }
 
