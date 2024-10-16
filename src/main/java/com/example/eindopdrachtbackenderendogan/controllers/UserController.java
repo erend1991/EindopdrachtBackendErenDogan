@@ -4,7 +4,6 @@ import com.example.eindopdrachtbackenderendogan.dtos.input.UserInputDto;
 import com.example.eindopdrachtbackenderendogan.dtos.output.UserOutputDto;
 
 
-import com.example.eindopdrachtbackenderendogan.exceptions.BadRequestException;
 import com.example.eindopdrachtbackenderendogan.exceptions.UsernameNotFoundException;
 import com.example.eindopdrachtbackenderendogan.models.User;
 import com.example.eindopdrachtbackenderendogan.services.UserService;
