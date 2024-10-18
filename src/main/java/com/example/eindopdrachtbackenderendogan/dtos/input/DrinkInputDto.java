@@ -12,7 +12,9 @@ public class DrinkInputDto {
     @NotNull(message = "drink needs a price")
     public double price;
     public String ingredients;
-    public boolean alcohol;
+    @NotBlank(message = "drink type is required")
+    private String type;
+
 
 
     public Long getId() {
@@ -47,11 +49,11 @@ public class DrinkInputDto {
         this.ingredients = ingredients;
     }
 
-    public boolean isAlcohol() {
-        return alcohol;
+    public String getType() {
+        return type;
     }
 
-    public void setAlcohol(boolean alcohol) {
-        this.alcohol = alcohol;
+    public void setType(String type) {
+        this.type = type;
     }
 }

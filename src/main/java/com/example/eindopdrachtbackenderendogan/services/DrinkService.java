@@ -5,32 +5,47 @@ import com.example.eindopdrachtbackenderendogan.dtos.mapper.DrinkMapper;
 import com.example.eindopdrachtbackenderendogan.dtos.output.DrinkOutputDto;
 import com.example.eindopdrachtbackenderendogan.exceptions.DrinkCreateException;
 import com.example.eindopdrachtbackenderendogan.exceptions.RecordNotFoundException;
+import com.example.eindopdrachtbackenderendogan.models.AlcoholicDrink;
 import com.example.eindopdrachtbackenderendogan.models.Drink;
+import com.example.eindopdrachtbackenderendogan.models.NonAlcoholicDrink;
+import com.example.eindopdrachtbackenderendogan.repositories.AlcoholicDrinkRepository;
 import com.example.eindopdrachtbackenderendogan.repositories.DrinkRepository;
+import com.example.eindopdrachtbackenderendogan.repositories.NonAlcoholicDrinkRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class DrinkService {
 
     private final DrinkRepository drinkRepository;
+    private final AlcoholicDrinkRepository alcoholicDrinkRepository;
+    private final NonAlcoholicDrinkRepository nonAlcoholicDrinkRepository;
 
-    public DrinkService(DrinkRepository drinkRepository) {
+    public DrinkService(DrinkRepository drinkRepository, AlcoholicDrinkRepository alcoholicDrinkRepository, NonAlcoholicDrinkRepository nonAlcoholicDrinkRepository) {
         this.drinkRepository = drinkRepository;
+        this.alcoholicDrinkRepository = alcoholicDrinkRepository;
+        this.nonAlcoholicDrinkRepository = nonAlcoholicDrinkRepository;
     }
+
+
 
 
     public DrinkOutputDto createDrink(DrinkInputDto drinkInputDto) {
         try {
-            Drink d = drinkRepository.save((DrinkMapper.fromInputDtoToModel(drinkInputDto)));
-            return DrinkMapper.fromModelToOutputDto(d);
+            Drink drink = DrinkMapper.fromInputDtoToModel(drinkInputDto);
+
+            Drink savedDrink = drinkRepository.save(drink);
+
+            return DrinkMapper.fromModelToOutputDto(savedDrink);
         } catch (Exception e) {
-            throw new DrinkCreateException("Failed to create drink." + e.getMessage());
+            throw new DrinkCreateException("Failed to create drink: " + e.getMessage());
         }
     }
+
 
     public List<DrinkOutputDto> getAllDrinks() {
         List<Drink> allDrinks = drinkRepository.findAll();
@@ -62,7 +77,6 @@ public class DrinkService {
             drink.setName(newDrink.name);
             drink.setPrice(newDrink.price);
             drink.setIngredients(newDrink.ingredients);
-            drink.setAlcohol(newDrink.alcohol);
             drinkRepository.save(drink);
 
             return DrinkMapper.fromModelToOutputDto(drink);
@@ -80,4 +94,21 @@ public class DrinkService {
         }
 
     }
+
+    public List<DrinkOutputDto> getAllAlcoholicDrinks() {
+        return drinkRepository.findAll().stream()
+                .filter(drink -> drink instanceof AlcoholicDrink)
+                .map(DrinkMapper::fromModelToOutputDto)
+                .collect(Collectors.toList());
+    }
+
+    public List<DrinkOutputDto> getAllNonAlcoholicDrinks() {
+        return drinkRepository.findAll().stream()
+                .filter(drink -> drink instanceof NonAlcoholicDrink)
+                .map(DrinkMapper::fromModelToOutputDto)
+                .collect(Collectors.toList());
+    }
+
+
 }
+

@@ -44,20 +44,18 @@ class DrinkControllerIntegrationTest {
         drinkInputDto.setName("martini");
         drinkInputDto.setPrice(12.99);
         drinkInputDto.setIngredients("witte vermout, gin");
-        drinkInputDto.setAlcohol(true);
+        drinkInputDto.setType("alcoholic");
 
         drinkOutputDto = new DrinkOutputDto();
         drinkOutputDto.setId(2L);
         drinkOutputDto.setName("martini");
         drinkOutputDto.setPrice(12.99);
         drinkOutputDto.setIngredients("witte vermout, gin");
-        drinkOutputDto.setAlcohol(true);
 
 
         Mockito.when(drinkService.createDrink(Mockito.any(DrinkInputDto.class)))
                 .thenReturn(drinkOutputDto);
     }
-
 
 
     @Test
@@ -67,7 +65,7 @@ class DrinkControllerIntegrationTest {
                 "name": "martini",
                 "price": 12.99,
                 "ingredients": "witte vermout, gin",
-                "alcohol": true
+                "type" : "alcoholic"
                 }
                 """;
 
@@ -84,7 +82,6 @@ class DrinkControllerIntegrationTest {
         String createdId = jsonNode.get("id").asText();
 
         assertThat(result.getResponse().getHeader("Location"), matchesPattern("^.*/drinks/" + createdId));
-
 
     }
 }
