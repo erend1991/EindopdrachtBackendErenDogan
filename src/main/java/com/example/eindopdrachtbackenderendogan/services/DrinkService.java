@@ -96,18 +96,30 @@ public class DrinkService {
     }
 
     public List<DrinkOutputDto> getAllAlcoholicDrinks() {
-        return drinkRepository.findAll().stream()
+        List<DrinkOutputDto> alcoholicDrinks = drinkRepository.findAll().stream()
                 .filter(drink -> drink instanceof AlcoholicDrink)
                 .map(DrinkMapper::fromModelToOutputDto)
                 .collect(Collectors.toList());
+
+        if (alcoholicDrinks.isEmpty()) {
+            throw new RecordNotFoundException("No alcoholic drinks found.");
+        }
+        return alcoholicDrinks;
+
     }
 
     public List<DrinkOutputDto> getAllNonAlcoholicDrinks() {
-        return drinkRepository.findAll().stream()
-                .filter(drink -> drink instanceof NonAlcoholicDrink)
-                .map(DrinkMapper::fromModelToOutputDto)
-                .collect(Collectors.toList());
-    }
+            List<DrinkOutputDto> nonAlcoholicDrinks = drinkRepository.findAll().stream()
+                    .filter(drink -> drink instanceof NonAlcoholicDrink)
+                    .map(DrinkMapper::fromModelToOutputDto)
+                    .collect(Collectors.toList());
+
+            if (nonAlcoholicDrinks.isEmpty()) {
+                throw new RecordNotFoundException("No non-alcoholic drinks found.");
+            }
+
+            return nonAlcoholicDrinks;
+        }
 
 
 }

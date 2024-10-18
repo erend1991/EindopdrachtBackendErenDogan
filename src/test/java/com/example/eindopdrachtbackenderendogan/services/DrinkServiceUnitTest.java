@@ -17,6 +17,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -268,6 +269,17 @@ class DrinkServiceUnitTest {
         assertEquals(8, drinkOutputDto2.getPrice());
         assertEquals("absolute", drinkOutputDto2.getIngredients());
     }
+    @Test
+    void shouldThrowExceptionWhenNoAlcoholicDrinksFound() {
+        Mockito.when(drinkRepository.findAll()).thenReturn(Collections.emptyList());
+
+        RecordNotFoundException exception = assertThrows(RecordNotFoundException.class, () -> {
+            drinkService.getAllAlcoholicDrinks();
+        });
+
+        assertEquals("No alcoholic drinks found.", exception.getMessage());
+    }
+
 
 
     @Test
@@ -303,6 +315,16 @@ class DrinkServiceUnitTest {
         assertEquals("fanta", drinkOutputDto2.getName());
         assertEquals(3, drinkOutputDto2.getPrice());
         assertEquals("fanta", drinkOutputDto2.getIngredients());
+    }
+    @Test
+    void shouldThrowExceptionWhenNoNonAlcoholicDrinksFound() {
+        Mockito.when(drinkRepository.findAll()).thenReturn(Collections.emptyList());
+
+        RecordNotFoundException exception = assertThrows(RecordNotFoundException.class, () -> {
+            drinkService.getAllNonAlcoholicDrinks();
+        });
+
+        assertEquals("No non-alcoholic drinks found.", exception.getMessage());
     }
 
 }
