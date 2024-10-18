@@ -50,6 +50,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
         public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
             http
                     .authorizeHttpRequests(auth -> auth
+                            .requestMatchers(HttpMethod.GET, "/").permitAll()
                             .requestMatchers(HttpMethod.POST, "/users").permitAll()
                             .requestMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")
                             .requestMatchers(HttpMethod.DELETE, "/users/*").hasRole("ADMIN")
@@ -57,12 +58,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
                             .requestMatchers(HttpMethod.POST, "/auth").permitAll()
                             .requestMatchers(HttpMethod.POST, "/menus").hasRole("ADMIN")
                             .requestMatchers(HttpMethod.GET, "/menus").hasAnyRole("ADMIN", "USER")
-                            .requestMatchers(HttpMethod.GET, "/menus/*").hasAnyRole("ADMIN", "USER")
+                            .requestMatchers(HttpMethod.GET, "/menus/**").hasAnyRole("ADMIN", "USER")
                             .requestMatchers(HttpMethod.DELETE, "/menus/*").hasRole("ADMIN")
                             .requestMatchers(HttpMethod.POST,"/menus/**").hasRole("ADMIN")
                             .requestMatchers(HttpMethod.POST, "/drinks").hasRole("ADMIN")
                             .requestMatchers(HttpMethod.GET, "/drinks").hasAnyRole("ADMIN", "USER")
-                            .requestMatchers(HttpMethod.GET, "/drinks/*").hasAnyRole("ADMIN", "USER")
+                            .requestMatchers(HttpMethod.GET, "/drinks/**").hasAnyRole("ADMIN", "USER")
                             .requestMatchers(HttpMethod.PUT, "/drinks/**").hasRole("ADMIN")
                             .requestMatchers(HttpMethod.DELETE, "/drinks/**").hasRole("ADMIN")
                             .requestMatchers(HttpMethod.GET, "/reservations").hasRole("ADMIN")
@@ -72,7 +73,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
                             .requestMatchers(HttpMethod.POST, "/reservations").hasAnyRole("ADMIN", "USER")
                             .requestMatchers(HttpMethod.GET,"/roles").hasRole("ADMIN")
                             .requestMatchers("/profiles", "/profiles/*", "/profiles/**" ).authenticated()
-                            .requestMatchers("/roles").hasRole("ADMIN")
+                            .requestMatchers(HttpMethod.GET,"/roles").hasRole("ADMIN")
                             .anyRequest().denyAll()
                     )
                     .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

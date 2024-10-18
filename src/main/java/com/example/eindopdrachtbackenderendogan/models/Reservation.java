@@ -30,7 +30,7 @@ public class Reservation {
         this.id = id;
         this.reservationName = reservationName;
         this.guests = guests;
-        tableNumber = tableNumber;
+        this.tableNumber = tableNumber;
         this.reservationTime = reservationTime;
         this.phoneNumber = phoneNumber;
     }

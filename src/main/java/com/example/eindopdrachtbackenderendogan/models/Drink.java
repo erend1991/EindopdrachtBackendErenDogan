@@ -2,34 +2,37 @@ package com.example.eindopdrachtbackenderendogan.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "drinks")
-public class Drink {
+public abstract class Drink {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotBlank(message = "Drink needs a name")
     private String name;
-    @NotBlank(message = "Drink needs price")
-    private double price;
+    @NotNull(message = "Drink needs price")
+    private Double price;
     @NotBlank(message = "Drink needs ingredients")
     private String ingredients;
-    @NotBlank(message = "is the drink alcoholic?")
-    private boolean alcohol;
+
+
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "menu_id")
     Menu menu;
 
 
-    public Drink(Long id, String name, double price, String ingredients, boolean alcohol, Menu menu) {
+    public Drink(Long id, String name, double price, String ingredients, Menu menu) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.ingredients = ingredients;
         this.menu = menu;
+
     }
 
     public Drink() {
@@ -68,13 +71,8 @@ public class Drink {
         this.ingredients = ingredients;
     }
 
-    public boolean isAlcohol() {
-        return alcohol;
-    }
+    public abstract String getType();
 
-    public void setAlcohol(boolean alcohol) {
-        this.alcohol = alcohol;
-    }
 
 
     public void setMenu(Menu menu) {

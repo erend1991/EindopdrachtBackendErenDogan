@@ -4,6 +4,7 @@ package com.example.eindopdrachtbackenderendogan.controllers;
 
 import com.example.eindopdrachtbackenderendogan.dtos.input.DrinkInputDto;
 import com.example.eindopdrachtbackenderendogan.dtos.output.DrinkOutputDto;
+import com.example.eindopdrachtbackenderendogan.exceptions.BadRequestException;
 import com.example.eindopdrachtbackenderendogan.services.DrinkService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +31,9 @@ import java.util.List;
             return ResponseEntity.ok().body(drinkService.getAllDrinks());
         }
 
+
+
+
         @GetMapping("/{id}")
         public ResponseEntity<DrinkOutputDto> getDrink(@PathVariable long id) {
             return ResponseEntity.ok().body(drinkService.getDrinkById(id));
@@ -39,6 +43,10 @@ import java.util.List;
 
         @PostMapping
         public ResponseEntity<DrinkOutputDto> createDrink(@Valid @RequestBody DrinkInputDto drinkInputDto) {
+            if (!"alcoholic".equalsIgnoreCase(drinkInputDto.getType()) &&
+                    !"non-alcoholic".equalsIgnoreCase(drinkInputDto.getType())) {
+                throw new BadRequestException("Invalid drink type. Must be 'alcoholic' or 'non-alcoholic'.");
+            }
             DrinkOutputDto dto  = drinkService.createDrink(drinkInputDto);
             URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
             return ResponseEntity.created(uri).body(dto);
@@ -55,8 +63,20 @@ import java.util.List;
         public ResponseEntity<String> deleteDrinkById(@PathVariable long id) {
 
             drinkService.deleteDrinkById(id);
-            return ResponseEntity.ok("drink deleted");
+            return ResponseEntity.ok("drink deleted with id" + id);
         }
+        @GetMapping("/alcoholic")
+        public ResponseEntity<List<DrinkOutputDto>> getAllAlcoholicDrinks() {
+            List<DrinkOutputDto> alcoholicDrinks = drinkService.getAllAlcoholicDrinks();
+            return ResponseEntity.ok(alcoholicDrinks);
+        }
+
+        @GetMapping("/non-alcoholic")
+        public ResponseEntity<List<DrinkOutputDto>> getAllNonAlcoholicDrinks() {
+            List<DrinkOutputDto> nonAlcoholicDrinks = drinkService.getAllNonAlcoholicDrinks();
+            return ResponseEntity.ok(nonAlcoholicDrinks);
+        }
+
     }
 
 

@@ -8,18 +8,18 @@ public class DrinkOutputDto {
     private double price;
     private String ingredients;
 
-    private boolean alcohol;
+    private String type;
 
     public DrinkOutputDto(){
 
     }
 
-    public DrinkOutputDto(Long id, String name, double price, String ingredients, boolean alcohol) {
+    public DrinkOutputDto(Long id, String name, double price, String ingredients, String type) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.ingredients = ingredients;
-        this.alcohol = alcohol;
+        this.type = type;
     }
 
     public Long getId() {
@@ -54,11 +54,12 @@ public class DrinkOutputDto {
         this.ingredients = ingredients;
     }
 
-    public boolean isAlcohol() {
-        return alcohol;
+
+    public String getType() {
+        return type;
     }
 
-    public void setAlcohol(boolean alcohol) {
-        this.alcohol = alcohol;
+    public void setType(String type) {
+        this.type = type;
     }
 }

@@ -2,6 +2,7 @@ package com.example.eindopdrachtbackenderendogan.dtos.input;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
 public class ProfileInputDto {
@@ -18,7 +19,7 @@ public class ProfileInputDto {
     @NotBlank(message = "fill in your adress")
     private String address;
 
-    @NotBlank
+    @NotEmpty
     @Size(min = 10, max = 15)
     private String phoneNumber;
 

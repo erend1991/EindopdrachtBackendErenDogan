@@ -41,15 +41,15 @@ public class MenuController {
     }
 
     @GetMapping("/{Id}")
-    public ResponseEntity<List<Drink>> getMenuById(@PathVariable Long id, @PathVariable String Id) {
+    public ResponseEntity<List<Drink>> getMenuById(@PathVariable Long id) {
         List<Drink> drinks = menuService.getMenuById(id);
         return ResponseEntity.ok(drinks);
     }
 
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<MenuOutputDto>deleteMenu(@PathVariable Long id){
+    public ResponseEntity<String>deleteMenu(@PathVariable Long id){
         menuService.deleteMenu(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok("menu deleted with id" + id );
     }
 }

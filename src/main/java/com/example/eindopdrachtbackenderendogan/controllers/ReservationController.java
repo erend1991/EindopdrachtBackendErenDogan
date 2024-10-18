@@ -72,7 +72,7 @@ public class ReservationController {
     public ResponseEntity<String> deleteReservationById(@PathVariable long id) {
 
         reservationService.deleteReservationById(id);
-        return ResponseEntity.ok(("Reservation deleted succesfull"));
+        return ResponseEntity.ok(("Reservation deleted succesfull with id" + id));
     }
 
 

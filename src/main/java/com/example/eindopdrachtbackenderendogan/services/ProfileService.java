@@ -62,13 +62,13 @@ public class ProfileService {
 
     public ProfileOutputDto getProfileByUsername(Long id) {
         Profile profile = profileRepository.findById(id)
-                .orElseThrow(() -> new RecordNotFoundException("No profile found with id " + id));
+                .orElseThrow(() -> new IndexOutOfBoundsException("No profile found with id " + id));
         return ProfileMapper.fromModelToOutputDto(profile);
     }
 
     public ProfileOutputDto updateProfile(Long id, ProfileInputDto profileInputDto) {
         Profile profile = profileRepository.findById(id)
-                .orElseThrow(() -> new RecordNotFoundException("No profile found with id " + id));
+                .orElseThrow(() -> new IndexOutOfBoundsException("No profile found with id " + id));
 
         profile.setFirstname(profileInputDto.getFirstname());
         profile.setLastname(profileInputDto.getLastname());
@@ -83,7 +83,7 @@ public class ProfileService {
         if (profileRepository.existsById(id)) {
             profileRepository.deleteById(id);
         } else {
-            throw new RecordNotFoundException("No profile found with id " + id);
+            throw new IndexOutOfBoundsException("No profile found with id " + id);
         }
     }
 

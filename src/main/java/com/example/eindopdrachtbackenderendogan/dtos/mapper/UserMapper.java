@@ -1,13 +1,13 @@
 package com.example.eindopdrachtbackenderendogan.dtos.mapper;
 
 
-        import com.example.eindopdrachtbackenderendogan.dtos.input.UserInputDto;
-        import com.example.eindopdrachtbackenderendogan.dtos.output.UserOutputDto;
-        import com.example.eindopdrachtbackenderendogan.models.User;
-        import com.example.eindopdrachtbackenderendogan.models.Role;
+import com.example.eindopdrachtbackenderendogan.dtos.input.UserInputDto;
+import com.example.eindopdrachtbackenderendogan.dtos.output.UserOutputDto;
+import com.example.eindopdrachtbackenderendogan.models.User;
+import com.example.eindopdrachtbackenderendogan.models.Role;
 
-        import java.util.HashSet;
-        import java.util.Set;
+import java.util.HashSet;
+import java.util.Set;
 
 public class UserMapper {
 

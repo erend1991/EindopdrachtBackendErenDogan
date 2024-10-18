@@ -67,7 +67,7 @@ public class ProfileController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteProfile(@PathVariable Long id) {
         profileService.deleteProfile(id);
-        return ResponseEntity.ok("Profile deleted successfully");
+        return ResponseEntity.ok("Profile deleted successfully with id" + id);
     }
 
     @PostMapping("/{id}/photo")

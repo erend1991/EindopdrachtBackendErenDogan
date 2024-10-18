@@ -5,6 +5,7 @@ import com.example.eindopdrachtbackenderendogan.dtos.output.UserOutputDto;
 import com.example.eindopdrachtbackenderendogan.dtos.mapper.UserMapper;
 import com.example.eindopdrachtbackenderendogan.exceptions.BadRequestException;
 import com.example.eindopdrachtbackenderendogan.exceptions.UsernameAlreadyExistsException;
+import com.example.eindopdrachtbackenderendogan.exceptions.UsernameNotFoundException;
 import com.example.eindopdrachtbackenderendogan.models.*;
 import com.example.eindopdrachtbackenderendogan.repositories.ProfileRepository;
 import com.example.eindopdrachtbackenderendogan.repositories.UserRepository;
@@ -48,13 +49,12 @@ public class UserService {
         userRepos.save(newUser);
 
 
-
         return UserMapper.fromModelToOutputDto(newUser);
     }
 
 
     public void assignUserToProfile(String username, Long id) {
-        User user = userRepos.findById(username).orElseThrow(() -> new RuntimeException("No username found"));
+        User user = userRepos.findById(username).orElseThrow(() -> new UsernameNotFoundException("No username found"));
         Profile profile = profileRepos.findById(id).orElseThrow(() -> new RuntimeException("no profile found with id" + id));
         profile.setUser(user);
         profileRepos.save(profile);
@@ -65,6 +65,13 @@ public class UserService {
     public List<User> getAllUsers() {return  userRepos.findAll();}
 
 
+    public void deleteUser(String username) {
+        User user = userRepos.findByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("User with username " + username + " not found.");
+        }
+        userRepos.delete(user);
+    }
 }
 
 

@@ -1,9 +1,6 @@
 package com.example.eindopdrachtbackenderendogan.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.Set;
 
@@ -13,6 +10,7 @@ import java.util.Set;
     @Table(name = "roles")
     public class Role {
         @Id
+        @Column(name = "rolename")
         private String rolename;
 
         @ManyToMany(mappedBy = "roles")
