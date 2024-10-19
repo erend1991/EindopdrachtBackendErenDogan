@@ -45,7 +45,7 @@ class DrinkServiceUnitTest {
         DrinkInputDto drinkInputDto = new DrinkInputDto();
         drinkInputDto.setId(1L);
         drinkInputDto.setName("Martini");
-        drinkInputDto.setPrice(12);
+        drinkInputDto.setPrice(12.00);
         drinkInputDto.setIngredients("Witte vermout, Gin");
 
         when(drinkRepository.save(any())).thenReturn(DrinkMapper.fromInputDtoToModel(drinkInputDto));
@@ -53,7 +53,7 @@ class DrinkServiceUnitTest {
         DrinkOutputDto drinkOutputDto = drinkService.createDrink(drinkInputDto);
 
         assertEquals("Martini", drinkOutputDto.getName());
-        assertEquals(12, drinkOutputDto.getPrice());
+        assertEquals(12.00, drinkOutputDto.getPrice());
         assertEquals("Witte vermout, Gin", drinkOutputDto.getIngredients());
 
 
@@ -63,8 +63,9 @@ class DrinkServiceUnitTest {
     void ShouldThrowCreateDrinkThrowsExceptionFailed() {
         DrinkInputDto drinkInputDto = new DrinkInputDto();
         drinkInputDto.setName("Test Drink");
+        drinkInputDto.setPrice(0.0);
 
-        when(drinkRepository.save(any(Drink.class))).thenThrow(new RuntimeException());
+        Mockito.when(drinkRepository.save(any(Drink.class))).thenThrow(new RuntimeException());
 
         DrinkCreateException thrown = assertThrows
                 (DrinkCreateException.class,
@@ -82,7 +83,7 @@ class DrinkServiceUnitTest {
         Drink drink = new AlcoholicDrink();
         drink.setId(drinkId);
         drink.setName("Martini");
-        drink.setPrice(12);
+        drink.setPrice(12.00);
         drink.setIngredients("Witte vermout, Gin");
 
         DrinkOutputDto expectedDrinkOutputDto = DrinkMapper.fromModelToOutputDto(drink);
@@ -93,7 +94,7 @@ class DrinkServiceUnitTest {
 
         assertEquals(1L, drinkOutputDto.getId());
         assertEquals("Martini", drinkOutputDto.getName());
-        assertEquals(12, drinkOutputDto.getPrice());
+        assertEquals(12.00, drinkOutputDto.getPrice());
         assertEquals("Witte vermout, Gin", drinkOutputDto.getIngredients());
     }
 
@@ -117,13 +118,13 @@ class DrinkServiceUnitTest {
         Drink drink1 = new AlcoholicDrink();
         drink1.setId(1L);
         drink1.setName("Martini");
-        drink1.setPrice(12);
+        drink1.setPrice(12.00);
         drink1.setIngredients("Witte vermout, Gin");
 
         Drink drink2 = new AlcoholicDrink();
         drink2.setId(2L);
         drink2.setName("Mojito");
-        drink2.setPrice(12);
+        drink2.setPrice(12.00);
         drink2.setIngredients("Rum, Mint, Suiker");
 
         List<Drink> drinks = Arrays.asList(drink1, drink2);
@@ -139,12 +140,12 @@ class DrinkServiceUnitTest {
 
         assertEquals(1L, drinkOutputDto1.getId());
         assertEquals("Martini", drinkOutputDto1.getName());
-        assertEquals(12, drinkOutputDto1.getPrice());
+        assertEquals(12.00, drinkOutputDto1.getPrice());
         assertEquals("Witte vermout, Gin", drinkOutputDto1.getIngredients());
 
         assertEquals(2L, drinkOutputDto2.getId());
         assertEquals("Mojito", drinkOutputDto2.getName());
-        assertEquals(12, drinkOutputDto2.getPrice());
+        assertEquals(12.00, drinkOutputDto2.getPrice());
         assertEquals("Rum, Mint, Suiker", drinkOutputDto2.getIngredients());
     }
 
@@ -154,19 +155,19 @@ class DrinkServiceUnitTest {
 
         DrinkInputDto drinkInputDto = new DrinkInputDto();
         drinkInputDto.setName("Martini");
-        drinkInputDto.setPrice(15);
+        drinkInputDto.setPrice(15.00);
         drinkInputDto.setIngredients("Witte vermout, Gin, Citroen");
 
         Drink editedDrink = new AlcoholicDrink();
         editedDrink.setId(drinkId);
         editedDrink.setName("Martini");
-        editedDrink.setPrice(12);
+        editedDrink.setPrice(12.00);
         editedDrink.setIngredients("Witte vermout, Gin");
 
         Drink updatedDrink = new AlcoholicDrink();
         updatedDrink.setId(drinkId);
         updatedDrink.setName("Martini");
-        updatedDrink.setPrice(15);
+        updatedDrink.setPrice(15.00);
         updatedDrink.setIngredients("Witte vermout, Gin, Citroen");
 
         DrinkOutputDto OutputDto = DrinkMapper.fromModelToOutputDto(updatedDrink);
@@ -177,7 +178,7 @@ class DrinkServiceUnitTest {
         DrinkOutputDto drinkOutputDto = drinkService.editDrinkById(drinkId, drinkInputDto);
 
         assertEquals("Martini", drinkOutputDto.getName());
-        assertEquals(15, drinkOutputDto.getPrice());
+        assertEquals(15.00, drinkOutputDto.getPrice());
         assertEquals("Witte vermout, Gin, Citroen", drinkOutputDto.getIngredients());
 
 
@@ -188,7 +189,7 @@ class DrinkServiceUnitTest {
         long nonExistentDrinkId = 10L;
         DrinkInputDto drinkInputDto = new DrinkInputDto();
         drinkInputDto.setName("Martini");
-        drinkInputDto.setPrice(15);
+        drinkInputDto.setPrice(15.00);
         drinkInputDto.setIngredients("Witte vermout, Gin, Citroen");
 
         Mockito.when(drinkRepository.findById(anyLong())).thenReturn(Optional.empty());
@@ -207,7 +208,7 @@ class DrinkServiceUnitTest {
 
         DrinkInputDto drinkInputDto = new DrinkInputDto();
         drinkInputDto.setName("Martini");
-        drinkInputDto.setPrice(15);
+        drinkInputDto.setPrice(15.00);
         drinkInputDto.setIngredients("Witte vermout, Gin, Citroen");
 
         Mockito.when(drinkRepository.existsById(id)).thenReturn(true);
@@ -267,7 +268,7 @@ class DrinkServiceUnitTest {
 
         assertEquals(2L, drinkOutputDto2.getId());
         assertEquals("wodka", drinkOutputDto2.getName());
-        assertEquals(8, drinkOutputDto2.getPrice());
+        assertEquals(8.00, drinkOutputDto2.getPrice());
         assertEquals("absolute", drinkOutputDto2.getIngredients());
     }
 
@@ -288,13 +289,13 @@ class DrinkServiceUnitTest {
         Drink drink1 = new NonAlcoholicDrink();
         drink1.setId(1L);
         drink1.setName("cola");
-        drink1.setPrice(3);
+        drink1.setPrice(3.00);
         drink1.setIngredients("coca cola");
 
         Drink drink2 = new NonAlcoholicDrink();
         drink2.setId(2L);
         drink2.setName("fanta");
-        drink2.setPrice(3);
+        drink2.setPrice(3.00);
         drink2.setIngredients("fanta");
 
         List<Drink> drinks = Arrays.asList(drink1, drink2);
@@ -309,12 +310,12 @@ class DrinkServiceUnitTest {
 
         assertEquals(1L, drinkOutputDto1.getId());
         assertEquals("cola", drinkOutputDto1.getName());
-        assertEquals(3, drinkOutputDto1.getPrice());
+        assertEquals(3.00, drinkOutputDto1.getPrice());
         assertEquals("coca cola", drinkOutputDto1.getIngredients());
 
         assertEquals(2L, drinkOutputDto2.getId());
         assertEquals("fanta", drinkOutputDto2.getName());
-        assertEquals(3, drinkOutputDto2.getPrice());
+        assertEquals(3.00, drinkOutputDto2.getPrice());
         assertEquals("fanta", drinkOutputDto2.getIngredients());
     }
 
