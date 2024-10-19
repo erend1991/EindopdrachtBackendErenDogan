@@ -62,6 +62,7 @@ public class MenuService {
         menu.getDrinks().add(drink);
 
         drinkRepository.save(drink);
+
         menuRepository.save(menu);
     }
 

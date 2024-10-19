@@ -20,7 +20,8 @@ public abstract class Drink {
     private String ingredients;
 
 
-    @ManyToOne(fetch = FetchType.EAGER)
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "menu_id")
     Menu menu;
 
@@ -73,12 +74,13 @@ public abstract class Drink {
     public abstract String getType();
 
 
+
     public void setMenu(Menu menu) {
-        if (this.menu != null) {
+        if(this.menu != null){
             this.menu.getDrinks().remove(this);
         }
         this.menu = menu;
-        if (menu != null) {
+        if (menu != null){
             menu.getDrinks().add(this);
         }
     }
