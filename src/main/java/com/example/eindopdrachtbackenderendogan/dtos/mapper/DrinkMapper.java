@@ -8,7 +8,7 @@ import com.example.eindopdrachtbackenderendogan.models.NonAlcoholicDrink;
 
 public class DrinkMapper {
 
-    public static Drink fromInputDtoToModel(DrinkInputDto drinkInputDto){
+    public static Drink fromInputDtoToModel(DrinkInputDto drinkInputDto) {
         Drink drink;
 
         if ("alcoholic".equalsIgnoreCase(drinkInputDto.getType())) {
@@ -22,12 +22,11 @@ public class DrinkMapper {
         drink.setIngredients(drinkInputDto.getIngredients());
 
 
-
         return drink;
 
     }
 
-    public static DrinkOutputDto fromModelToOutputDto(Drink drink){
+    public static DrinkOutputDto fromModelToOutputDto(Drink drink) {
         DrinkOutputDto drinkOutputDto = new DrinkOutputDto();
 
         drinkOutputDto.setId(drink.getId());

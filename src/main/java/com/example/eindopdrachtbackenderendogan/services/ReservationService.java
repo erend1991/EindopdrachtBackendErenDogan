@@ -50,7 +50,6 @@ public class ReservationService {
     }
 
 
-
     public List<ReservationOutputDto> getAllReservations() {
         List<Reservation> allReservations = reservationRepository.findAll();
         List<ReservationOutputDto> allReservationsOutput = new ArrayList<>();

@@ -18,29 +18,29 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class MenuServiceUnitTest {
 
 
-        Menu menu;
+    Menu menu;
 
-        @Mock
-        MenuRepository menuRepository;
-
-
-        @InjectMocks
-        MenuService menuService;
-
-        @Test
-        void shouldCreateMenu() throws Exception {
-
-            MenuInputDto menuInputDto = new MenuInputDto();
-            menuInputDto.setName("Menu 1");
+    @Mock
+    MenuRepository menuRepository;
 
 
-            Mockito.when(menuRepository.save(Mockito.any())).thenReturn(MenuMapper.fromInputDtoToModel(menuInputDto));
+    @InjectMocks
+    MenuService menuService;
 
-            MenuOutputDto menuOutputDto = menuService.createMenu(menuInputDto);
+    @Test
+    void shouldCreateMenu() throws Exception {
+
+        MenuInputDto menuInputDto = new MenuInputDto();
+        menuInputDto.setName("Menu 1");
 
 
-            assertEquals("Menu 1", menuOutputDto.getName());
-        }
+        Mockito.when(menuRepository.save(Mockito.any())).thenReturn(MenuMapper.fromInputDtoToModel(menuInputDto));
+
+        MenuOutputDto menuOutputDto = menuService.createMenu(menuInputDto);
+
+
+        assertEquals("Menu 1", menuOutputDto.getName());
     }
+}
 
 

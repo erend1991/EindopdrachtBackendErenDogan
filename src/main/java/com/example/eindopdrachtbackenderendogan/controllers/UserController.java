@@ -23,7 +23,7 @@ public class UserController {
 
     private final UserService userService;
 
-    public UserController(UserService userService){
+    public UserController(UserService userService) {
         this.userService = userService;
     }
 
@@ -42,11 +42,11 @@ public class UserController {
         return ResponseEntity.ok("user assigned to profile");
     }
 
-  @GetMapping
+    @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {
-      List<User> users = userService.getAllUsers();
-      return ResponseEntity.ok(users);
-  }
+        List<User> users = userService.getAllUsers();
+        return ResponseEntity.ok(users);
+    }
 
     @DeleteMapping("/{username}")
     public ResponseEntity<String> deleteUser(@PathVariable String username) {

@@ -10,7 +10,7 @@ public class DrinkOutputDto {
 
     private String type;
 
-    public DrinkOutputDto(){
+    public DrinkOutputDto() {
 
     }
 

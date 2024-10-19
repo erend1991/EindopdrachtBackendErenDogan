@@ -19,7 +19,7 @@ public class MenuService {
     private final MenuRepository menuRepository;
     private final DrinkRepository drinkRepository;
 
-    public MenuService(MenuRepository menuRepository, DrinkRepository drinkRepository){
+    public MenuService(MenuRepository menuRepository, DrinkRepository drinkRepository) {
         this.menuRepository = menuRepository;
         this.drinkRepository = drinkRepository;
     }
@@ -33,22 +33,22 @@ public class MenuService {
 
         menuRepository.save(menu);
 
-         return MenuMapper.fromModelToOutputDto(menu);
+        return MenuMapper.fromModelToOutputDto(menu);
 
     }
+
     public List<Menu> getAllMenus() {
         return menuRepository.findAll();
     }
 
-    public void deleteMenu(Long id){ if
+    public void deleteMenu(Long id) {
+        if
         (menuRepository.existsById(id)) {
             drinkRepository.deleteById(id);
         } else {
             throw new MenuNotFoundException("no menu found with this id");
         }
     }
-
-
 
 
     public void assignDrinkToMenu(Long menuId, Long drinkId) {

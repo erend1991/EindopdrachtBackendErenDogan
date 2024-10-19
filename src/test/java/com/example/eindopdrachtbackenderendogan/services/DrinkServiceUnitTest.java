@@ -69,8 +69,8 @@ class DrinkServiceUnitTest {
         DrinkCreateException thrown = assertThrows
                 (DrinkCreateException.class,
                         () -> drinkService.createDrink(drinkInputDto),
-                "Expected createDrink() to throw DrinkCreateException, but it didn't"
-        );
+                        "Expected createDrink() to throw DrinkCreateException, but it didn't"
+                );
 
         assertEquals("Failed to create drink: null", thrown.getMessage());
     }
@@ -96,6 +96,7 @@ class DrinkServiceUnitTest {
         assertEquals(12, drinkOutputDto.getPrice());
         assertEquals("Witte vermout, Gin", drinkOutputDto.getIngredients());
     }
+
     @Test
     void shouldThrowRecordNotFoundExceptionWhenGettingNonExistentDrink() {
         long drinkId = 1L;
@@ -221,6 +222,7 @@ class DrinkServiceUnitTest {
         Mockito.verify(drinkRepository, Mockito.times(1)).deleteById(id);
 
     }
+
     @Test
     void shouldThrowRecordNotFoundExceptionWhenDrinkToDeleteNotFound() {
         long nonExistentDrinkId = 10L;
@@ -268,6 +270,7 @@ class DrinkServiceUnitTest {
         assertEquals(8, drinkOutputDto2.getPrice());
         assertEquals("absolute", drinkOutputDto2.getIngredients());
     }
+
     @Test
     void shouldThrowExceptionWhenNoAlcoholicDrinksFound() {
         Mockito.when(drinkRepository.findAll()).thenReturn(Collections.emptyList());
@@ -278,7 +281,6 @@ class DrinkServiceUnitTest {
 
         assertEquals("No alcoholic drinks found.", exception.getMessage());
     }
-
 
 
     @Test
@@ -315,6 +317,7 @@ class DrinkServiceUnitTest {
         assertEquals(3, drinkOutputDto2.getPrice());
         assertEquals("fanta", drinkOutputDto2.getIngredients());
     }
+
     @Test
     void shouldThrowExceptionWhenNoNonAlcoholicDrinksFound() {
         Mockito.when(drinkRepository.findAll()).thenReturn(Collections.emptyList());

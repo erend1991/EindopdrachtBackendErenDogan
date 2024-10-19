@@ -2,10 +2,10 @@ package com.example.eindopdrachtbackenderendogan.dtos.output;
 
 public class UserOutputDto {
 
-        public String username;
+    public String username;
 
 
-        public String[] roles;
+    public String[] roles;
 
 
     public String getUsername() {

@@ -19,7 +19,7 @@ public class ReservationInputDto {
 
     public String phoneNumber;
 
-    public ReservationInputDto(String reservationName, LocalDateTime reservationTime,int tableNumber, int guests, String phoneNumber) {
+    public ReservationInputDto(String reservationName, LocalDateTime reservationTime, int tableNumber, int guests, String phoneNumber) {
         this.reservationName = reservationName;
         this.reservationTime = reservationTime;
         this.tableNumber = tableNumber;
@@ -51,7 +51,7 @@ public class ReservationInputDto {
         return tableNumber;
     }
 
-    public void setTableNumber(int tableNumber){
+    public void setTableNumber(int tableNumber) {
         this.tableNumber = tableNumber;
     }
 

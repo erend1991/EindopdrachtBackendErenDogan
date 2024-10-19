@@ -1,4 +1,5 @@
 package com.example.eindopdrachtbackenderendogan.services;
+
 import com.example.eindopdrachtbackenderendogan.dtos.output.ProfileOutputDto;
 import com.example.eindopdrachtbackenderendogan.models.Profile;
 import com.example.eindopdrachtbackenderendogan.models.User;
@@ -9,6 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -51,7 +53,7 @@ class ProfileServiceUnitTest {
         profileOutputDto.setPhoneNumber("0612345567");
         profileOutputDto.setEmail("eren@gmail.com");
 
-       Mockito.when(profileRepository.findById(anyLong())).thenReturn(Optional.of(profile));
+        Mockito.when(profileRepository.findById(anyLong())).thenReturn(Optional.of(profile));
 
         ProfileOutputDto result = profileService.getProfileByUsername(profileId);
 
@@ -64,5 +66,5 @@ class ProfileServiceUnitTest {
         assertEquals("eren@gmail.com", result.getEmail());
     }
 
-    }
+}
 

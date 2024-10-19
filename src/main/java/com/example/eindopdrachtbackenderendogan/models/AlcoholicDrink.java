@@ -7,15 +7,16 @@ import jakarta.persistence.Table;
 @Table(name = "alcoholic_drinks")
 public class AlcoholicDrink extends Drink {
 
-        public AlcoholicDrink(Long id, String name, double price, String ingredients, Menu menu) {
-            super(id, name, price, ingredients, menu);
-        }
+    public AlcoholicDrink(Long id, String name, double price, String ingredients, Menu menu) {
+        super(id, name, price, ingredients, menu);
+    }
 
-        public AlcoholicDrink() {}
+    public AlcoholicDrink() {
+    }
 
     @Override
     public String getType() {
         return "alcoholic";
     }
-    }
+}
 

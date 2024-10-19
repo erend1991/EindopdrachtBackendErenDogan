@@ -8,7 +8,7 @@ public class MenuOutputDto {
     private String name;
     private List<DrinkOutputDto> drinks;
 
-    public MenuOutputDto(){
+    public MenuOutputDto() {
 
     }
 

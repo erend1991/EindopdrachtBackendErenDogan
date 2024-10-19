@@ -15,6 +15,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,6 +80,7 @@ public class ProfileService {
         Profile updatedProfile = profileRepository.save(profile);
         return ProfileMapper.fromModelToOutputDto(updatedProfile);
     }
+
     public void deleteProfile(Long id) {
         if (profileRepository.existsById(id)) {
             profileRepository.deleteById(id);

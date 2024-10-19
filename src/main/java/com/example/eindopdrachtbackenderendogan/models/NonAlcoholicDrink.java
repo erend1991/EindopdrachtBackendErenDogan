@@ -13,6 +13,7 @@ public class NonAlcoholicDrink extends Drink {
     public NonAlcoholicDrink() {
         super();
     }
+
     @Override
     public String getType() {
         return "non_alcoholic";

@@ -19,8 +19,6 @@ public class Profile {
     private String profilePhoto;
 
 
-
-
     @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "username", referencedColumnName = "username")
@@ -83,11 +81,11 @@ public class Profile {
         this.id = id;
     }
 
-    public String getProfilePhoto(){
+    public String getProfilePhoto() {
         return profilePhoto;
     }
 
-    public void setProfilePhoto(String profilePhoto){
+    public void setProfilePhoto(String profilePhoto) {
         this.profilePhoto = profilePhoto;
     }
 }

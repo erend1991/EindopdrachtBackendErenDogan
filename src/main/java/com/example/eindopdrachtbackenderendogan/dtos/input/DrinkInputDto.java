@@ -16,7 +16,6 @@ public class DrinkInputDto {
     private String type;
 
 
-
     public Long getId() {
         return id;
     }

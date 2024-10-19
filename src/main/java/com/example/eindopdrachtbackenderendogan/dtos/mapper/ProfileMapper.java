@@ -10,7 +10,6 @@ public class ProfileMapper {
         Profile profile = new Profile();
 
 
-
         profile.setFirstname(profileInputDto.getFirstname());
         profile.setLastname(profileInputDto.getLastname());
         profile.setAddress(profileInputDto.getAddress());

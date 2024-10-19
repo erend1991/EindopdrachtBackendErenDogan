@@ -18,17 +18,15 @@ public class Menu {
     @OneToMany(mappedBy = "menu", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Drink> drinks = new ArrayList<>();
 
-    public Menu(){
+    public Menu() {
 
     }
 
-    public Menu(Long id, String name, List<Drink> drinks)
-    {
+    public Menu(Long id, String name, List<Drink> drinks) {
         this.id = id;
         this.name = name;
 
     }
-
 
 
     public Long getId() {
@@ -66,11 +64,11 @@ public class Menu {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("menu:").append(name).append(" ");
         sb.append("drinks:");
-        for (Drink drink : drinks){
+        for (Drink drink : drinks) {
             sb.append(drink).append(" ");
         }
         return sb.toString();

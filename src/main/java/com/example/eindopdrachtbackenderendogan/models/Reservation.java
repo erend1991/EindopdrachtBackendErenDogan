@@ -25,7 +25,6 @@ public class Reservation {
     private User user;
 
 
-
     public Reservation(Long id, String reservationName, int guests, int tableNumber, LocalDateTime reservationTime, String phoneNumber) {
         this.id = id;
         this.reservationName = reservationName;
@@ -100,17 +99,17 @@ public class Reservation {
         if (user == null) {
             throw new UsernameNotFoundException("Cannot create reservation: No user found to create this reservation.");
         }
-            StringBuilder sb = new StringBuilder();
-            sb.append("Reservation Name: ").append(reservationName).append(", ");
-            sb.append("Reservation Time: ").append(reservationTime).append(", ");
-            sb.append("Guests: ").append(guests).append(", ");
-            sb.append("Table Number: ").append(tableNumber).append(", ");
-            sb.append("Phone Number: ").append(phoneNumber).append(", ");
-            sb.append("User: ").append(user.getUsername()).append(" has made this reservation.");
+        StringBuilder sb = new StringBuilder();
+        sb.append("Reservation Name: ").append(reservationName).append(", ");
+        sb.append("Reservation Time: ").append(reservationTime).append(", ");
+        sb.append("Guests: ").append(guests).append(", ");
+        sb.append("Table Number: ").append(tableNumber).append(", ");
+        sb.append("Phone Number: ").append(phoneNumber).append(", ");
+        sb.append("User: ").append(user.getUsername()).append(" has made this reservation.");
 
-            return sb.toString();
-        }
+        return sb.toString();
     }
+}
 
 
 

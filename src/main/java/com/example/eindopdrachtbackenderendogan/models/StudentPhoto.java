@@ -11,15 +11,15 @@ public class StudentPhoto {
     @Id
     private String fileName;
 
-    public StudentPhoto(String fileName){
+    public StudentPhoto(String fileName) {
         this.fileName = fileName;
     }
 
-    public StudentPhoto(){
+    public StudentPhoto() {
 
     }
 
-    public String getFileName(){
+    public String getFileName() {
         return fileName;
     }
 }

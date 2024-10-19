@@ -17,7 +17,9 @@ public class MenuController {
 
     private final MenuService menuService;
 
-    public MenuController(MenuService menuService) { this.menuService = menuService; }
+    public MenuController(MenuService menuService) {
+        this.menuService = menuService;
+    }
 
 
     @PostMapping
@@ -47,8 +49,8 @@ public class MenuController {
 
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String>deleteMenu(@PathVariable Long id){
+    public ResponseEntity<String> deleteMenu(@PathVariable Long id) {
         menuService.deleteMenu(id);
-        return ResponseEntity.ok("menu deleted with id" + id );
+        return ResponseEntity.ok("menu deleted with id" + id);
     }
 }

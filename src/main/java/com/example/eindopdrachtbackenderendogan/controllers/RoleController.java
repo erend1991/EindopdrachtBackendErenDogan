@@ -10,21 +10,21 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 
-        @RestController
-        @RequestMapping("/roles")
-        public class RoleController {
+@RestController
+@RequestMapping("/roles")
+public class RoleController {
 
-            private final RoleService roleService;
+    private final RoleService roleService;
 
-            public RoleController(RoleService roleService){
-                this.roleService = roleService;
-            }
-
-            @GetMapping
-            public ResponseEntity<List<RoleOutputDto>> getAllRoles() {
-                List<RoleOutputDto> roles = roleService.getAllRoles();
-                return ResponseEntity.ok().body(roleService.getAllRoles());
-            }
+    public RoleController(RoleService roleService) {
+        this.roleService = roleService;
     }
+
+    @GetMapping
+    public ResponseEntity<List<RoleOutputDto>> getAllRoles() {
+        List<RoleOutputDto> roles = roleService.getAllRoles();
+        return ResponseEntity.ok().body(roleService.getAllRoles());
+    }
+}
 
 

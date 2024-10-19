@@ -32,8 +32,6 @@ public class DrinkService {
     }
 
 
-
-
     public DrinkOutputDto createDrink(DrinkInputDto drinkInputDto) {
         try {
             Drink drink = DrinkMapper.fromInputDtoToModel(drinkInputDto);
@@ -109,17 +107,17 @@ public class DrinkService {
     }
 
     public List<DrinkOutputDto> getAllNonAlcoholicDrinks() {
-            List<DrinkOutputDto> nonAlcoholicDrinks = drinkRepository.findAll().stream()
-                    .filter(drink -> drink instanceof NonAlcoholicDrink)
-                    .map(DrinkMapper::fromModelToOutputDto)
-                    .collect(Collectors.toList());
+        List<DrinkOutputDto> nonAlcoholicDrinks = drinkRepository.findAll().stream()
+                .filter(drink -> drink instanceof NonAlcoholicDrink)
+                .map(DrinkMapper::fromModelToOutputDto)
+                .collect(Collectors.toList());
 
-            if (nonAlcoholicDrinks.isEmpty()) {
-                throw new RecordNotFoundException("No non-alcoholic drinks found.");
-            }
-
-            return nonAlcoholicDrinks;
+        if (nonAlcoholicDrinks.isEmpty()) {
+            throw new RecordNotFoundException("No non-alcoholic drinks found.");
         }
+
+        return nonAlcoholicDrinks;
+    }
 
 
 }

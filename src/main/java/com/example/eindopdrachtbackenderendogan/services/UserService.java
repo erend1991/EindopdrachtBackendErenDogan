@@ -61,8 +61,9 @@ public class UserService {
     }
 
 
-
-    public List<User> getAllUsers() {return  userRepos.findAll();}
+    public List<User> getAllUsers() {
+        return userRepos.findAll();
+    }
 
 
     public void deleteUser(String username) {
