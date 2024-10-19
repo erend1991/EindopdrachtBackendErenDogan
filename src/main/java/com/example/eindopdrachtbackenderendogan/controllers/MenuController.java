@@ -27,7 +27,6 @@ public class MenuController {
     }
 
     @PostMapping("/{menuId}/drinks/{drinkId}")
-
     public ResponseEntity<String> assignDrinkToMenu(@Valid @PathVariable Long menuId, @PathVariable Long drinkId) {
 
         menuService.assignDrinkToMenu(menuId, drinkId);
@@ -40,7 +39,7 @@ public class MenuController {
         return ResponseEntity.ok(menus);
     }
 
-    @GetMapping("/{Id}")
+    @GetMapping("/{id}")
     public ResponseEntity<List<Drink>> getMenuById(@PathVariable Long id) {
         List<Drink> drinks = menuService.getMenuById(id);
         return ResponseEntity.ok(drinks);

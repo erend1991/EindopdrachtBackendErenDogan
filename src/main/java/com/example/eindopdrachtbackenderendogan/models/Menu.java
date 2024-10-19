@@ -15,7 +15,7 @@ public class Menu {
     private Long id;
     @NotEmpty(message = "menu needs a name")
     private String name;
-    @OneToMany(mappedBy = "menu")
+    @OneToMany(mappedBy = "menu", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Drink> drinks = new ArrayList<>();
 
     public Menu(){

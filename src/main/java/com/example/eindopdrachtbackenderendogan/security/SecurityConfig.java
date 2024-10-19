@@ -74,7 +74,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
                             .requestMatchers(HttpMethod.GET,"/roles").hasRole("ADMIN")
                             .requestMatchers("/profiles", "/profiles/*", "/profiles/**" ).authenticated()
                             .requestMatchers(HttpMethod.GET,"/roles").hasRole("ADMIN")
-//                            .requestMatchers(HttpMethod.DELETE,"/profiles/*").hasAnyRole("ADMIN", "USER")
                             .anyRequest().denyAll()
                     )
                     .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
