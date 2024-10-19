@@ -10,7 +10,7 @@ public class DrinkInputDto {
     @NotBlank(message = "Drink needs a name")
     public String name;
     @NotNull(message = "drink needs a price")
-    public double price;
+    public Double price;
     public String ingredients;
     @NotBlank(message = "drink type is required")
     private String type;
@@ -32,11 +32,11 @@ public class DrinkInputDto {
         this.name = name;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
