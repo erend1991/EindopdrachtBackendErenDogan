@@ -20,7 +20,7 @@ public class Profile {
 
 
     @JsonIgnore
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "username", referencedColumnName = "username")
     private User user;
 

@@ -66,6 +66,11 @@ public class ExceptionController {
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(ProfileNotFoundException.class)
+    public ResponseEntity<String> handleProfileNotFound(ProfileNotFoundException exception) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
+    }
+
     @ExceptionHandler(DuplicateProfileException.class)
     public ResponseEntity<String> handleDuplicateProfileException(DuplicateProfileException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);

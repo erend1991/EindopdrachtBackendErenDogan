@@ -4,6 +4,7 @@ import com.example.eindopdrachtbackenderendogan.dtos.input.UserInputDto;
 import com.example.eindopdrachtbackenderendogan.dtos.output.UserOutputDto;
 import com.example.eindopdrachtbackenderendogan.dtos.mapper.UserMapper;
 import com.example.eindopdrachtbackenderendogan.exceptions.BadRequestException;
+import com.example.eindopdrachtbackenderendogan.exceptions.ProfileNotFoundException;
 import com.example.eindopdrachtbackenderendogan.exceptions.UsernameAlreadyExistsException;
 import com.example.eindopdrachtbackenderendogan.exceptions.UsernameNotFoundException;
 import com.example.eindopdrachtbackenderendogan.models.*;
@@ -55,7 +56,7 @@ public class UserService {
 
     public void assignUserToProfile(String username, Long id) {
         User user = userRepos.findById(username).orElseThrow(() -> new UsernameNotFoundException("No username found"));
-        Profile profile = profileRepos.findById(id).orElseThrow(() -> new RuntimeException("no profile found with id" + id));
+        Profile profile = profileRepos.findById(id).orElseThrow(() -> new ProfileNotFoundException("no profile found with id" + id));
         profile.setUser(user);
         profileRepos.save(profile);
     }

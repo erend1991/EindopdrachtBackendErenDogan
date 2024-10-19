@@ -20,7 +20,7 @@ public abstract class Drink {
     private String ingredients;
 
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "menu_id")
     Menu menu;
 
