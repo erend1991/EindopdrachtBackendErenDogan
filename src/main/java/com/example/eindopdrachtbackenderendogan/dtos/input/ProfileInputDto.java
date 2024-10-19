@@ -28,7 +28,6 @@ public class ProfileInputDto {
     private String email;
 
 
-
     public String getUsername() {
         return username;
     }
