@@ -21,12 +21,12 @@ public abstract class Drink {
 
 
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "menu_id")
     Menu menu;
 
 
-    public Drink(Long id, String name, double price, String ingredients, Menu menu) {
+    public Drink(Long id, String name, Double price, String ingredients, Menu menu) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -55,11 +55,11 @@ public abstract class Drink {
         this.name = name;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

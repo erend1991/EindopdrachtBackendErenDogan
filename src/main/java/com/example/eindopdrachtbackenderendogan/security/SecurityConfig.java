@@ -73,7 +73,6 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/reservations").hasAnyRole("ADMIN", "USER")
                         .requestMatchers(HttpMethod.GET, "/roles").hasRole("ADMIN")
                         .requestMatchers("/profiles", "/profiles/*", "/profiles/**").authenticated()
-                        .requestMatchers(HttpMethod.GET, "/roles").hasRole("ADMIN")
                         .anyRequest().denyAll()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
